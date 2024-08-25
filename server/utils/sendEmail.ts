@@ -16,13 +16,13 @@ const sendEmail = async (options: EmailOptions) => {
     host: process.env.SMTP_HOST,
     port: parseInt(process.env.SMTP_PORT || "465"),
     service: process.env.SMTP_SERVICE,
-    secure: true, // Use true for port 465 (SSL)
+    secure: true,
     auth: {
       user: process.env.SMTP_MAIL,
       pass: process.env.SMTP_PASS,
     },
     tls: {
-      rejectUnauthorized: false, // Skip certificate verification
+      rejectUnauthorized: false,
     },
   });
 
