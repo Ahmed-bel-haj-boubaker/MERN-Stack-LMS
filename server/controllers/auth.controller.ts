@@ -6,16 +6,13 @@ import jwt, { Secret } from "jsonwebtoken";
 import ejs from "ejs";
 import path from "path";
 import sendEmail from "../utils/sendEmail";
-
+import {
+  IActivationRequest,
+  IActivationToken,
+  ILoginRequest,
+  IRegistrationBody,
+} from "../interfaces/authInterface";
 require("dotenv").config();
-//register user
-
-interface IRegistrationBody {
-  name: string;
-  email: string;
-  password: string;
-  avatar?: string;
-}
 
 export const registrationUser = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -66,11 +63,6 @@ export const registrationUser = CatchAsyncError(
   }
 );
 
-interface IActivationToken {
-  token: string;
-  activationCode: string;
-}
-
 export const createActivationToken = (user: any): IActivationToken => {
   const activationCode = Math.floor(1000 + Math.random() * 9000).toString();
 
@@ -82,11 +74,6 @@ export const createActivationToken = (user: any): IActivationToken => {
 
   return { token, activationCode };
 };
-
-interface IActivationRequest {
-  activation_code: string;
-  activation_token: string;
-}
 
 export const activatedUser = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -118,3 +105,5 @@ export const activatedUser = CatchAsyncError(
     }
   }
 );
+
+

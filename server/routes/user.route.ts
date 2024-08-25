@@ -3,7 +3,7 @@ import express from "express";
 import {
   activatedUser,
   registrationUser,
-} from "../controllers/user.controller";
+} from "../controllers/auth.controller";
 const userRouter = express.Router();
 
 userRouter.route("/register").post(registrationUser);
