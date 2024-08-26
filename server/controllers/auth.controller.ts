@@ -13,6 +13,7 @@ import {
   ILoginRequest,
   IRegistrationBody,
   ISocialAuthBody,
+  IUpdatePassword,
   IUpdateUserInfo,
 } from "../interfaces/authInterface";
 import {
@@ -256,6 +257,38 @@ export const updateUserInfo = CatchAsyncError(
 
     await user?.save();
     await redis.set(userId, JSON.stringify(user));
+    res.status(201).json({ success: true, user });
+    try {
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 400));
+    }
+  }
+);
+export const updateUserPassword = CatchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { oldPassword, newPassword } = req.body as IUpdatePassword;
+
+    if (!oldPassword || !newPassword) {
+      return next(
+        new ErrorHandler("Please provide both old and new password", 400)
+      );
+    }
+
+    const userId = req.user?._id as string;
+    const user = await userModel.findById(userId).select("+password");
+
+    if (user?.password === undefined) {
+      return next(new ErrorHandler("Invalid user", 400));
+    }
+    const isPasswordMatch = await user?.comparePassword(oldPassword);
+    if (!isPasswordMatch) {
+      return next(new ErrorHandler("Old password is incorrect", 400));
+    }
+
+    user.password = newPassword;
+    await user.save();
+    await redis.set(userId, JSON.stringify(user));
+    
     res.status(201).json({ success: true, user });
     try {
     } catch (error: any) {
