@@ -2,6 +2,7 @@ import express from "express";
 
 import {
   activatedUser,
+  getUserInfo,
   loginUser,
   logoutUser,
   registrationUser,
@@ -15,4 +16,5 @@ authRouter.route("/activate-user").post(activatedUser);
 authRouter.route("/login-user").post(loginUser);
 authRouter.route("/logout-user").get(isAuthenticated, logoutUser);
 authRouter.route("/refresh").get(updataAccessToken);
+authRouter.route("/me").get(isAuthenticated, getUserInfo);
 export default authRouter;
