@@ -8,6 +8,7 @@ import {
   registrationUser,
   socialAuth,
   updataAccessToken,
+  updateProfilePic,
   updateUserInfo,
   updateUserPassword,
 } from "../controllers/auth.controller";
@@ -25,4 +26,7 @@ authRouter.route("/update-user-info").patch(isAuthenticated, updateUserInfo);
 authRouter
   .route("/update-user-password")
   .patch(isAuthenticated, updateUserPassword);
+authRouter
+  .route("/update-user-avatar")
+  .patch(isAuthenticated, updateProfilePic);
 export default authRouter;

@@ -4,6 +4,7 @@ import userModel, { IUser } from "../models/user.model";
 import { CatchAsyncError } from "../middleware/catchAsyncError";
 import ErrorHandler from "../utils/ErrorHandler";
 import jwt, { JwtPayload, Secret } from "jsonwebtoken";
+import cloudinary from "cloudinary";
 import ejs from "ejs";
 import path from "path";
 import sendEmail from "../utils/sendEmail";
@@ -14,6 +15,7 @@ import {
   IRegistrationBody,
   ISocialAuthBody,
   IUpdatePassword,
+  IUpdateProfilePic,
   IUpdateUserInfo,
 } from "../interfaces/authInterface";
 import {
@@ -288,7 +290,46 @@ export const updateUserPassword = CatchAsyncError(
     user.password = newPassword;
     await user.save();
     await redis.set(userId, JSON.stringify(user));
-    
+
+    res.status(201).json({ success: true, user });
+    try {
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 400));
+    }
+  }
+);
+
+export const updateProfilePic = CatchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { avatar } = req.body as IUpdateProfilePic;
+    const userId = req.user?._id as string;
+    const user = await userModel.findById(userId);
+
+    if (avatar && user) {
+      if (user?.avatar?.public_id) {
+        await cloudinary.v2.uploader.destroy(user?.avatar?.public_id);
+        const myCloud = await cloudinary.v2.uploader.upload(avatar, {
+          folder: "avatars",
+          width: 150,
+        });
+        user.avatar = {
+          public_id: myCloud.public_id,
+          url: myCloud.secure_url,
+        };
+      } else {
+        const myCloud = await cloudinary.v2.uploader.upload(avatar, {
+          folder: "avatars",
+          width: 150,
+        });
+        user.avatar = {
+          public_id: myCloud.public_id,
+          url: myCloud.secure_url,
+        };
+      }
+    }
+    await user?.save();
+    await redis.set(userId, JSON.stringify(user));
+
     res.status(201).json({ success: true, user });
     try {
     } catch (error: any) {
