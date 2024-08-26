@@ -12,6 +12,7 @@ import {
   IActivationToken,
   ILoginRequest,
   IRegistrationBody,
+  ISocialAuthBody,
 } from "../interfaces/authInterface";
 import {
   accessTokenOptions,
@@ -213,6 +214,22 @@ export const getUserInfo = CatchAsyncError(
       }
 
       res.status(200).json({ success: true, user });
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 400));
+    }
+  }
+);
+export const socialAuth = CatchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { email, avatar, name } = req.body as ISocialAuthBody;
+      const user = await userModel.findOne({ email });
+      if (!user) {
+        const newUser = await userModel.create({ email, avatar, name });
+        sendToken(newUser, 200, res);
+      } else {
+        sendToken(user, 200, res);
+      }
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 400));
     }

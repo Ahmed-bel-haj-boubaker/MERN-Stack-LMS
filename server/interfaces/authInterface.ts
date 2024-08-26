@@ -27,3 +27,9 @@ export interface ITokenOptions {
   sameSite: "lax" | "strict" | "none" | undefined;
   secure?: boolean;
 }
+
+export interface ISocialAuthBody {
+  email: string;
+  avatar: string;
+  name: string;
+}
