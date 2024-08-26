@@ -33,3 +33,8 @@ export interface ISocialAuthBody {
   avatar: string;
   name: string;
 }
+
+export interface IUpdateUserInfo {
+  name?: string;
+  email?: string;
+}

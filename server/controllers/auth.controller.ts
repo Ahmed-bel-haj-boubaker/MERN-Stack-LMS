@@ -13,6 +13,7 @@ import {
   ILoginRequest,
   IRegistrationBody,
   ISocialAuthBody,
+  IUpdateUserInfo,
 } from "../interfaces/authInterface";
 import {
   accessTokenOptions,
@@ -160,7 +161,7 @@ export const updataAccessToken = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const refresh_token = req.cookies.refresh_token as string;
-      console.log(refresh_token);
+
       const decoded = jwt.verify(
         refresh_token,
         process.env.REFRESH_TOKEN as string
@@ -195,7 +196,7 @@ export const updataAccessToken = CatchAsyncError(
 
       res.cookie("access_token", accessToken, accessTokenOptions);
       res.cookie("refresh_token", refreshToken, refreshTokenOptions);
-
+      req.user = user;
       res.status(200).json({ success: true, accessToken });
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 400));
@@ -230,6 +231,33 @@ export const socialAuth = CatchAsyncError(
       } else {
         sendToken(user, 200, res);
       }
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 400));
+    }
+  }
+);
+
+export const updateUserInfo = CatchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { name, email } = req.body as IUpdateUserInfo;
+    const userId = req.user?._id as string;
+
+    const user = await userModel.findById(userId);
+    if (email && user) {
+      const isEmailExist = await userModel.findOne({ email });
+      if (isEmailExist) {
+        return next(new ErrorHandler("Email already exist", 400));
+      }
+      user.email = email;
+    }
+    if (name && user) {
+      user.name = name || "";
+    }
+
+    await user?.save();
+    await redis.set(userId, JSON.stringify(user));
+    res.status(201).json({ success: true, user });
+    try {
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 400));
     }
