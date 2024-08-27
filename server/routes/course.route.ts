@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  addAnswerInCourse,
   addQuestionInCourse,
   EditCourse,
   getAllCourses,
@@ -23,4 +24,5 @@ courseRouter
   .route("/get-course-content/:id")
   .get(isAuthenticated, getCourseByUser);
 courseRouter.route("/add-question").patch(isAuthenticated, addQuestionInCourse);
+courseRouter.route("/add-answer").patch(isAuthenticated, addAnswerInCourse);
 export default courseRouter;
