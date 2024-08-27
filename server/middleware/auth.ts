@@ -45,5 +45,6 @@ export const authorizedRoles = (...roles: string[]) => {
         )
       );
     }
+    next();
   };
 };

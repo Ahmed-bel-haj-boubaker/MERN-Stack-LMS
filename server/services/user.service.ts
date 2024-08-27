@@ -1,4 +1,3 @@
-import userModel, { IUser } from "../models/user.model";
 import { redis } from "../utils/redis";
 
 export const getUserById = async (id: string) => {

@@ -66,7 +66,7 @@ const courseDataSchema = new Schema<ICourseData>({
   videoUrl: String,
   videoLength: Number,
   title: String,
-  videoThumbnail: Object,
+
   videoSection: String,
   description: String,
   links: [linkSchema],
@@ -87,8 +87,8 @@ const courseSchema = new Schema<ICourse>({
   },
   estimatedPrice: { type: Number },
   thumbnail: {
-    public_id: { required: true, type: String },
-    url: { required: true, type: String },
+    public_id: { required: false, type: String },
+    url: { required: false, type: String },
   },
   courseData: [courseDataSchema],
   tags: { required: true, type: String },
