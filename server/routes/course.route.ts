@@ -1,6 +1,7 @@
 import express from "express";
 import {
   EditCourse,
+  getAllCourses,
   getSingleCourse,
   uploadCourse,
 } from "../controllers/course.controller";
@@ -15,4 +16,5 @@ courseRouter
   .route("/update-course/:id")
   .patch(isAuthenticated, authorizedRoles("admin"), EditCourse);
 courseRouter.route("/get-course/:id").get(getSingleCourse);
+courseRouter.route("/get-all-courses").get(getAllCourses);
 export default courseRouter;
