@@ -32,9 +32,7 @@ export const EditCourse = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const data = req.body;
-
       const thumbnail = data.thumbnail;
-
       if (thumbnail) {
         await cloudinary.v2.uploader.destroy(thumbnail.public_id);
 
@@ -57,6 +55,22 @@ export const EditCourse = CatchAsyncError(
         { new: true }
       );
       res.status(201).json({ success: true, course });
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 400));
+    }
+  }
+);
+export const getSingleCourse = CatchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const courseId = req.params.id;
+      const course = await CourseModel.findById(courseId).select(
+        "-courseData.videoUrl -courseData.suggestion  -courseData.questions -courseData.links"
+      );
+      res.status(200).json({
+        success: true,
+        course,
+      });
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 400));
     }

@@ -185,7 +185,7 @@ export const updataAccessToken = CatchAsyncError(
         { id: user._id },
         process.env.ACCESS_TOKEN as string,
         {
-          expiresIn: "5m",
+          expiresIn: "1d",
         }
       );
 
