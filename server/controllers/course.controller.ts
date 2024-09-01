@@ -8,6 +8,7 @@ import { redis } from "../utils/redis";
 import {
   iAddAnswerData,
   iAddQuestionData,
+  IAddReviewData,
 } from "../interfaces/courseInterface";
 import mongoose from "mongoose";
 import path from "path";
@@ -236,9 +237,59 @@ export const addAnswerInCourse = CatchAsyncError(
         }
       }
       res.status(200).json({
-         success: true,
+        success: true,
         course,
       });
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 500));
+    }
+  }
+);
+
+export const addReviewInCourse = CatchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { rating, review }: IAddReviewData = req.body;
+      const courseList = req.user?.courses;
+
+      const courseId = req.params.id;
+
+      const courseExist = courseList?.some((e: any) => e._id === courseId);
+
+      if (!courseExist) {
+        return next(
+          new ErrorHandler("You are not eligible to access this course", 400)
+        );
+      }
+
+      const course = await CourseModel.findById(courseId);
+      const reviewData: any = {
+        user: req.user,
+        comment: review,
+        rating,
+      };
+
+       course?.reviews.push(reviewData);
+
+      let avg = 0;
+      course?.reviews.forEach((rev: any) => (avg += rev.rating));
+      if (course) {
+        course.ratings = avg / course.reviews.length;
+      }
+
+      await course?.save();
+
+      const notification: any = {
+        title: "New Review Received",
+        message: `New review received for course ${course?.name} by ${req.user?.name} `,
+      };
+
+      res.status(200).json({
+        success: true,
+        course,
+      });
+
+
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 500));
     }

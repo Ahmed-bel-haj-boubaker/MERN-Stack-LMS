@@ -8,10 +8,10 @@ interface IComment extends Document {
 }
 
 interface IReview extends Document {
-  user: object;
+  user: IUser;
   rating: number;
   comment: string;
-  commentReplies: IComment[];
+  commentReplies?: IComment[];
 }
 interface ILink extends Document {
   title: string;
@@ -41,7 +41,7 @@ interface ICourse extends Document {
   demoUrl: string;
   benefits: { title: string }[];
   prerequisites: { title: string }[];
-  review: IReview[];
+  reviews: IReview[];
   courseData: ICourseData[];
   ratings?: number;
   purchased?: number;
@@ -99,6 +99,7 @@ const courseSchema = new Schema<ICourse>({
   prerequisites: [{ title: String }],
   ratings: { default: 0, type: Number },
   purchased: { default: 0, type: Number },
+  reviews: [reviewSchema],
 });
 
 const CourseModel: Model<ICourse> = mongoose.model("Course", courseSchema);

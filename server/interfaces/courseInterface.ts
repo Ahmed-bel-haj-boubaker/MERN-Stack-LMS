@@ -10,3 +10,9 @@ export interface iAddAnswerData {
   contentId: string;
   answer: string;
 }
+
+export interface IAddReviewData {
+  review: string;
+  rating: string;
+  userId: string;
+}
