@@ -8,6 +8,7 @@ import { redis } from "../utils/redis";
 import {
   iAddAnswerData,
   iAddQuestionData,
+  IAddReplyToReviewData,
   IAddReviewData,
 } from "../interfaces/courseInterface";
 import mongoose from "mongoose";
@@ -269,7 +270,7 @@ export const addReviewInCourse = CatchAsyncError(
         rating,
       };
 
-       course?.reviews.push(reviewData);
+      course?.reviews.push(reviewData);
 
       let avg = 0;
       course?.reviews.forEach((rev: any) => (avg += rev.rating));
@@ -288,8 +289,41 @@ export const addReviewInCourse = CatchAsyncError(
         success: true,
         course,
       });
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 500));
+    }
+  }
+);
 
-
+export const addReplyToReview = CatchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { comment, courseId, reviewId }: IAddReplyToReviewData = req.body;
+      console.log(comment, courseId, reviewId);
+      const course = await CourseModel.findById(courseId);
+      if (!course) {
+        return next(new ErrorHandler("Course not found", 404));
+      }
+      const review = course?.reviews.find(
+        (e: any) => e._id.toString() === reviewId
+      );
+      console.log(review);
+      if (!review) {
+        return next(new ErrorHandler("Review not found", 404));
+      }
+      const replyData: any = {
+        user: req.user,
+        comment,
+      };
+      if (!review.commentReplies) {
+        review.commentReplies = [];
+      }
+      review.commentReplies?.push(replyData);
+      await course.save();
+      res.status(200).json({
+        success: true,
+        course,
+      });
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 500));
     }
