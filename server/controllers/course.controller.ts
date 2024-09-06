@@ -15,6 +15,7 @@ import mongoose from "mongoose";
 import path from "path";
 import ejs from "ejs";
 import sendEmail from "../utils/sendEmail";
+import { userInfo } from "os";
 
 export const uploadCourse = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -34,7 +35,7 @@ export const uploadCourse = CatchAsyncError(
 
       createCourse(data, res, next);
     } catch (error: any) {
-      return next(new ErrorHandler(error.message, 400));
+      return next(new ErrorHandler(error.message, 500));
     }
   }
 );
@@ -67,7 +68,7 @@ export const EditCourse = CatchAsyncError(
       );
       res.status(201).json({ success: true, course });
     } catch (error: any) {
-      return next(new ErrorHandler(error.message, 400));
+      return next(new ErrorHandler(error.message, 500));
     }
   }
 );
@@ -92,7 +93,7 @@ export const getSingleCourse = CatchAsyncError(
         });
       }
     } catch (error: any) {
-      return next(new ErrorHandler(error.message, 400));
+      return next(new ErrorHandler(error.message, 500));
     }
   }
 );
@@ -115,7 +116,7 @@ export const getAllCourses = CatchAsyncError(
         });
       }
     } catch (error: any) {
-      return next(new ErrorHandler(error.message, 400));
+      return next(new ErrorHandler(error.message, 500));
     }
   }
 );
@@ -142,7 +143,7 @@ export const getCourseByUser = CatchAsyncError(
         content,
       });
     } catch (error: any) {
-      return next(new ErrorHandler(error.message, 400));
+      return next(new ErrorHandler(error.message, 500));
     }
   }
 );
@@ -179,7 +180,7 @@ export const addQuestionInCourse = CatchAsyncError(
         course,
       });
     } catch (error: any) {
-      return next(new ErrorHandler(error.message, 400));
+      return next(new ErrorHandler(error.message, 500));
     }
   }
 );

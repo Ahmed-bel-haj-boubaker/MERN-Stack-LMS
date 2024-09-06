@@ -12,7 +12,7 @@ import {
   updateUserInfo,
   updateUserPassword,
 } from "../controllers/auth.controller";
-import { authorizedRoles, isAuthenticated } from "../middleware/auth";
+import { isAuthenticated } from "../middleware/auth";
 const authRouter = express.Router();
 
 authRouter.route("/register").post(registrationUser);
