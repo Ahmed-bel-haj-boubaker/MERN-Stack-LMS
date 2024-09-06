@@ -16,6 +16,7 @@ import path from "path";
 import ejs from "ejs";
 import sendEmail from "../utils/sendEmail";
 import { userInfo } from "os";
+import NotificationModel from "../models/notification.model";
 
 export const uploadCourse = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -174,7 +175,11 @@ export const addQuestionInCourse = CatchAsyncError(
 
       //save the updated course
       await course?.save();
-
+      await NotificationModel.create({
+        user: req.user?._id,
+        title: "New Question Received",
+        message: `New question added to ${courseContent?.title} course`,
+      });
       res.status(200).json({
         success: true,
         course,
@@ -218,6 +223,12 @@ export const addAnswerInCourse = CatchAsyncError(
 
       if (req.user?._id === question.user?._id) {
         //create a notification
+
+        await NotificationModel.create({
+          user: req.user?._id,
+          title: "New Question Reply Received",
+          message: `you have a question reply in ${courseContent?.title}`,
+        });
       } else {
         const data = {
           name: question.user.name,
@@ -281,10 +292,10 @@ export const addReviewInCourse = CatchAsyncError(
 
       await course?.save();
 
-      const notification: any = {
-        title: "New Review Received",
-        message: `New review received for course ${course?.name} by ${req.user?.name} `,
-      };
+      // const notification: any = {
+      //   title: "New Review Received",
+      //   message: `New review received for course ${course?.name} by ${req.user?.name} `,
+      // };
 
       res.status(200).json({
         success: true,

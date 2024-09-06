@@ -77,8 +77,8 @@ export const createOrder = CatchAsyncError(
 
       if (course.purchased) {
         course.purchased += 1;
+        await course.save();
       }
-      await course.save();
       await newOrder(data, res, next);
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 500));

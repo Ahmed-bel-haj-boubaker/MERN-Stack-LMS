@@ -7,6 +7,7 @@ import { ErrorMiddleware } from "./middleware/error";
 import authRouter from "./routes/auth.route";
 import courseRouter from "./routes/course.route";
 import orderRouter from "./routes/order.route";
+import notificationRouter from "./routes/notification.route";
 //body parser
 
 app.use(express.json({ limit: "50mb" }));
@@ -19,9 +20,8 @@ app.use(cookieParser());
 
 app.use(cors({ origin: process.env.ORIGIN }));
 
-app.use("/api/v1", authRouter);
-app.use("/api/v1", courseRouter);
-app.use("/api/v1", orderRouter);
+app.use("/api/v1", authRouter, courseRouter, orderRouter, notificationRouter);
+
 app.all("*", (req: Request, res: Response, next: NextFunction) => {
   const err = new Error(`Route ${req.originalUrl} not found`) as any;
   err.statusCode = 404;
