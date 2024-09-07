@@ -68,7 +68,7 @@ export const createOrder = CatchAsyncError(
 
       user?.courses.push(course?._id);
       await user?.save();
-      console.log(1);
+
       await NotificationModel.create({
         user: user?._id,
         title: "New Oder",

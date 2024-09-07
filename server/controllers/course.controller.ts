@@ -378,3 +378,22 @@ export const deleteCourse = CatchAsyncError(
     }
   }
 );
+
+export const getCourseCourseByCategory = CatchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { categoryId } = req.params;
+      const courses = await CourseModel.find({ category: categoryId });
+
+      if (!courses || courses.length === 0) {
+        return next(
+          new ErrorHandler("No courses found for this category", 404)
+        );
+      }
+
+      res.status(200).json({ success: true, courses });
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 400));
+    }
+  }
+);

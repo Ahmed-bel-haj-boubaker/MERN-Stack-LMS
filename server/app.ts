@@ -10,6 +10,7 @@ import orderRouter from "./routes/order.route";
 import notificationRouter from "./routes/notification.route";
 import analyticsRouter from "./routes/analytics.route";
 import layoutRouter from "./routes/layout.route";
+import categoriesRouter from "./routes/categories.route";
 //body parser
 
 app.use(express.json({ limit: "50mb" }));
@@ -29,7 +30,8 @@ app.use(
   orderRouter,
   notificationRouter,
   analyticsRouter,
-  layoutRouter
+  layoutRouter,
+  categoriesRouter
 );
 
 app.all("*", (req: Request, res: Response, next: NextFunction) => {

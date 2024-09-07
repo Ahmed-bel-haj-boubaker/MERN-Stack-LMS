@@ -9,6 +9,7 @@ import {
   getAllCourses,
   getAllCoursesAdmin,
   getCourseByUser,
+  getCourseCourseByCategory,
   getSingleCourse,
   uploadCourse,
 } from "../controllers/course.controller";
@@ -34,12 +35,15 @@ courseRouter
   .route("/add-reply-review")
   .patch(isAuthenticated, authorizedRoles("admin"), addReplyToReview);
 
-  courseRouter
+courseRouter
   .route("/get-all-courses-admin")
   .get(isAuthenticated, authorizedRoles("admin"), getAllCoursesAdmin);
 
-  
-  courseRouter
+courseRouter
   .route("/delete-course-admin/:id")
   .delete(isAuthenticated, authorizedRoles("admin"), deleteCourse);
+
+courseRouter
+  .route("/get-course-by-category/:id")
+  .get(getCourseCourseByCategory);
 export default courseRouter;
