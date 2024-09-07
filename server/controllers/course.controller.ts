@@ -87,7 +87,7 @@ export const getSingleCourse = CatchAsyncError(
         const course = await CourseModel.findById(courseId).select(
           "-courseData.videoUrl -courseData.suggestion  -courseData.questions -courseData.links"
         );
-        await redis.set(courseId, JSON.stringify(course));
+        await redis.set(courseId, JSON.stringify(course), "EX", 604800);
         res.status(200).json({
           success: true,
           course,
@@ -366,7 +366,9 @@ export const deleteCourse = CatchAsyncError(
       if (course.purchased === 0) {
         await course.deleteOne({ id });
       } else {
-        return next(new ErrorHandler("Course is purchased by other student ", 400));
+        return next(
+          new ErrorHandler("Course is purchased by other student ", 400)
+        );
       }
       await redis.del(id);
       res
