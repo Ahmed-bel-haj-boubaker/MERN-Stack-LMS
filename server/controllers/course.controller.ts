@@ -15,7 +15,6 @@ import mongoose from "mongoose";
 import path from "path";
 import ejs from "ejs";
 import sendEmail from "../utils/sendEmail";
-import { userInfo } from "os";
 import NotificationModel from "../models/notification.model";
 
 export const uploadCourse = CatchAsyncError(
