@@ -1,11 +1,13 @@
 import express from "express";
 import { authorizedRoles, isAuthenticated } from "../middleware/auth";
-import { createLayout } from "../controllers/layout.controller";
+import { createLayout, editLayout } from "../controllers/layout.controller";
 
 const layoutRouter = express.Router();
 
 layoutRouter
   .route("/create-layout")
   .post(isAuthenticated, authorizedRoles("admin"), createLayout);
-
+layoutRouter
+  .route("/edit-layout")
+  .put(isAuthenticated, authorizedRoles("admin"), editLayout);
 export default layoutRouter;
