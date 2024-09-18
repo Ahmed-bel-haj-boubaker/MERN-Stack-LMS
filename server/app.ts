@@ -11,6 +11,7 @@ import categoriesRouter from "./modules/categories/categories.route";
 import courseRouter from "./modules/video-course/course.route";
 import orderRouter from "./modules/order/order.route";
 import analyticsRouter from "./modules/analytics/analytics.route";
+import adminCourseRouter from "./modules/admin-course/admin-course.route";
 
 //body parser
 
@@ -32,7 +33,8 @@ app.use(
   notificationRouter,
   analyticsRouter,
   layoutRouter,
-  categoriesRouter
+  categoriesRouter,
+  adminCourseRouter
 );
 
 app.all("*", (req: Request, res: Response, next: NextFunction) => {

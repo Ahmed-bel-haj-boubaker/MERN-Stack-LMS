@@ -17,6 +17,13 @@ export interface IUser extends Document {
   role: string;
   isVerfied: boolean;
   courses: Array<{ courseId: string }>;
+  xp: number;
+  points: number;
+  badges: Array<string>;
+  level: number;
+  achievements: Array<{ title: string; description: string; date: Date }>;
+  leaderboardRank: number;
+
   comparePassword: (password: string) => Promise<boolean>;
   SignAccessToken: () => string;
   SignRefreshToken: () => string;
@@ -57,9 +64,40 @@ const userSchema: Schema<IUser> = new mongoose.Schema(
       default: false,
     },
     courses: [{ courseId: String }],
+    xp: {
+      type: Number,
+      default: 0,
+    },
+    points: {
+      type: Number,
+      default: 0,
+    },
+    badges: [
+      {
+        type: String,
+      },
+    ],
+    level: {
+      type: Number,
+      default: 1,
+    },
+    achievements: [
+      {
+        title: { type: String },
+        description: { type: String },
+        date: { type: Date, default: Date.now },
+      },
+    ],
+    leaderboardRank: {
+      type: Number,
+      default: 0,
+    },
   },
   { timestamps: true }
 );
+
+
+
 //HashPassword before saving
 
 userSchema.pre<IUser>("save", async function (next) {
