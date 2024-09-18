@@ -1,21 +1,21 @@
 import { Request, Response, NextFunction } from "express";
-import { CatchAsyncError } from "../middleware/catchAsyncError";
-import ErrorHandler from "../utils/ErrorHandler";
+import { CatchAsyncError } from "../../middleware/catchAsyncError";
+import ErrorHandler from "../../utils/ErrorHandler";
 import cloudinary from "cloudinary";
-import { createCourse, getAllCoursesService } from "../services/course.service";
-import CourseModel from "../models/course.model";
-import { redis } from "../utils/redis";
+import { createCourse, getAllCoursesService } from "./course.service";
+import CourseModel from "./course.model";
+import { redis } from "../../utils/redis";
 import {
   iAddAnswerData,
   iAddQuestionData,
   IAddReplyToReviewData,
   IAddReviewData,
-} from "../interfaces/courseInterface";
+} from "../../interfaces/courseInterface";
 import mongoose from "mongoose";
 import path from "path";
 import ejs from "ejs";
-import sendEmail from "../utils/sendEmail";
-import NotificationModel from "../models/notification.model";
+import sendEmail from "../../utils/sendEmail";
+import NotificationModel from "../notification/notification.model";
 
 export const uploadCourse = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {

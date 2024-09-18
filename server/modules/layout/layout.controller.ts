@@ -1,8 +1,10 @@
 import { Request, Response, NextFunction } from "express";
-import { CatchAsyncError } from "../middleware/catchAsyncError";
-import ErrorHandler from "../utils/ErrorHandler";
+ 
 import cloudinary from "cloudinary";
-import LayoutModel from "../models/layout.model";
+import { CatchAsyncError } from "../../middleware/catchAsyncError";
+import LayoutModel from "./layout.model";
+import ErrorHandler from "../../utils/ErrorHandler";
+ 
 
 export const createLayout = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {

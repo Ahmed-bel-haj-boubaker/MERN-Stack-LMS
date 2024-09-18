@@ -1,7 +1,10 @@
 import express from "express";
 
-import { authorizedRoles, isAuthenticated } from "../middleware/auth";
-import { getNotifications, updateNotificationsStatus } from "../controllers/notifcation.controller";
+import { authorizedRoles, isAuthenticated } from "../../middleware/auth";
+import {
+  getNotifications,
+  updateNotificationsStatus,
+} from "./notifcation.controller";
 
 const notificationRouter = express.Router();
 

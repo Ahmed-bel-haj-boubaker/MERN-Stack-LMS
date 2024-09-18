@@ -1,12 +1,7 @@
 import express from "express";
-import {
-  createCategory,
-  getCategories,
-  getCategoryById,
-  updateCategory,
-  deleteCategory,
-} from "../controllers/categories.controller";
-import { authorizedRoles, isAuthenticated } from "../middleware/auth";
+import { authorizedRoles, isAuthenticated } from "../../middleware/auth";
+import { createCategory, deleteCategory, getCategories, getCategoryById, updateCategory } from "./categories.controller";
+ 
 
 const categoriesRouter = express.Router();
 

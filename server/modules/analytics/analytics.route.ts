@@ -1,10 +1,10 @@
 import express from "express";
-import { authorizedRoles, isAuthenticated } from "../middleware/auth";
+import { authorizedRoles, isAuthenticated } from "../../middleware/auth";
 import {
   getCoursesAnalytics,
   getOrderAnalytics,
   getUserAnalytics,
-} from "../controllers/analytics.controller";
+} from "./analytics.controller";
 
 const analyticsRouter = express.Router();
 

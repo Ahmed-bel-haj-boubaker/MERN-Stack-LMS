@@ -14,8 +14,8 @@ import {
   updateUserInfo,
   updateUserPassword,
   updateUserRole,
-} from "../controllers/auth.controller";
-import { authorizedRoles, isAuthenticated } from "../middleware/auth";
+} from "./auth.controller";
+import { authorizedRoles, isAuthenticated } from "../../middleware/auth";
 const authRouter = express.Router();
 
 authRouter.route("/register").post(registrationUser);

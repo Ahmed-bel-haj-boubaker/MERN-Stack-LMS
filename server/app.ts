@@ -4,13 +4,14 @@ export const app = express();
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import { ErrorMiddleware } from "./middleware/error";
-import authRouter from "./routes/auth.route";
-import courseRouter from "./routes/course.route";
-import orderRouter from "./routes/order.route";
-import notificationRouter from "./routes/notification.route";
-import analyticsRouter from "./routes/analytics.route";
-import layoutRouter from "./routes/layout.route";
-import categoriesRouter from "./routes/categories.route";
+import authRouter from "./modules/auth/auth.route";
+import notificationRouter from "./modules/notification/notification.route";
+import layoutRouter from "./modules/layout/layout.route";
+import categoriesRouter from "./modules/categories/categories.route";
+import courseRouter from "./modules/video-course/course.route";
+import orderRouter from "./modules/order/order.route";
+import analyticsRouter from "./modules/analytics/analytics.route";
+
 //body parser
 
 app.use(express.json({ limit: "50mb" }));

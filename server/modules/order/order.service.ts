@@ -1,7 +1,7 @@
 import { NextFunction, Response } from "express";
-import { CatchAsyncError } from "../middleware/catchAsyncError";
+import { CatchAsyncError } from "../../middleware/catchAsyncError";
+import OrderModel from "./order.model";
 
-import OrderModel from "../models/order.model";
 
 export const newOrder = CatchAsyncError(
   async (data: any, res: Response, next: NextFunction) => {

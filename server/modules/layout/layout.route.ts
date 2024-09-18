@@ -1,10 +1,7 @@
 import express from "express";
-import { authorizedRoles, isAuthenticated } from "../middleware/auth";
-import {
-  createLayout,
-  editLayout,
-  getLayoutByType,
-} from "../controllers/layout.controller";
+import { authorizedRoles, isAuthenticated } from "../../middleware/auth";
+import { createLayout, editLayout, getLayoutByType } from "./layout.controller";
+ 
 
 const layoutRouter = express.Router();
 

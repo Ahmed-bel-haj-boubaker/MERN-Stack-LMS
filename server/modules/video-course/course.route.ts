@@ -12,8 +12,8 @@ import {
   getCourseCourseByCategory,
   getSingleCourse,
   uploadCourse,
-} from "../controllers/course.controller";
-import { authorizedRoles, isAuthenticated } from "../middleware/auth";
+} from "./course.controller";
+import { authorizedRoles, isAuthenticated } from "../../middleware/auth";
 
 const courseRouter = express.Router();
 

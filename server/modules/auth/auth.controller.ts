@@ -1,12 +1,12 @@
 import { Request, Response, NextFunction } from "express";
-import userModel, { IUser } from "../models/user.model";
-import { CatchAsyncError } from "../middleware/catchAsyncError";
-import ErrorHandler from "../utils/ErrorHandler";
+import userModel, { IUser } from "./user.model";
+import { CatchAsyncError } from "../../middleware/catchAsyncError";
+import ErrorHandler from "../../utils/ErrorHandler";
 import jwt, { JwtPayload, Secret } from "jsonwebtoken";
 import cloudinary from "cloudinary";
 import ejs from "ejs";
 import path from "path";
-import sendEmail from "../utils/sendEmail";
+import sendEmail from "../../utils/sendEmail";
 import {
   IActivationRequest,
   IActivationToken,
@@ -16,18 +16,18 @@ import {
   IUpdatePassword,
   IUpdateProfilePic,
   IUpdateUserInfo,
-} from "../interfaces/authInterface";
+} from "../../interfaces/authInterface";
 import {
   accessTokenOptions,
   refreshTokenOptions,
   sendToken,
-} from "../utils/jwt";
-import { redis } from "../utils/redis";
+} from "../../utils/jwt";
+import { redis } from "../../utils/redis";
 import {
   getAllUsersService,
   getUserById,
   updateUserRoleService,
-} from "../services/user.service";
+} from "./user.service";
 require("dotenv").config();
 
 export const registrationUser = CatchAsyncError(

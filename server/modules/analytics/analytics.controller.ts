@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from "express";
-import { CatchAsyncError } from "../middleware/catchAsyncError";
-import ErrorHandler from "../utils/ErrorHandler";
-import userModel from "../models/user.model";
-import { generateLast12MonthsData } from "../utils/analytics.generator";
-import CourseModel from "../models/course.model";
-import OrderModel from "../models/order.model";
+import { CatchAsyncError } from "../../middleware/catchAsyncError";
+import ErrorHandler from "../../utils/ErrorHandler";
+import userModel from "../auth/user.model";
+import { generateLast12MonthsData } from "../../utils/analytics.generator";
+import CourseModel from "../video-course/course.model";
+import OrderModel from "../order/order.model";
 //get user analytics
 export const getUserAnalytics = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {

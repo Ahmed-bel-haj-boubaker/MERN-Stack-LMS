@@ -1,6 +1,6 @@
 require("dotenv").config();
 import { Response } from "express";
-import { IUser } from "../models/user.model";
+import { IUser } from "../modules/auth/user.model";
 import { redis } from "./redis";
 import { ITokenOptions } from "../interfaces/authInterface";
 
