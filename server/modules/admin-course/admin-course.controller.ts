@@ -6,13 +6,6 @@ import userModel from "../auth/user.model";
 import cloudinary from "cloudinary";
 import mongoose from "mongoose";
 
-// Cloudinary configuration (make sure this is set somewhere in your application)
-cloudinary.v2.config({
-  cloud_name: "your-cloud-name",
-  api_key: "your-api-key",
-  api_secret: "your-api-secret",
-});
-
 export const createAdminCourse = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     const user = await userModel.findById(req.user?._id);

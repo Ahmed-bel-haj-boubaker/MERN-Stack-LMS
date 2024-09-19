@@ -23,6 +23,11 @@ interface IAdminCourse {
   chapters: IChapter[];
   completionXP: number;
   thumbnail?: IImage;
+  students: mongoose.Types.ObjectId[];
+  enrollCount: number;
+  studentProgress?: Record<string, number>;
+  tags: string[];
+  isFeatured?: boolean;
 }
 
 const chapterSchema = new mongoose.Schema<IChapter>({
@@ -37,28 +42,43 @@ const chapterSchema = new mongoose.Schema<IChapter>({
   quiz: { type: mongoose.Schema.Types.ObjectId, ref: "Quiz", required: true },
 });
 
-const adminCourseSchema = new mongoose.Schema<IAdminCourse>({
-  courseName: { type: String, required: true },
-  courseDescription: { type: String, required: true },
-  category: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Category",
-    required: true,
+const adminCourseSchema = new mongoose.Schema<IAdminCourse>(
+  {
+    courseName: { type: String, required: true },
+    courseDescription: { type: String, required: true },
+    category: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Category",
+      required: true,
+    },
+    contentType: { type: String, required: true },
+    courseLevel: { type: String, required: true },
+    isPublished: { type: Boolean, required: true },
+    instructor: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+    chapters: [chapterSchema],
+    completionXP: { type: Number, required: true },
+    thumbnail: {
+      public_id: { type: String },
+      url: { type: String },
+    },
+    enrollCount: {
+      type: Number,
+      default: 0,
+    },
+    students: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "User",
+      required: true,
+    },
+    tags: { type: [String], required: true },
+    isFeatured: { type: Boolean, required: false },
+    studentProgress: { type: Map, of: Number },
   },
-  contentType: { type: String, required: true },
-  courseLevel: { type: String, required: true },
-  isPublished: { type: Boolean, required: true },
-  instructor: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
-  chapters: [chapterSchema],
-  completionXP: { type: Number, required: true },
-  thumbnail: {
-    public_id: { type: String },
-    url: { type: String },
-  },
-});
+  { timestamps: true }
+);
 
 export default mongoose.model<IAdminCourse>("AdminCourse", adminCourseSchema);

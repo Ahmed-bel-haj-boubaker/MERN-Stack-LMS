@@ -23,6 +23,7 @@ export interface IUser extends Document {
   level: number;
   achievements: Array<{ title: string; description: string; date: Date }>;
   leaderboardRank: number;
+  interest: string[];
 
   comparePassword: (password: string) => Promise<boolean>;
   SignAccessToken: () => string;
@@ -95,8 +96,6 @@ const userSchema: Schema<IUser> = new mongoose.Schema(
   },
   { timestamps: true }
 );
-
-
 
 //HashPassword before saving
 
