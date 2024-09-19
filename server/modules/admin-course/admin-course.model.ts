@@ -1,82 +1,64 @@
-import mongoose, { Document, Model, Schema } from "mongoose";
+import mongoose from "mongoose";
+
+interface IImage {
+  public_id: string;
+  url: string;
+}
 
 interface IChapter {
   title: string;
   content: string;
-  images: string[];
-  quiz: mongoose.Schema.Types.ObjectId | null;
+  images: IImage[];
+  quiz: mongoose.Types.ObjectId;
 }
 
-interface IAdminCourse extends Document {
+interface IAdminCourse {
   courseName: string;
   courseDescription: string;
-  thumbnail: object;
-  category: string;
-  contentType: "text";
-  courseLevel: "beginner" | "intermediate" | "advanced";
+  category: mongoose.Types.ObjectId;
+  contentType: string;
+  courseLevel: string;
   isPublished: boolean;
-  instructor: mongoose.Schema.Types.ObjectId;
+  instructor: mongoose.Types.ObjectId;
   chapters: IChapter[];
   completionXP: number;
-  createdAt: Date;
-  updatedAt: Date;
-  enrollCount: number;
-  enrolledStudents: mongoose.Schema.Types.ObjectId[];
+  thumbnail?: IImage;
 }
 
-const AdminCourseSchema: Schema = new mongoose.Schema({
-  courseName: { type: String, required: true },
-  courseDescription: { type: String, required: true },
-  thumbnail: {
-    public_id: { required: false, type: String },
-    url: { required: false, type: String },
-  },
-  category: { type: String, required: true },
-  contentType: {
-    type: String,
-    enum: ["text"],
-    required: true,
-    default: "text",
-  },
-  courseLevel: {
-    type: String,
-    enum: ["beginner", "intermediate", "advanced"],
-    required: true,
-  },
-  isPublished: { type: Boolean, default: false },
-  instructor: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "user",
-    required: false,
-  },
-  enrollCount: { type: Number, default: 0 },
-  enrolledStudents: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-
-  chapters: [
+const chapterSchema = new mongoose.Schema<IChapter>({
+  title: { type: String, required: true },
+  content: { type: String, required: true },
+  images: [
     {
-      title: { type: String, required: true },
-      content: { type: String, required: true },
-      images: [{ type: String }],
-      quiz: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Quiz",
-        default: null,
-      },
+      public_id: { type: String, required: true },
+      url: { type: String, required: true },
     },
   ],
-  completionXP: { type: Number, default: 10 },
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now },
+  quiz: { type: mongoose.Schema.Types.ObjectId, ref: "Quiz", required: true },
 });
 
-AdminCourseSchema.pre<IAdminCourse>("save", function (next) {
-  this.updatedAt = new Date();
-  next();
+const adminCourseSchema = new mongoose.Schema<IAdminCourse>({
+  courseName: { type: String, required: true },
+  courseDescription: { type: String, required: true },
+  category: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Category",
+    required: true,
+  },
+  contentType: { type: String, required: true },
+  courseLevel: { type: String, required: true },
+  isPublished: { type: Boolean, required: true },
+  instructor: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  chapters: [chapterSchema],
+  completionXP: { type: Number, required: true },
+  thumbnail: {
+    public_id: { type: String },
+    url: { type: String },
+  },
 });
 
-const AdminCourse: Model<IAdminCourse> = mongoose.model<IAdminCourse>(
-  "AdminCourse",
-  AdminCourseSchema
-);
-
-export default AdminCourse;
+export default mongoose.model<IAdminCourse>("AdminCourse", adminCourseSchema);

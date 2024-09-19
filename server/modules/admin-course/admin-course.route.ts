@@ -1,7 +1,10 @@
 import express from "express";
 
 import { authorizedRoles, isAuthenticated } from "../../middleware/auth";
-import { createAdminCourse } from "./admin-course.controller";
+import {
+  createAdminCourse,
+  updateAdminCourse,
+} from "./admin-course.controller";
 
 const adminCourseRouter = express.Router();
 adminCourseRouter
@@ -10,6 +13,14 @@ adminCourseRouter
     isAuthenticated,
     authorizedRoles("admin", "instructor"),
     createAdminCourse
+  );
+
+adminCourseRouter
+  .route("/update-admin-course")
+  .put(
+    isAuthenticated,
+    authorizedRoles("admin", "instructor"),
+    updateAdminCourse
   );
 
 export default adminCourseRouter;
