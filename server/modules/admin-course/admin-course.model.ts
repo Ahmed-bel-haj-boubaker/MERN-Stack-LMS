@@ -10,6 +10,7 @@ interface IChapter {
 interface IAdminCourse extends Document {
   courseName: string;
   courseDescription: string;
+  thumbnail: object;
   category: string;
   contentType: "text";
   courseLevel: "beginner" | "intermediate" | "advanced";
@@ -26,6 +27,10 @@ interface IAdminCourse extends Document {
 const AdminCourseSchema: Schema = new mongoose.Schema({
   courseName: { type: String, required: true },
   courseDescription: { type: String, required: true },
+  thumbnail: {
+    public_id: { required: false, type: String },
+    url: { required: false, type: String },
+  },
   category: { type: String, required: true },
   contentType: {
     type: String,
