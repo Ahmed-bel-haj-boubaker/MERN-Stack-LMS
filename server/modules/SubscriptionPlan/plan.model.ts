@@ -4,6 +4,7 @@ interface IPricing {
   duration: string; // e.g., "monthly", "yearly", "two years"
   price: number;
   priceAfterDiscount: number;
+  currency: string;
 }
 
 interface ISubscriptionPlan {
@@ -25,6 +26,7 @@ const pricingSchema = new mongoose.Schema<IPricing>(
     },
     price: { type: Number, required: true },
     priceAfterDiscount: { type: Number, required: false },
+    currency: { type: String, required: true }, // Added currency field
   },
   { _id: false }
 );
