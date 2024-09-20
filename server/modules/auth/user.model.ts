@@ -24,7 +24,10 @@ export interface IUser extends Document {
   achievements: Array<{ title: string; description: string; date: Date }>;
   leaderboardRank: number;
   interest: string[];
-
+  purchasedPlan?: object;
+  planStartDate?: Date;
+  planEndDate?: Date;
+  isPlanActive?: boolean;
   comparePassword: (password: string) => Promise<boolean>;
   SignAccessToken: () => string;
   SignRefreshToken: () => string;
@@ -92,6 +95,24 @@ const userSchema: Schema<IUser> = new mongoose.Schema(
     leaderboardRank: {
       type: Number,
       default: 0,
+    },
+    interest: { type: [String] },
+    purchasedPlan: {
+      type: mongoose.Schema.ObjectId,
+      ref: "SubscriptionPlan",
+      required: false,
+    },
+    planStartDate: {
+      type: Date,
+      required: false,
+    },
+    planEndDate: {
+      type: Date,
+      required: false,
+    },
+    isPlanActive: {
+      type: Boolean,
+      default: false,
     },
   },
   { timestamps: true }

@@ -3,6 +3,7 @@ import express from "express";
 import { authorizedRoles, isAuthenticated } from "../../middleware/auth";
 import {
   createAdminCourse,
+  deleteAdminCourse,
   updateAdminCourse,
 } from "./admin-course.controller";
 
@@ -22,5 +23,11 @@ adminCourseRouter
     authorizedRoles("admin", "instructor"),
     updateAdminCourse
   );
-
+adminCourseRouter
+  .route("/delete-admin-course/:courseId")
+  .delete(
+    isAuthenticated,
+    authorizedRoles("admin", "instructor"),
+    deleteAdminCourse
+  );
 export default adminCourseRouter;

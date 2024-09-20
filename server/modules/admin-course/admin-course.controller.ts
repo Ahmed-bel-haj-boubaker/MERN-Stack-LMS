@@ -20,6 +20,10 @@ export const createAdminCourse = CatchAsyncError(
         chapters,
         completionXP,
         thumbnail,
+        tags,
+        students = [],
+        enrollCount = 0,
+        studentProgress = new Map<string, number>(),
       } = req.body;
 
       if (!courseName || !courseDescription || !category || !courseLevel) {
@@ -72,7 +76,12 @@ export const createAdminCourse = CatchAsyncError(
         chapters: updatedChapters,
         completionXP,
         thumbnail: thumbnailData,
+        students,
+        enrollCount,
+        tags,
+        studentProgress,
       });
+
       const savedCourse = await newCourse.save();
 
       res.status(201).json({
@@ -100,6 +109,7 @@ export const updateAdminCourse = CatchAsyncError(
         chapters,
         completionXP,
         thumbnail,
+        tags,
       } = req.body;
 
       if (!courseId) {
@@ -127,23 +137,13 @@ export const updateAdminCourse = CatchAsyncError(
 
       const updatedChapters = await Promise.all(
         chapters.map(async (chapter: any) => {
-          // Convert chapter._id to ObjectId for comparison
           const chapterId = new mongoose.Types.ObjectId(chapter._id);
-
-          // Find the existing chapter
           const existingChapter = course.chapters.find((ch) =>
             ch._id.equals(chapterId)
           );
 
-          console.log("Incoming Chapter ID:", chapter._id);
-          console.log(
-            "Existing Chapter ID:",
-            existingChapter ? existingChapter._id.toString() : "Not Found"
-          );
-          console.log("Existing Chapter:", existingChapter);
-
           if (!existingChapter) {
-            return chapter; // Handle or skip missing chapters
+            return chapter;
           }
 
           if (existingChapter.images && existingChapter.images.length > 0) {
@@ -202,6 +202,7 @@ export const updateAdminCourse = CatchAsyncError(
           chapters: updatedChapters,
           completionXP,
           thumbnail: updatedThumbnail,
+          tags: tags || course.tags,
           updatedAt: new Date(),
         },
         { new: true }
@@ -216,6 +217,27 @@ export const updateAdminCourse = CatchAsyncError(
         message: "Course updated successfully",
         course: updatedCourse,
       });
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 400));
+    }
+  }
+);
+
+export const deleteAdminCourse = CatchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const courseId = req.params.courseId;
+      const course = await AdminCourse.findById(courseId);
+      if (course?.enrollCount === 0) {
+        await AdminCourse.deleteOne({ _id: courseId });
+        return res
+          .status(200)
+          .json({ success: true, message: "course is deleted successfully" });
+      } else {
+        return res
+          .status(400)
+          .json({ success: false, message: "Course has students enrolled" });
+      }
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 400));
     }

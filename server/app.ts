@@ -12,6 +12,7 @@ import courseRouter from "./modules/video-course/course.route";
 import orderRouter from "./modules/order/order.route";
 import analyticsRouter from "./modules/analytics/analytics.route";
 import adminCourseRouter from "./modules/admin-course/admin-course.route";
+import planRouter from "./modules/SubscriptionPlan/plan.route";
 
 //body parser
 
@@ -34,7 +35,8 @@ app.use(
   analyticsRouter,
   layoutRouter,
   categoriesRouter,
-  adminCourseRouter
+  adminCourseRouter,
+  planRouter
 );
 
 app.all("*", (req: Request, res: Response, next: NextFunction) => {

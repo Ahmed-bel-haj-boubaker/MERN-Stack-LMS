@@ -1,5 +1,3 @@
-import express from "express";
-
 import {
   activatedUser,
   deleteUser,
@@ -15,6 +13,7 @@ import {
   updateUserPassword,
   updateUserRole,
 } from "./auth.controller";
+import express from "express";
 import { authorizedRoles, isAuthenticated } from "../../middleware/auth";
 const authRouter = express.Router();
 

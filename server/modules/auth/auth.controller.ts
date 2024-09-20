@@ -344,7 +344,6 @@ export const updateProfilePic = CatchAsyncError(
 );
 
 //get All users only for admin
-
 export const getAllUsers = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -385,3 +384,4 @@ export const deleteUser = CatchAsyncError(
     }
   }
 );
+
