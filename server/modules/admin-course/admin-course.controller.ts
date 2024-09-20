@@ -243,3 +243,42 @@ export const deleteAdminCourse = CatchAsyncError(
     }
   }
 );
+
+//enroll admin course for those who purchased any plan
+
+export const enrollAdminCourse = CatchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const user = await userModel
+        .findById(req.user?._id)
+        .populate("purchasedPlan")
+        .lean();
+
+      if (!user) {
+        return next(new ErrorHandler("User not found", 404));
+      }
+      const course = await AdminCourse.findById(req.params.courseId);
+      if (!course) {
+        return next(new ErrorHandler("Course not found", 404));
+      }
+
+      if (!user.purchasedPlan) {
+        return next(new ErrorHandler("User has not purchased any plan", 400));
+      }
+      if (!course.students.includes(user._id as any)) {
+        course.students.push(user._id as any);
+        course.enrollCount += 1;
+        await course.save();
+
+        user.admincourses.push(course._id);
+        await user.save();
+      } else {
+        return next(
+          new ErrorHandler("User is already enrolled in this course", 400)
+        );
+      }
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 400));
+    }
+  }
+);

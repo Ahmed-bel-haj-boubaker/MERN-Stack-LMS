@@ -4,6 +4,7 @@ import { authorizedRoles, isAuthenticated } from "../../middleware/auth";
 import {
   createAdminCourse,
   deleteAdminCourse,
+  enrollAdminCourse,
   updateAdminCourse,
 } from "./admin-course.controller";
 
@@ -30,4 +31,8 @@ adminCourseRouter
     authorizedRoles("admin", "instructor"),
     deleteAdminCourse
   );
+
+adminCourseRouter
+  .route("/enroll-admin-course/:courseId")
+  .post(isAuthenticated, authorizedRoles("student"), enrollAdminCourse);
 export default adminCourseRouter;

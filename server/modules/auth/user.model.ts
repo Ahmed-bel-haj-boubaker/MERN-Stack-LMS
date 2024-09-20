@@ -17,6 +17,7 @@ export interface IUser extends Document {
   role: string;
   isVerfied: boolean;
   courses: Array<{ courseId: string }>;
+  admincourses: mongoose.Types.ObjectId[];
   xp: number;
   points: number;
   badges: Array<string>;
@@ -113,6 +114,11 @@ const userSchema: Schema<IUser> = new mongoose.Schema(
     isPlanActive: {
       type: Boolean,
       default: false,
+    },
+    admincourses: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "AdminCourse",
+      required: true,
     },
   },
   { timestamps: true }

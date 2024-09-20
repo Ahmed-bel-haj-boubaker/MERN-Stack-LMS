@@ -73,6 +73,7 @@ const adminCourseSchema = new mongoose.Schema<IAdminCourse>(
       type: [mongoose.Schema.Types.ObjectId],
       ref: "User",
       required: true,
+      default: [],
     },
     tags: { type: [String], required: true },
     isFeatured: { type: Boolean, required: false },
