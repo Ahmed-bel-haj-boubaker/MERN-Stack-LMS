@@ -13,6 +13,7 @@ import orderRouter from "./modules/order/order.route";
 import analyticsRouter from "./modules/analytics/analytics.route";
 import adminCourseRouter from "./modules/admin-course/admin-course.route";
 import planRouter from "./modules/SubscriptionPlan/plan.route";
+import chatRouter from "./modules/chat/chat.route";
 
 //body parser
 
@@ -36,7 +37,8 @@ app.use(
   layoutRouter,
   categoriesRouter,
   adminCourseRouter,
-  planRouter
+  planRouter,
+  chatRouter
 );
 
 app.all("*", (req: Request, res: Response, next: NextFunction) => {
