@@ -6,7 +6,7 @@ const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 export async function getGroqChatCompletion(req, res) {
   try {
     const userMessage =
-      req.query.message || "what is html in 5 word";
+      req.body.message || "cv"
 
     const completion = await groq.chat.completions.create({
       messages: [

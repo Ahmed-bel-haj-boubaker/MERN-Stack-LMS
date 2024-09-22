@@ -245,7 +245,6 @@ export const deleteAdminCourse = CatchAsyncError(
 );
 
 //enroll admin course for those who purchased any plan
-
 export const enrollAdminCourse = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
