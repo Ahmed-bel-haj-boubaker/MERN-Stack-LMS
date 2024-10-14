@@ -8,13 +8,13 @@ const TopBar = () => {
             10024, USA
           </span>
           <span>
-            <i className="fas fa-envelope mr-1"></i> info@skillgro.com
+            <i className="fas fa-envelope mr-1"></i> info@edunexus.com
           </span>
         </div>
 
         <div className="flex space-x-6 items-center">
           <span>
-            <i className="fas fa-phone-alt mr-1"></i> +123 599 8989
+            <i className="fas fa-phone-alt mr-1"></i> +216 28683199
           </span>
           <span className="flex space-x-4">
             <a href="#" className="hover:text-yellow-400">
