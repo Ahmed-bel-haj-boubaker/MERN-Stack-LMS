@@ -26,7 +26,7 @@ export default function RootLayout({
           <Navbar />
         </div>
 
-        <main className="container mx-auto px-4 md:px-8 py-6">{children}</main>
+        <main className="  mx-auto px-4 md:px-8 py-6">{children}</main>
 
         <Footer />
       </body>

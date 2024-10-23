@@ -2,15 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-.group:hover .group-hover\:opacity-100 {
-  opacity: 1;
+@keyframes moveRight {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100%);
+  }
 }
-.group:hover .group-hover\:visible {
-  visibility: visible;
-}
-.group-hover\:opacity-100 {
-  opacity: 0;
-}
-.group-hover\:visible {
-  visibility: hidden;
+@layer utilities {
+  .animate-move-right {
+    animation: moveRight 1s infinite linear;
+  }
 }

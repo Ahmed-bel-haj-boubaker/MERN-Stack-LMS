@@ -20,7 +20,7 @@ const Navbar = () => {
   };
   return (
     <>
-      <nav className="container mx-auto py-4 px-4 md:px-8 flex justify-between items-center bg-white">
+      <nav className="  mx-auto py-4 px-4 md:px-8 flex justify-around items-center bg-white">
         <div className="flex items-center">
           <Image
             src={Logo}
@@ -43,7 +43,7 @@ const Navbar = () => {
 
         {/* Desktop Menu */}
         <ul className="hidden xl:flex space-x-4 lg:space-x-8 text-sm md:text-base lg:text-lg">
-          <li className="group relative flex items-center hover:text-indigo-600">
+          <li className="group relative flex items-center hover:bg-indigo-600 hover:text-white p-2">
             <a href="#">Home</a>
             <i className="fas fa-chevron-down ml-2 text-sm"></i>
 

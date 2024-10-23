@@ -26,10 +26,10 @@ export const createCategory = CatchAsyncError(
 export const getCategories = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     const categories = await CategoriesModel.find();
-    res.status(200).json({
-      success: true,
-      categories,
-    });
+      res.status(200).json({
+        success: true,
+        categories,
+      });
   }
 );
 
