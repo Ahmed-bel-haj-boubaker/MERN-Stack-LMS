@@ -57,11 +57,24 @@ const Hero = () => {
           {/* Image section with animated icons */}
           <div className="flex justify-center mb-8 lg:mb-0 relative">
             <div className="relative bg-indigo-600 w-40 h-40 sm:w-60 sm:h-60 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full flex items-center justify-center shadow-lg">
-              <Image
-                src={HeroImg}
-                alt="Hero Image"
-                className="w-full h-full object-cover rounded-full transform hover:scale-105 transition-transform duration-300"
-              />
+              <motion.div
+                initial={{ y: 0 }}
+                animate={{
+                  y: [0, -10, 0],
+                }}
+                transition={{
+                  duration: 1,
+                  ease: "easeInOut",
+                  repeat: Infinity,
+                  repeatType: "loop",
+                }}
+              >
+                <Image
+                  src={HeroImg}
+                  alt="logo"
+                  className="w-full h-full object-cover rounded-full transform hover:scale-105 transition-transform duration-300"
+                />
+              </motion.div>
               <div className="absolute inset-0 rounded-full bg-gradient-to-t from-indigo-600 via-transparent to-transparent opacity-70"></div>
             </div>
 

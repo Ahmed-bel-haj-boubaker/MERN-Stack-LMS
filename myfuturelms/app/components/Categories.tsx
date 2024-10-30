@@ -98,7 +98,7 @@ const Categories = () => {
     responsive: [
       { breakpoint: 1024, settings: { slidesToShow: 5 } },
       { breakpoint: 768, settings: { slidesToShow: 4 } },
-      { breakpoint: 480, settings: { slidesToShow: 1 } },
+      { breakpoint: 480, settings: { slidesToShow: 2 } },
     ],
   };
 
@@ -122,7 +122,7 @@ const Categories = () => {
       initial={{ opacity: 0, y: 50 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className="p-5 mb-24 mt-11 "
+      className="p-5 mb-40 max-lg:mb-20 mt-11 "
     >
       <div className="flex flex-col items-center mb-8">
         <h6 className="text-center bg-gray-200 font-bold text-indigo-800 rounded-full px-4 py-2">
