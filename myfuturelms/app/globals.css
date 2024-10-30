@@ -15,3 +15,8 @@
     animation: moveRight 1s infinite linear;
   }
 }
+@media (max-width: 1388px) {
+  .arrow-hide {
+    display: none;
+  }
+}

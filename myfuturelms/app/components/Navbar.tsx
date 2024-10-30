@@ -20,14 +20,13 @@ const Navbar = () => {
   };
   return (
     <>
-      <nav className="  mx-auto py-4 px-4 md:px-8 flex justify-around items-center bg-white">
+      <nav className="  mx-auto py-1 px-4 md:px-8 flex justify-around items-center bg-white ">
         <div className="flex items-center">
           <Image
             src={Logo}
             alt="Logo"
-            className="lg:size-24 md:w-10 md:h-10 max-lg:size-8"
+            className="lg:size-28 md:size-16  max-lg:size-14"
           />
-          <span className="text-lg md:text-xl font-bold ml-2">EduNexus</span>
         </div>
 
         <div className="md:hidden">
@@ -42,12 +41,12 @@ const Navbar = () => {
         </div>
 
         {/* Desktop Menu */}
-        <ul className="hidden xl:flex space-x-4 lg:space-x-8 text-sm md:text-base lg:text-lg">
+        <ul className="hidden xl:flex space-x-2 lg:space-x-4 text-sm md:text-base lg:text-lg font-poppins ">
           <li className="group relative flex items-center hover:bg-indigo-600 hover:text-white p-2">
             <a href="#">Home</a>
             <i className="fas fa-chevron-down ml-2 text-sm"></i>
 
-            <ul className="absolute left-0 top-full mt-0 w-48 bg-white shadow-lg rounded-md opacity-0 group-hover:opacity-100 invisible group-hover:visible transition duration-200 z-10">
+            <ul className="absolute left-0 top-full mt-0 w-48 bg-white shadow-lg rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transform group-hover:translate-y-2 transition-all duration-300 ease-in-out z-10">
               <li>
                 <a
                   href="#"
@@ -66,15 +65,15 @@ const Navbar = () => {
               </li>
             </ul>
           </li>
-          <li className="group relative flex items-center hover:text-indigo-600">
+          <li className="group relative flex items-center hover:bg-indigo-600 hover:text-white p-2">
             <a href="#">Courses</a>
             <i className="fas fa-chevron-down ml-2 text-sm"></i>
           </li>
-          <li className="group relative flex items-center hover:text-indigo-600">
+          <li className="group relative flex items-center hover:bg-indigo-600 hover:text-white p-2">
             <a href="#">Pages</a>
             <i className="fas fa-chevron-down ml-2 text-sm"></i>
           </li>
-          <li className="group relative flex items-center hover:text-indigo-600">
+          <li className="group relative flex items-center hover:bg-indigo-600 hover:text-white p-2">
             <a href="#">Dashboard</a>
             <i className="fas fa-chevron-down ml-2 text-sm"></i>
           </li>
