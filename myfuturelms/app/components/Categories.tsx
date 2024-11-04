@@ -19,6 +19,7 @@ import {
   faNodeJs,
   faBootstrap,
 } from "@fortawesome/free-brands-svg-icons";
+import Ticket from "./Ticket";
 
 const categoryImages = [
   { ImageSrc: faHtml5, categoryName: "HTML", count: 22, color: "#E34F26" },
@@ -125,9 +126,7 @@ const Categories = () => {
       className="p-5 mb-40 max-lg:mb-20 mt-11 "
     >
       <div className="flex flex-col items-center mb-8">
-        <h6 className="text-center bg-gray-200 font-bold text-indigo-800 rounded-full px-4 py-2">
-          Trending Categories
-        </h6>
+        <Ticket text="Trending Categories" />
         <h2 className="text-4xl font-bold leading-tight max-lg:text-2xl md:text-6xl lg:text-5xl text-center mt-4">
           Top <span className="text-indigo-600">Categories</span>That We Have
         </h2>

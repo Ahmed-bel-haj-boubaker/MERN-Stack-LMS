@@ -9,7 +9,7 @@ export default function Home() {
 
       <Categories />
 
-     <Hero2/> 
+      <Hero2 />
     </>
   );
 }

@@ -3,6 +3,9 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import Logo from "../../public/images/logo.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import Ticket from "./Ticket";
 
 const Hero2 = () => {
   const ref = useRef(null);
@@ -25,45 +28,99 @@ const Hero2 = () => {
       initial={{ opacity: 0, y: 50 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.8, ease: "easeOut" }}
+      className="flex   "
     >
-      <div className="font-sans bg-gray-800 px-6 py-12 overflow-hidden">
-        <div className="grid md:grid-cols-2 items-center gap-12">
-          <motion.div>
-            <h2 className="text-white lg:text-5xl md:text-4xl text-3xl font-bold mb-4 lg:!leading-[55px]">
-              All your business finances in one app.
+      <div className="font-sans bg-gradient-to-br from-gray-100 via-white to-gray-200 px-6 py-12 overflow-hidden">
+        <div className="relative justify-around flex max-lg:flex-col items-center gap-12">
+          <div className="image-left w-[50%] lg:ml-8 xl:ml-12">
+            <motion.div
+              initial={{ y: 0 }}
+              animate={{
+                y: [0, -10, 0],
+              }}
+              transition={{
+                duration: 1,
+                ease: "easeInOut",
+                repeat: Infinity,
+                repeatType: "loop",
+              }}
+            >
+              <div>
+                <Image src={Logo} alt="logo" className="" />
+              </div>
+            </motion.div>
+          </div>
+
+          <motion.div className="w-full md:w-[50%]">
+            <div className="flex flex-col items-start mb-8">
+              <Ticket text="Get More About Us" />
+            </div>
+            <h2 className="text-gray-800 text-left md:text-2xl xl:text-5xl font-bold mb-4 leading-snug lg:leading-[55px]">
+              <div className="flex flex-col lg:flex-row items-start space-y-4 lg:space-y-0 lg:space-x-4 max-w-full">
+                <div className="flex text-left max-lg:text-2xl whitespace-nowrap">
+                  <div>All Your Business</div>
+                  <div className="px-5 bg-[url('/images/test.svg')] bg-cover bg-center rounded-lg text-center">
+                    In One App.
+                  </div>
+                </div>
+              </div>
             </h2>
-            <p className="text-white mt-6 text-base leading-relaxed">
-              Explore a curated collection of ready-to-use components and design
-              blocks, empowering you to create stunning, responsive interfaces
-              with ease. Streamline your workflow, amplify your creativity, and
-              discover the future of web development, all at your fingertips.
-            </p>
-            <div className="mt-12">
+            <div className="mt-4 text-left max-lg:text-2xl">
+              <p className="text-gray-500 mb-2">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Explicabo quia porro ullam, odio sit id facilis tenetur totam
+                itaque fugit autem accusamus illo sequi. Ipsum minus corrupti
+                blanditiis totam expedita.
+              </p>
+
+              <ul className="flex  mt-9 flex-col space-y-2">
+                {["Web Dev", "App Dev", "UI/UX Design"].map((text, index) => (
+                  <li
+                    key={index}
+                    className="text-black font-bold flex items-center"
+                  >
+                    <span
+                      className="flex items-center justify-center px-4 py-3 rounded-full transition-transform transform hover:scale-105 duration-200 ease-in-out bg-indigo-600 hover:bg-yellow-400 hover:border hover:border-black"
+                      style={{
+                        transition:
+                          "box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out",
+                      }}
+                      onMouseLeave={(e) =>
+                        (e.currentTarget.style.boxShadow = "none")
+                      }
+                      onMouseEnter={(e) =>
+                        (e.currentTarget.style.boxShadow = "3px 3px 0px black")
+                      }
+                    >
+                      <FontAwesomeIcon
+                        icon={faChevronRight}
+                        className="text-white"
+                      />
+                    </span>
+                    <span className="ml-2">{text}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="mt-12 text-left">
               <button
                 type="button"
-                className="bg-white hover:bg-gray-100 transition-all text-gray-800 font-bold text-sm rounded px-5 py-3"
+                className="text-white font-bold text-sm px-4 py-3 rounded-full transition-transform transform hover:scale-105 duration-200 ease-in-out bg-indigo-600 hover:bg-yellow-400 hover:border hover:border-black"
+                style={{
+                  transition:
+                    "box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out",
+                }}
+                onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "none")}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.boxShadow = "3px 3px 0px black")
+                }
               >
                 Getting Started
               </button>
-              <a className="text-white text-sm font-bold underline sm:ml-6 max-sm:mt-4 max-sm:block whitespace-nowrap">
+              <a className="text-black text-sm font-bold underline sm:ml-6 max-sm:mt-4 max-sm:block whitespace-nowrap">
                 API Documentation
               </a>
             </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ y: 0 }}
-            animate={{
-              y: [0, -10, 0], 
-            }}
-            transition={{
-              duration: 1, 
-              ease: "easeInOut", 
-              repeat: Infinity, 
-              repeatType: "loop",  
-            }}
-          >
-            <Image src={Logo} alt="logo" className=" absolute right-0 -top-60" />
           </motion.div>
         </div>
       </div>
