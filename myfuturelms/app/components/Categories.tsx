@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
@@ -123,7 +123,7 @@ const Categories = () => {
       initial={{ opacity: 0, y: 50 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className="p-5 mb-40 max-lg:mb-20 mt-11 "
+      className="p-5 mb-40 max-lg:mb-20 mt-11 bg-white "
     >
       <div className="flex flex-col items-center mb-8">
         <Ticket text="Trending Categories" />
@@ -131,15 +131,15 @@ const Categories = () => {
           Top <span className="text-indigo-600">Categories</span>That We Have
         </h2>
       </div>
-      <div className="relative max-w-6xl mx-auto mt-10 px-4 sm:px-6 lg:px-8 py-6 bg-gray-50 xl:rounded-full shadow-lg sm:rounded-2xl bg-gradient-to-b from-gray-100 to-gray-50 ">
+      <div className="relative max-w-6xl mx-auto xl:mt-10 xl:mb-28  md:mt-5 md:mb-14 px-4 sm:px-6 lg:px-8 py-6 bg-white xl:rounded-full shadow-lg sm:rounded-2xl   ">
         <Slider {...settings}>
           {categoryImages.map((category, index) => (
             <div
               key={index}
-              className="flex flex-col items-center justify-center space-y-2 px-4 py-4 md:px-6 lg:px-8"
+              className="flex flex-col items-center justify-center space-y-2 px-4 py-4 md:px-6 lg:px-8 bg-white "
             >
               <div
-                className="flex items-center justify-center w-20 h-20 bg-white rounded-full border border-gray-400 transition-transform transform hover:scale-105 duration-200 ease-in-out"
+                className="flex items-center justify-center w-20 h-20 rounded-full border border-gray-400 transition-transform transform hover:scale-105 duration-200 ease-in-out"
                 style={{
                   transition:
                     "box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out",

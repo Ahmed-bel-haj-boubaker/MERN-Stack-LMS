@@ -150,7 +150,7 @@ const Navbar = () => {
               </span>
             </div>
             <button
-              className="px-3 py-2 text-white font-bold rounded-full transition-transform transform hover:scale-105 duration-200 ease-in-out bg-yellow-400 hover:bg-indigo-600 hover:text-white"
+              className="px-3 py-2 text-black font-bold rounded-full transition-transform transform hover:scale-105 duration-200 ease-in-out bg-yellow-400 hover:bg-indigo-600 hover:text-white"
               style={{
                 boxShadow: "4px 4px 0px black",
                 transition:

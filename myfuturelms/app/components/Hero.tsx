@@ -22,7 +22,7 @@ const Hero = () => {
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
-      <section className="bg-gradient-to-br from-gray-100 via-white to-gray-200 text-gray-800">
+      <section className=" text-gray-800">
         <div className="container flex flex-col-reverse justify-center p-6 mx-auto sm:py-12 lg:py-24 lg:flex-row lg:justify-between">
           <div className="flex flex-col justify-center p-6 text-center lg:max-w-md xl:max-w-lg lg:text-left max-lg:text-center">
             <h1 className="text-4xl font-bold leading-tight max-lg:text-2xl   md:text-6xl lg:text-5xl ">
