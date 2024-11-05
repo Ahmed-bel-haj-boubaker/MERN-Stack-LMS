@@ -21,12 +21,25 @@ const CourseCard: React.FC<CourseProps> = ({
   price,
 }) => {
   return (
-    <div className="border border-black rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out p-4 w-80 flex flex-col justify-between mx-0">
+    <div
+      className="  transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-2xl border border-black rounded-lg shadow-lg  p-4 w-full sm:w-80 flex flex-col  justify-between mx-2"
+      style={{
+        boxShadow: "6px 6px 6px rgba(0, 0, 0, 0.2)",
+        transition: "box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out",
+      }}
+      onMouseEnter={(e) => (e.currentTarget.style.boxShadow = "none")}
+      onMouseLeave={(e) =>
+        (e.currentTarget.style.boxShadow = "9px 9px 0px rgba(0, 0, 0, 0.2)")
+      }
+    >
       <div className="relative">
         <Image
           src={courseThumbnails}
           alt="course image"
           className="rounded-t-lg"
+          layout="responsive"
+          width={400}
+          height={250}
         />
       </div>
 

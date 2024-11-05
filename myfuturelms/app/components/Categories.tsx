@@ -42,7 +42,7 @@ const LeftArrow = (props: any) => {
   return (
     <div
       className="absolute xl:left-[50vh] top-64   transform -translate-y-1/2 cursor-pointer xl:block hidden 
-    transition-all duration-300 ease-in-out bg-indigo-600  hover:scale-110 hover:bg-indigo-700 hover:shadow-lg"
+    transition-all duration-300 ease-in-out bg-indigo-600   hover:bg-indigo-700 hover:scale-110 hover:shadow-lg"
       onClick={onClick}
       style={{
         boxShadow: "4px 4px 0px rgba(0, 0, 0, 0.2)",
