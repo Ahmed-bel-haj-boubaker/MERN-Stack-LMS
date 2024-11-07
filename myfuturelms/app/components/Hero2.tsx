@@ -9,6 +9,8 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import Ticket from "./Ticket";
+import Lottie from "lottie-react";
+import Pc from "../../public/images/LottieIFiles/pc.json";
 
 const Hero2 = () => {
   const ref = useRef(null);
@@ -31,7 +33,7 @@ const Hero2 = () => {
       initial={{ opacity: 0, y: 50 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className="flex "
+      className="flex max-lg:mb-28 "
     >
       <div className="font-sans px-6 py-7 overflow-hidden">
         <div className="relative justify-around flex max-lg:flex-col items-center gap-12">
@@ -49,7 +51,8 @@ const Hero2 = () => {
               }}
             >
               <div>
-                <Image src={Logo} alt="logo" className="" />
+                <Lottie animationData={Pc} loop={true} className="h-full w-[80%]" />
+               
               </div>
             </motion.div>
           </div>
@@ -68,7 +71,7 @@ const Hero2 = () => {
                 </div>
               </div>
             </h2>
-            <div className="mt-4 max-lg:text-2xl">
+            <div className="mt-4 max-lg:text-xl">
               <p className="text-gray-500 mb-2">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Explicabo quia porro ullam, odio sit id facilis tenetur totam

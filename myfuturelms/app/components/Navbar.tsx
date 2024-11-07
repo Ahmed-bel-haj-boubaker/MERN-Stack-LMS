@@ -7,6 +7,7 @@ import {
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
 import { useState } from "react";
+import Button from "./Button";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -149,20 +150,8 @@ const Navbar = () => {
                 0
               </span>
             </div>
-            <button
-              className="px-3 py-2 border border-black text-black font-bold rounded-full transition-transform transform hover:scale-105 duration-200 ease-in-out bg-yellow-400 hover:bg-indigo-600 hover:text-white"
-              style={{
-                boxShadow: "4px 4px 0px black",
-                transition:
-                  "box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out",
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.boxShadow = "none")}
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.boxShadow = "4px 4px 0px black")
-              }
-            >
-              Sign Up
-            </button>
+
+            <Button text="Sign Up" />
           </div>
         </div>
       </nav>

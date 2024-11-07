@@ -20,15 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className}  `}>
-        <TopBar />
-
-        <div className="shadow-md sticky top-0 z-50">
-          <Navbar />
-        </div>
-
         <main className="">{children}</main>
-
-        <Footer />
       </body>
     </html>
   );

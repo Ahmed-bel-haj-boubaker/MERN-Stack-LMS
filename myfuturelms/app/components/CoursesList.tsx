@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
@@ -136,10 +137,10 @@ const CoursesList = () => {
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y: 10 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className="p-5 mb-40 max-lg:mb-20 mt-16 bg-white"
+      className="p-5 mb-20 max-lg:mb-20 mt-16 bg-white"
     >
       <div className="flex flex-col items-center mb-8 mt-16">
         <Ticket text="Trending Courses" />

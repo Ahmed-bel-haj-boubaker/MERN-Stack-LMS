@@ -1,15 +1,13 @@
 import Image from "next/image";
 import Logo from "../../public/images/logo.png";
-import PlayStore from "../../public/images/googleplay.png";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#1A1A3F] text-white py-12">
+    <footer className="bg-[#111133] text-white pt-7">
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
-        {/* Logo and Contact Info */}
-        <div>
-          <Image src={Logo} alt="SkillGro" className="mb-4 size-44" />
-          <p className="mb-4 text-sm">
+        <div className="text-gray-500 font-poppins">
+          <Image src={Logo} alt="SkillGro" className="mb-4 w-10 h-10" />
+          <p className="mb-4 text-lg">
             when an unknown printer took galley of type and scrambled it to make
             specimen book has.
           </p>
@@ -17,9 +15,10 @@ const Footer = () => {
           <p>+123 88 9900 456</p>
         </div>
 
-        {/* Useful Links */}
         <div>
-          <h3 className="font-bold mb-4 text-lg">Useful Links</h3>
+          <h3 className="font-bold mb-4 text-lg   decoration-indigo-400">
+            Useful Links
+          </h3>
           <ul className="space-y-2">
             {[
               "Our values",
@@ -32,7 +31,7 @@ const Footer = () => {
               <li key={link}>
                 <a
                   href="#"
-                  className="hover:underline hover:text-indigo-400 transition-colors"
+                  className="hover:underline hover:text-indigo-400 transition-colors text-gray-500 font-poppins "
                 >
                   {link}
                 </a>
@@ -41,9 +40,10 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* Company Links */}
         <div>
-          <h3 className="font-bold mb-4 text-lg">Our Company</h3>
+          <h3 className="font-bold mb-4 text-lg   decoration-indigo-400">
+            Our Company
+          </h3>
           <ul className="space-y-2">
             {[
               "Contact Us",
@@ -55,7 +55,7 @@ const Footer = () => {
               <li key={link}>
                 <a
                   href="#"
-                  className="hover:underline hover:text-indigo-400 transition-colors"
+                  className="hover:underline hover:text-indigo-400 transition-colors text-gray-500 font-poppins"
                 >
                   {link}
                 </a>
@@ -64,10 +64,11 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* Get In Touch */}
         <div>
-          <h3 className="font-bold mb-4 text-lg">Get In Touch</h3>
-          <p className="mb-4 text-sm">
+          <h3 className="font-bold mb-4 text-lg    decoration-indigo-400">
+            Get In Touch
+          </h3>
+          <p className="mb-4 text-sm text-gray-500 font-poppins">
             when an unknown printer took galley type and scrambled
           </p>
           <div className="flex space-x-4 mb-4">
@@ -87,18 +88,12 @@ const Footer = () => {
               </a>
             ))}
           </div>
-          <div className="flex space-x-4">
-            <a href="#">
-              <Image src={PlayStore} alt="Google Play" className="w-32" />
-            </a>
-          </div>
         </div>
       </div>
 
-      {/* Footer Bottom */}
-      <div className="border-t border-gray-700 mt-8 pt-4 text-center text-sm">
-        <p>© 2010-2024 edinexus.com. All rights reserved.</p>
-        <div className="flex justify-center space-x-4 mt-2">
+      <div className="flex flex-col md:flex-row items-center justify-around pb-3 border-t border-gray-700 mt-8 pt-10 text-sm bg-[#1d1d44] mx-auto">
+        <p>© 2010-2024 skillgro.com. All rights reserved.</p>
+        <div className="flex gap-2">
           <a
             href="#"
             className="hover:underline hover:text-indigo-400 transition-colors"

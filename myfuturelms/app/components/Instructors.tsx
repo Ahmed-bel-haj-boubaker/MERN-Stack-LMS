@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -6,7 +7,7 @@ import { faFacebookF, faInstagram } from "@fortawesome/free-brands-svg-icons";
 
 export const Instructors = () => {
   return (
-    <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full   md:px-24 lg:px-8 lg:py-20 bg-white">
+    <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full  md:px-24 lg:px-8 lg:py-20 bg-white">
       <div className="mx-auto mb-10 lg:max-w-xl sm:text-center ">
         <div className="flex flex-col items-center mb-8">
           <div className="text-4xl font-bold leading-tight max-lg:text-2xl md:text-6xl lg:text-5xl text-center mt-4">

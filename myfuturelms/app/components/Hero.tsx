@@ -9,6 +9,7 @@ import ReactJs from "../../public/images/react-svgrepo-com.svg";
 import Python from "../../public/images/python-svgrepo-com.svg";
 import Tailwind from "../../public/images/tailwind-svgrepo-com.svg";
 import Unamedq from "../../public/images/unnamed.png";
+
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 
@@ -27,7 +28,7 @@ const Hero = () => {
           <div className="flex flex-col justify-center p-6 text-center lg:max-w-md xl:max-w-lg lg:text-left max-lg:text-center">
             <h1 className="text-4xl font-bold leading-tight max-lg:text-2xl   md:text-6xl lg:text-5xl ">
               <div className="hidden xl:flex xl:pl-96 ">
-                <Image src={Unamedq} alt="" className="size-24   " />
+                <Image src={Unamedq} alt="ll" />
               </div>
               Elevate Your{" "}
               <span className="text-indigo-600 mr-1"> Learning</span>
