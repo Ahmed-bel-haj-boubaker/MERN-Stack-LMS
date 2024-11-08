@@ -558,7 +558,18 @@ export const GithubAuth = CatchAsyncError(
           return next(new ErrorHandler("User not found", 404));
         }
 
-        sendToken(user, 200, res);
+        console.log("User authenticated:", user);
+
+        res.cookie("access_token", user.SignAccessToken(), {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+          maxAge: 3600000, // 1 hour
+        });
+
+        console.log("Access token set in cookies. Redirecting...");
+
+        // Redirect to the home page
+        return res.redirect("http://localhost:3000/home");
       }
     )(req, res, next);
   }
