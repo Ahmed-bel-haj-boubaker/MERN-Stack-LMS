@@ -36,7 +36,7 @@ export const sendToken = (user: IUser, statusCode: number, res: Response) => {
 
   redis.set(user._id as string, JSON.stringify(user) as any);
 
-  // parse env vriable to integrates with fallback values
+  // parse env variable to integrates with fallback values
 
   if (process.env.NODE_ENV === "production") {
     accessTokenOptions.secure = true;

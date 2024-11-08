@@ -1,14 +1,66 @@
 "use client";
-import Lottie from "lottie-react";
-import Wwww from "../../../public/images/LottieIFiles/wwww.json";
+import { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Google from "../../../public/images/google.png";
 import Button from "@/app/components/Button";
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
-/* eslint-disable react/no-unescaped-entities */
+import { faGithub } from "@fortawesome/free-brands-svg-icons/faGithub";
+import { useRouter } from "next/navigation";
+import Wwww from "../../../public/images/LottieIFiles/wwww.json";
+import Api from "@/app/Api's";
 
+// Dynamically import Lottie with SSR disabled
+const LottieAnimation = dynamic(() => import("lottie-react"), { ssr: false });
+interface ApiResponse {
+  success: boolean;
+  activationToken: string;
+}
 const SignUp = () => {
+  const [username, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
+  const router = useRouter();
+
+  const handleUsernameChange = (e: any) => setUserName(e.target.value);
+  const handleEmailChange = (e: any) => setEmail(e.target.value);
+  const handlePasswordChange = (e: any) => setPassword(e.target.value);
+
+  const handleSignUp = async () => {
+    try {
+      const response = await axios.post<ApiResponse>(Api.register, {
+        username,
+        email,
+        password,
+      });
+
+      const res = response.data;
+
+      if (res.success) {
+        sessionStorage.setItem("activation_token", res.activationToken);
+
+        const url = new URL("/activation-code", window.location.origin);
+        url.searchParams.append("email", email);
+        router.push(url.toString());
+      }
+    } catch (error) {
+      console.error("Sign-up failed", error);
+    }
+  };
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="relative flex flex-col m-8 space-y-8 bg-white shadow-2xl rounded-3xl md:flex-row md:space-y-0 w-full max-w-6xl">
@@ -19,22 +71,26 @@ const SignUp = () => {
           </span>
 
           <div className="py-5">
-            <span className="mb-3 text-lg">Full Name</span>
+            <span className="mb-3 text-lg">Username</span>
             <input
               type="text"
               className="w-full p-3 border border-gray-300 rounded-lg placeholder:font-light placeholder:text-gray-500 text-lg"
               name="fullname"
               id="fullname"
+              value={username}
+              onChange={handleUsernameChange}
             />
           </div>
 
           <div className="py-5">
             <span className="mb-3 text-lg">Email</span>
             <input
-              type="text"
+              type="email"
               className="w-full p-3 border border-gray-300 rounded-lg placeholder:font-light placeholder:text-gray-500 text-lg"
               name="email"
               id="email"
+              value={email}
+              onChange={handleEmailChange}
             />
           </div>
 
@@ -45,10 +101,12 @@ const SignUp = () => {
               name="password"
               id="password"
               className="w-full p-3 border border-gray-300 rounded-lg placeholder:font-light placeholder:text-gray-500 text-lg"
+              value={password}
+              onChange={handlePasswordChange}
             />
           </div>
 
-          <Button text="Sign up" />
+          <Button text="Sign up" onClicks={handleSignUp} />
 
           <div className="flex items-center my-4">
             <div className="h-[1px] bg-gray-300 flex-1"></div>
@@ -58,7 +116,13 @@ const SignUp = () => {
 
           <div className="flex justify-around">
             <button className="border border-gray-300 text-lg p-4 rounded-lg mb-8 hover:bg-black hover:text-white transition-all flex items-center">
-              <Image src={Google} alt="google" className="w-6 h-6 mr-3" />
+              <Image
+                src={Google}
+                alt="google"
+                width={24}
+                height={24}
+                loading="lazy"
+              />
               Google
             </button>
             <button className="flex items-center border border-gray-300 text-lg p-4 rounded-lg mb-8 hover:bg-black hover:text-white transition-all">
@@ -75,14 +139,16 @@ const SignUp = () => {
             </span>
           </div>
         </div>
-
-        <div className="relative w-full md:w-1/2 flex items-center max-lg:hidden">
-          <Lottie
-            animationData={Wwww}
-            loop={true}
-            className="w-[500px] h-full hidden md:block rounded-r-3xl object-cover"
-          />
-        </div>
+        {/* Conditionally render Lottie only for large screens */}{" "}
+        {isLargeScreen && (
+          <div className="relative w-full md:w-1/2 flex items-center max-lg:hidden">
+            <LottieAnimation
+              animationData={Wwww}
+              loop={true}
+              className="w-[500px] h-full hidden md:block rounded-r-3xl object-cover"
+            />
+          </div>
+        )}
       </div>
     </div>
   );

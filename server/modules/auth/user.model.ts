@@ -7,7 +7,7 @@ require("dotenv").config();
 const emailRegexPattrern: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export interface IUser extends Document {
-  name: string;
+  username: string;
   email: string;
   password: string;
   avatar: {
@@ -36,9 +36,9 @@ export interface IUser extends Document {
 
 const userSchema: Schema<IUser> = new mongoose.Schema(
   {
-    name: {
+    username: {
       type: String,
-      required: [true, "Please enter your name"],
+      required: [true, "Please enter your  username"],
     },
     email: {
       type: String,

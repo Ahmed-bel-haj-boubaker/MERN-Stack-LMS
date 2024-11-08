@@ -33,14 +33,15 @@ require("dotenv").config();
 export const registrationUser = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { name, email, password, avatar } = req.body as IRegistrationBody;
+      const { username, email, password, avatar } =
+        req.body as IRegistrationBody;
       const isEmailExist = await userModel.find({ email: email });
       if (!isEmailExist) {
         return next(new ErrorHandler("Email already exist", 400));
       }
 
       const user: IRegistrationBody = {
-        name,
+        username,
         email,
         password,
       };
@@ -49,10 +50,10 @@ export const registrationUser = CatchAsyncError(
 
       const activationCode = activationToken.activationCode;
 
-      const data = { user: { name: user.name }, activationCode };
-
+      const data = { user: { username: user.username }, activationCode };
+      console.log("data", data);
       const html = await ejs.renderFile(
-        path.join(__dirname, "../mails/activation-mail.ejs"),
+        path.join(__dirname, "../../mails/activation-mail.ejs"),
         data
       );
 
@@ -104,14 +105,15 @@ export const activatedUser = CatchAsyncError(
         return next(new ErrorHandler("Invalid activation code", 400));
       }
 
-      const { email, password, name } = newUser.user;
+      const { email, password, username } = newUser.user;
+      console.log(email, password, username);
       const existUser = await userModel.findOne({ email });
       if (existUser) {
         return next(new ErrorHandler("user already exist", 400));
       }
 
       const user = await userModel.create({
-        name,
+        username,
         email,
         password,
       });
@@ -384,4 +386,3 @@ export const deleteUser = CatchAsyncError(
     }
   }
 );
-

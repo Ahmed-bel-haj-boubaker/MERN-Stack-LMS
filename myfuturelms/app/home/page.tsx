@@ -11,10 +11,10 @@ import Features from "../components/Featues";
 const Home = () => {
   return (
     <div className="bg-gray-100">
-      <Hero />
+      {/* <Hero /> */}
 
       <Categories />
-
+      {/*
       <div className="-mt-28">
         <Hero2 />
       </div>
@@ -33,7 +33,7 @@ const Home = () => {
       </div>
       <div className="xl:-mt-2 mt-10">
         <Features />
-      </div>
+      </div> */}
     </div>
   );
 };

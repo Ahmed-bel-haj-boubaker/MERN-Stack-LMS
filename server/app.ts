@@ -25,7 +25,20 @@ app.use(cookieParser());
 
 //cors ==> cross origin ressource sharing
 
-app.use(cors({ origin: process.env.ORIGIN }));
+const allowedOrigins = process.env.ORIGIN?.split(",") || [];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true, // If you need cookies or other credentials
+  })
+);
 
 app.use(
   "/api/v1",
