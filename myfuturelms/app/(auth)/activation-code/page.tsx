@@ -1,5 +1,5 @@
 "use client";
-import { useSearchParams } from "next/navigation";
+import { redirect, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import Api from "../../Api's";
 const ActivationCode: React.FC = () => {
@@ -49,6 +49,7 @@ const ActivationCode: React.FC = () => {
 
       if (response.ok) {
         console.log("Account activated successfully!", result);
+        redirect("/login");
       } else {
         setError(
           result?.message || "An error occurred while activating the account."

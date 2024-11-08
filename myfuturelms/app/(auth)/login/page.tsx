@@ -9,6 +9,7 @@ import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { useState } from "react";
 import Api from "@/app/Api's";
 import axios from "axios";
+import Link from "next/link";
 /* eslint-disable react/no-unescaped-entities */
 
 const Login = () => {
@@ -89,8 +90,10 @@ const Login = () => {
           <div className="text-center text-gray-500 text-lg">
             Don't have an account?{" "}
             <span className="font-bold text-black cursor-pointer relative group">
+            <Link href="/sign-up">
               Sign up for free
               <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-black transition-all duration-300 group-hover:w-full"></span>
+              </Link>
             </span>
           </div>
         </div>

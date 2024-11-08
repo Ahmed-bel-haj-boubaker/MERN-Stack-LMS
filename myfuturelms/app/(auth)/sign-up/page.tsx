@@ -9,7 +9,8 @@ import { faGithub } from "@fortawesome/free-brands-svg-icons/faGithub";
 import { useRouter } from "next/navigation";
 import Wwww from "../../../public/images/LottieIFiles/wwww.json";
 import Api from "@/app/Api's";
-
+import Link from "next/link";
+import axios from "axios";
 // Dynamically import Lottie with SSR disabled
 const LottieAnimation = dynamic(() => import("lottie-react"), { ssr: false });
 interface ApiResponse {
@@ -134,8 +135,10 @@ const SignUp = () => {
           <div className="text-center text-gray-500 text-lg">
             Already have an account?{" "}
             <span className="font-bold text-black cursor-pointer relative group">
-              Sign in
-              <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-black transition-all duration-300 group-hover:w-full"></span>
+              <Link href="/login">
+                Sign in
+                <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-black transition-all duration-300 group-hover:w-full"></span>
+              </Link>
             </span>
           </div>
         </div>

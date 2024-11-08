@@ -51,7 +51,7 @@ export const registrationUser = CatchAsyncError(
       const activationCode = activationToken.activationCode;
 
       const data = { user: { username: user.username }, activationCode };
-      console.log("data", data);
+
       const html = await ejs.renderFile(
         path.join(__dirname, "../../mails/activation-mail.ejs"),
         data
@@ -106,7 +106,6 @@ export const activatedUser = CatchAsyncError(
       }
 
       const { email, password, username } = newUser.user;
-      console.log(email, password, username);
       const existUser = await userModel.findOne({ email });
       if (existUser) {
         return next(new ErrorHandler("user already exist", 400));
@@ -247,6 +246,75 @@ export const socialAuth = CatchAsyncError(
   }
 );
 
+export const forgotPassword = CatchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { email } = req.body;
+
+    // Check if user exists with this email
+    const user = await userModel.findOne({ email });
+    if (!user) {
+      return next(new ErrorHandler("User with this email does not exist", 404));
+    }
+
+    const activationToken = createActivationToken(user);
+
+    const verificationCode = activationToken.activationCode;
+
+    await redis.set(email, verificationCode, "EX", 300);
+
+    const data = { user: { username: user.username }, verificationCode };
+    const html = await ejs.renderFile(
+      path.join(__dirname, "../../mails/forgot-password.ejs"),
+      data
+    );
+
+    try {
+      await sendEmail({
+        email: user.email,
+        subject: "Password Reset Code",
+        template: "forgot-password.ejs",
+        data,
+      });
+
+      res.status(200).json({
+        success: true,
+        message: `A verification code has been sent to ${user.email}. Please enter this code to reset your password.`,
+        activationToken: activationToken.token,
+      });
+    } catch (error: any) {
+      console.log(error);
+      return next(new ErrorHandler("Email could not be sent", 500));
+    }
+  }
+);
+
+export const verifyCode = CatchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { email, verificationCode } = req.body;
+
+    // Check if email and verification code are provided
+    if (!email || !verificationCode) {
+      return next(
+        new ErrorHandler("Please provide both email and verification code", 400)
+      );
+    }
+
+    // Retrieve the stored code from Redis
+    const storedCode = await redis.get(email);
+
+    // Check if the stored code matches the provided verification code
+    if (!storedCode || storedCode !== verificationCode) {
+      return next(
+        new ErrorHandler("Invalid or expired verification code", 400)
+      );
+    }
+
+    // Verification successful; proceed to the next step
+    res
+      .status(200)
+      .json({ success: true, message: "Verification code is valid" });
+  }
+);
 export const updateUserInfo = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     const { name, email } = req.body as IUpdateUserInfo;
