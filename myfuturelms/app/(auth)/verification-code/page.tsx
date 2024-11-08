@@ -1,12 +1,12 @@
 "use client";
 import Api from "@/app/Api's";
 import Button from "@/app/components/Button";
-import { redirect, useSearchParams } from "next/navigation";
+import { redirect, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 const VerificationCode: React.FC = () => {
   const searchParams = useSearchParams();
-  const email = searchParams.get("email");
+  const email = searchParams.get("email") as string;
   const activation_token = sessionStorage.getItem("activation_token");
   console.log(activation_token);
 
@@ -18,6 +18,7 @@ const VerificationCode: React.FC = () => {
   ]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
+  const router = useRouter();
 
   const handleInputChange = (index: number, value: string) => {
     const newCode = [...activationCode];
@@ -51,8 +52,9 @@ const VerificationCode: React.FC = () => {
       const result = await response.json();
 
       if (response.ok) {
-        console.log("Account activated successfully!", result);
-        redirect("/login");
+        const url = new URL("/change-password", window.location.origin);
+        url.searchParams.append("email", email);
+        router.push(url.toString());
       } else {
         setError(
           result?.message || "An error occurred while activating the account."

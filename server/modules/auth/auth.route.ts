@@ -6,7 +6,6 @@ import {
   loginUser,
   logoutUser,
   registrationUser,
-  socialAuth,
   updataAccessToken,
   updateProfilePic,
   updateUserInfo,
@@ -14,10 +13,12 @@ import {
   updateUserRole,
   forgotPassword,
   verifyCode,
-  updatePasswordWithNewCode
+  updatePasswordWithNewCode,
+  GithubAuth,
 } from "./auth.controller";
 import express from "express";
 import { authorizedRoles, isAuthenticated } from "../../middleware/auth";
+import passport from "passport";
 const authRouter = express.Router();
 
 authRouter.route("/register").post(registrationUser);
@@ -29,7 +30,15 @@ authRouter.route("/change-password").post(updatePasswordWithNewCode);
 authRouter.route("/logout-user").get(isAuthenticated, logoutUser);
 authRouter.route("/refresh").get(updataAccessToken);
 authRouter.route("/me").get(isAuthenticated, getUserInfo);
-authRouter.route("/social-auth").post(socialAuth);
+
+authRouter.route("/auth/github").get(
+  passport.authenticate("github", {
+    scope: ["user:email"],
+  })
+);
+
+authRouter.route("/auth/github/callback").get(GithubAuth);
+
 authRouter.route("/update-user-info").patch(isAuthenticated, updateUserInfo);
 authRouter
   .route("/update-user-password")

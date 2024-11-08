@@ -1,4 +1,4 @@
-import mongoose, { Document, Model, Schema } from "mongoose";
+import mongoose, { Schema, Document } from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
@@ -29,16 +29,20 @@ export interface IUser extends Document {
   planStartDate?: Date;
   planEndDate?: Date;
   isPlanActive?: boolean;
-  comparePassword: (password: string) => Promise<boolean>;
-  SignAccessToken: () => string;
-  SignRefreshToken: () => string;
+  githubId: string; // GitHub ID
+  githubUsername: string; // GitHub username
+  githubUrl: string; // GitHub profile URL
+  socialLogin: boolean; // Flag for social login
+  comparePassword: (password: string) => Promise<boolean>; // Method for password comparison
+  SignAccessToken: () => string; // Method to sign access token
+  SignRefreshToken: () => string; // Method to sign refresh token
 }
 
 const userSchema: Schema<IUser> = new mongoose.Schema(
   {
     username: {
       type: String,
-      required: [true, "Please enter your  username"],
+      required: [true, "Please enter your username"],
     },
     email: {
       type: String,
@@ -54,7 +58,7 @@ const userSchema: Schema<IUser> = new mongoose.Schema(
     password: {
       type: String,
       select: false,
-      minlength: [6, "Password much be at least 5 characters"],
+      minlength: [6, "Password must be at least 6 characters"],
     },
     avatar: {
       public_id: String,
@@ -119,6 +123,23 @@ const userSchema: Schema<IUser> = new mongoose.Schema(
       type: [mongoose.Schema.Types.ObjectId],
       ref: "AdminCourse",
       required: true,
+    },
+    // GitHub fields for social login
+    githubId: {
+      type: String,
+      required: [true, "GitHub ID is required for social login"],
+    },
+    githubUsername: {
+      type: String,
+      required: [true, "GitHub Username is required for social login"],
+    },
+    githubUrl: {
+      type: String,
+      required: [true, "GitHub URL is required for social login"],
+    },
+    socialLogin: {
+      type: Boolean,
+      default: true, // Default to true for social login users
     },
   },
   { timestamps: true }

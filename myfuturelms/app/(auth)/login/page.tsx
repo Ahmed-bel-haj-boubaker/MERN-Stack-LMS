@@ -1,4 +1,5 @@
 "use client";
+
 import Lottie from "lottie-react";
 import PcTable from "../../../public/images/LottieIFiles/tablepc.json";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,12 +11,18 @@ import { useState } from "react";
 import Api from "@/app/Api's";
 import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+
 /* eslint-disable react/no-unescaped-entities */
 
 const Login = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const router = useRouter();
 
+  const handleGitHubLogin = () => {
+    router.push(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/auth/github`);
+  };
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
@@ -65,7 +72,8 @@ const Login = () => {
               <span>Remember for 30 days</span>
             </div>
             <span className="font-bold text-black cursor-pointer relative group">
-              Forgot Password
+              <Link href="/forgot-password"> Forgot Password</Link>
+
               <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-black transition-all duration-300 group-hover:w-full"></span>
             </span>
           </div>
@@ -82,7 +90,10 @@ const Login = () => {
               <Image src={Google} alt="google" className="size-9 inline mr-3" />
               Google
             </button>
-            <button className="flex items-center border border-gray-300 text-lg p-4 rounded-lg mb-8 hover:bg-black hover:text-white transition-all">
+            <button
+              onClick={handleGitHubLogin}
+              className="flex items-center border border-gray-300 text-lg p-4 rounded-lg mb-8 hover:bg-black hover:text-white transition-all"
+            >
               <FontAwesomeIcon icon={faGithub} className="size-9 inline mr-3" />
               Github
             </button>
@@ -90,9 +101,9 @@ const Login = () => {
           <div className="text-center text-gray-500 text-lg">
             Don't have an account?{" "}
             <span className="font-bold text-black cursor-pointer relative group">
-            <Link href="/sign-up">
-              Sign up for free
-              <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-black transition-all duration-300 group-hover:w-full"></span>
+              <Link href="/sign-up">
+                Sign up for free
+                <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-black transition-all duration-300 group-hover:w-full"></span>
               </Link>
             </span>
           </div>

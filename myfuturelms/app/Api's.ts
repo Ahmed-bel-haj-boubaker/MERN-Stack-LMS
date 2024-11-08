@@ -5,6 +5,7 @@ interface IApi {
   login: string;
   forgot_password: string;
   verify_code: string;
+  change_password: string;
 }
 
 const Api: IApi = {
@@ -14,6 +15,7 @@ const Api: IApi = {
   login: "http://localhost:8000/api/v1/login-user",
   forgot_password: "http://localhost:8000/api/v1/forget-password",
   verify_code: "http://localhost:8000/api/v1/verify-code",
+  change_password: "http://localhost:8000/api/v1/change-password",
 };
 
 export default Api;

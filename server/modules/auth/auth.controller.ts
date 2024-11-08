@@ -28,6 +28,9 @@ import {
   getUserById,
   updateUserRoleService,
 } from "./user.service";
+import passport from "passport";
+import { Strategy as GitHubStrategy } from "passport-github2";
+
 require("dotenv").config();
 
 export const registrationUser = CatchAsyncError(
@@ -224,22 +227,6 @@ export const getUserInfo = CatchAsyncError(
       }
 
       res.status(200).json({ success: true, user });
-    } catch (error: any) {
-      return next(new ErrorHandler(error.message, 400));
-    }
-  }
-);
-export const socialAuth = CatchAsyncError(
-  async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const { email, avatar, name } = req.body as ISocialAuthBody;
-      const user = await userModel.findOne({ email });
-      if (!user) {
-        const newUser = await userModel.create({ email, avatar, name });
-        sendToken(newUser, 200, res);
-      } else {
-        sendToken(user, 200, res);
-      }
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 400));
     }
@@ -496,5 +483,83 @@ export const deleteUser = CatchAsyncError(
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 400));
     }
+  }
+);
+
+passport.use(
+  new GitHubStrategy(
+    {
+      clientID: process.env.GITHUB_CLIENT_ID as string,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
+      callbackURL: `${process.env.SERVER_URL}/api/v1/auth/github/callback`,
+      scope: ["user:email"],
+    },
+    async (
+      accessToken: string,
+      refreshToken: string,
+      profile: any,
+      done: any
+    ) => {
+      try {
+        const { id, username, photos, emails } = profile;
+        const email = emails && emails[0]?.value;
+        const avatar = photos?.[0]?.value;
+
+        // If no email is found, return an error
+        if (!email) {
+          return done(new Error("No email found in GitHub profile"), null);
+        }
+
+        // Check if user already exists in the database
+        let user = await userModel.findOne({ email });
+
+        if (!user) {
+          // If user doesn't exist, create a new one
+          // Use GitHub login as the username if it's available
+          const newUsername = username || `github_${id}`; // Fallback to GitHub id if username is not available
+
+          user = await userModel.create({
+            githubId: id,
+            username: newUsername, // Ensure username is always provided
+            githubUsername: username,
+            githubUrl: profile.profileUrl, // Assuming profileUrl is available in GitHub profile
+            avatar: {
+              public_id: "", // If you are using a file service like Cloudinary, you can store the public_id here
+              url: avatar,
+            },
+            email,
+            socialLogin: true, // Indicating this user logged in via GitHub
+          });
+        }
+
+        // Return the user object to the callback function
+        return done(null, user);
+      } catch (error) {
+        console.error("GitHub authentication error:", error);
+        return done(error, null);
+      }
+    }
+  )
+);
+
+export const GithubAuth = CatchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    passport.authenticate(
+      "github",
+      { session: false },
+      (err: any, user: any, info: any) => {
+        if (err) {
+          console.error("Authentication Error: ", err);
+          return next(new ErrorHandler("Authentication failed", 500));
+        }
+
+        if (!user) {
+          console.log("User not found: ", info);
+          return next(new ErrorHandler("User not found", 404));
+        }
+
+        sendToken(user, 200, res);
+      }
+    )(req, res, next);
   }
 );
