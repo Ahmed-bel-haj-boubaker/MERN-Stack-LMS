@@ -1,9 +1,10 @@
 "use client";
+import Api from "@/app/Api's";
+import Button from "@/app/components/Button";
 import { redirect, useSearchParams } from "next/navigation";
 import { useState } from "react";
-import Api from "../../Api's";
-import Button from "@/app/components/Button";
-const ActivationCode: React.FC = () => {
+
+const VerificationCode: React.FC = () => {
   const searchParams = useSearchParams();
   const email = searchParams.get("email");
   const activation_token = sessionStorage.getItem("activation_token");
@@ -35,14 +36,15 @@ const ActivationCode: React.FC = () => {
     setError("");
 
     try {
-      const response = await fetch(Api.activate_user, {
+      const response = await fetch(Api.verify_code, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          activation_code: code,
-          activation_token: activation_token,
+          email: email,
+          verificationCode: code,
+          activationToken: activation_token,
         }),
       });
 
@@ -96,10 +98,6 @@ const ActivationCode: React.FC = () => {
                   ))}
                 </div>
 
-                {error && (
-                  <div className="text-red-500 text-center">{error}</div>
-                )}
-
                 <div className="flex flex-col space-y-5">
                   <div className="flex justify-center ">
                     <Button
@@ -129,4 +127,4 @@ const ActivationCode: React.FC = () => {
   );
 };
 
-export default ActivationCode;
+export default VerificationCode;

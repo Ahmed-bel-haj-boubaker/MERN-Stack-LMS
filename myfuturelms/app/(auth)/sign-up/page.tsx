@@ -11,7 +11,7 @@ import Wwww from "../../../public/images/LottieIFiles/wwww.json";
 import Api from "@/app/Api's";
 import Link from "next/link";
 import axios from "axios";
-// Dynamically import Lottie with SSR disabled
+
 const LottieAnimation = dynamic(() => import("lottie-react"), { ssr: false });
 interface ApiResponse {
   success: boolean;

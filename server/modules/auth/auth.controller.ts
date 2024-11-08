@@ -292,7 +292,6 @@ export const verifyCode = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     const { email, verificationCode, activationToken } = req.body;
 
-    // Check if all required fields are provided
     if (!email || !verificationCode || !activationToken) {
       return next(
         new ErrorHandler(
