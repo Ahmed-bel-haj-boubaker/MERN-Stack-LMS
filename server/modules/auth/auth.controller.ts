@@ -290,34 +290,79 @@ export const forgotPassword = CatchAsyncError(
 
 export const verifyCode = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { email, verificationCode } = req.body;
+    const { email, verificationCode, activationToken } = req.body;
 
-    // Check if email and verification code are provided
-    if (!email || !verificationCode) {
+    // Check if all required fields are provided
+    if (!email || !verificationCode || !activationToken) {
       return next(
-        new ErrorHandler("Please provide both email and verification code", 400)
+        new ErrorHandler(
+          "Please provide email, verification code, and activation token",
+          400
+        )
       );
     }
 
-    // Retrieve the stored code from Redis
-    const storedCode = await redis.get(email);
+    let decodedToken;
+    try {
+      decodedToken = jwt.verify(
+        activationToken,
+        process.env.ACTIVATION_SECRET as string
+      ) as { user: { email: string }; activationCode: string };
+    } catch (error) {
+      return next(new ErrorHandler("Invalid or expired activation token", 400));
+    }
 
-    // Check if the stored code matches the provided verification code
+    if (decodedToken.user.email !== email) {
+      return next(
+        new ErrorHandler("Token email does not match provided email", 400)
+      );
+    }
+
+    if (decodedToken.activationCode !== verificationCode) {
+      return next(new ErrorHandler("Invalid verification code", 400));
+    }
+
+    const storedCode = await redis.get(email);
     if (!storedCode || storedCode !== verificationCode) {
       return next(
         new ErrorHandler("Invalid or expired verification code", 400)
       );
     }
 
-    // Verification successful; proceed to the next step
+    res.status(200).json({
+      success: true,
+      message: "Verification code and activation token are valid",
+    });
+  }
+);
+export const updatePasswordWithNewCode = CatchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { email, newPassword } = req.body;
+
+    if (!email || !newPassword) {
+      return next(
+        new ErrorHandler("Please provide email and new password", 400)
+      );
+    }
+
+    const user = await userModel.findOne({ email }).select("+password");
+    if (!user) {
+      return next(new ErrorHandler("User not found", 404));
+    }
+
+    user.password = newPassword;
+    await user.save();
+
+    await redis.del(email);
+
     res
       .status(200)
-      .json({ success: true, message: "Verification code is valid" });
+      .json({ success: true, message: "Password updated successfully" });
   }
 );
 export const updateUserInfo = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { name, email } = req.body as IUpdateUserInfo;
+    const { username, email } = req.body as IUpdateUserInfo;
     const userId = req.user?._id as string;
 
     const user = await userModel.findById(userId);
@@ -328,8 +373,8 @@ export const updateUserInfo = CatchAsyncError(
       }
       user.email = email;
     }
-    if (name && user) {
-      user.name = name || "";
+    if (username && user) {
+      user.username = username || "";
     }
 
     await user?.save();

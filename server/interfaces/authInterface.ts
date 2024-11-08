@@ -35,7 +35,7 @@ export interface ISocialAuthBody {
 }
 
 export interface IUpdateUserInfo {
-  name?: string;
+  username?: string;
   email?: string;
 }
 

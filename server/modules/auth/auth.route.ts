@@ -14,6 +14,7 @@ import {
   updateUserRole,
   forgotPassword,
   verifyCode,
+  updatePasswordWithNewCode
 } from "./auth.controller";
 import express from "express";
 import { authorizedRoles, isAuthenticated } from "../../middleware/auth";
@@ -24,7 +25,7 @@ authRouter.route("/activate-user").post(activatedUser);
 authRouter.route("/login-user").post(loginUser);
 authRouter.route("/forget-password").post(forgotPassword);
 authRouter.route("/verify-code").post(verifyCode);
-
+authRouter.route("/change-password").post(updatePasswordWithNewCode);
 authRouter.route("/logout-user").get(isAuthenticated, logoutUser);
 authRouter.route("/refresh").get(updataAccessToken);
 authRouter.route("/me").get(isAuthenticated, getUserInfo);
