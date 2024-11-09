@@ -155,7 +155,7 @@ export const logoutUser = CatchAsyncError(
       res.cookie("access_token", "", { maxAge: 1 });
       res.cookie("refresh_token", "", { maxAge: 1 });
       const userId = (req.user?._id as string) || "";
-      console.log(req.user);
+
       redis.del(userId);
       res
         .status(200)
@@ -269,7 +269,6 @@ export const forgotPassword = CatchAsyncError(
         activationToken: activationToken.token,
       });
     } catch (error: any) {
-      console.log(error);
       return next(new ErrorHandler("Email could not be sent", 500));
     }
   }
@@ -324,7 +323,7 @@ export const verifyCode = CatchAsyncError(
 export const updatePasswordWithNewCode = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     const { email, newPassword } = req.body;
-
+    console.log(req.body);
     if (!email || !newPassword) {
       return next(
         new ErrorHandler("Please provide email and new password", 400)
@@ -332,15 +331,16 @@ export const updatePasswordWithNewCode = CatchAsyncError(
     }
 
     const user = await userModel.findOne({ email }).select("+password");
+
     if (!user) {
       return next(new ErrorHandler("User not found", 404));
     }
 
     user.password = newPassword;
     await user.save();
-
+    console.log("55555");
     await redis.del(email);
-
+    console.log("55555");
     res
       .status(200)
       .json({ success: true, message: "Password updated successfully" });
@@ -554,19 +554,14 @@ export const GithubAuth = CatchAsyncError(
         }
 
         if (!user) {
-          console.log("User not found: ", info);
           return next(new ErrorHandler("User not found", 404));
         }
-
-        console.log("User authenticated:", user);
 
         res.cookie("access_token", user.SignAccessToken(), {
           httpOnly: true,
           secure: process.env.NODE_ENV === "production",
           maxAge: 3600000, // 1 hour
         });
-
-        console.log("Access token set in cookies. Redirecting...");
 
         // Redirect to the home page
         return res.redirect("http://localhost:3000/home");

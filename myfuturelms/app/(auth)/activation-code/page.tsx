@@ -3,11 +3,15 @@ import { redirect, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import Api from "../../Api's";
 import Button from "@/app/components/Button";
-const ActivationCode: React.FC = () => {
+
+interface IData {
+  success: boolean;
+}
+
+const ActivationCode: React.FC<IData> = () => {
   const searchParams = useSearchParams();
   const email = searchParams.get("email");
   const activation_token = sessionStorage.getItem("activation_token");
-  console.log(activation_token);
 
   const [activationCode, setActivationCode] = useState<string[]>([
     "",
@@ -34,33 +38,22 @@ const ActivationCode: React.FC = () => {
     setLoading(true);
     setError("");
 
-    try {
-      const response = await fetch(Api.activate_user, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          activation_code: code,
-          activation_token: activation_token,
-        }),
-      });
+    const response = await fetch(Api.activate_user, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        activation_code: code,
+        activation_token,
+      }),
+    });
+    console.log(code, activation_token);
+    const result = await response.json();
 
-      const result = await response.json();
-
-      if (response.ok) {
-        console.log("Account activated successfully!", result);
-        redirect("/login");
-      } else {
-        setError(
-          result?.message || "An error occurred while activating the account."
-        );
-      }
-    } catch (err) {
-      setError("An error occurred while connecting to the server.");
-      console.error(err);
-    } finally {
-      setLoading(false);
+    if (result.success) {
+      console.log("Account activated successfully!", result);
+      window.location.href = "/login";
     }
   };
 

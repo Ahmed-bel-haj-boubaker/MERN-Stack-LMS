@@ -5,13 +5,14 @@ import Button from "@/app/components/Button";
 import { useState } from "react";
 import Api from "@/app/Api's";
 import axios from "axios";
-import { redirect, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 /* eslint-disable react/no-unescaped-entities */
 
 const ChangePassword = () => {
   const searchParams = useSearchParams();
   const email = searchParams.get("email");
   const [newPassword, setNewPassword] = useState<string>("");
+  const router = useRouter();
 
   const handleNewPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewPassword(e.target.value);
@@ -28,7 +29,8 @@ const ChangePassword = () => {
         email,
         newPassword,
       });
-      redirect("/login");
+
+       router.push("/home");
     } catch (error) {
       console.error("Error updating password:", error);
     }

@@ -127,19 +127,19 @@ const userSchema: Schema<IUser> = new mongoose.Schema(
     // GitHub fields for social login
     githubId: {
       type: String,
-      required: [true, "GitHub ID is required for social login"],
+      required: false,
     },
     githubUsername: {
       type: String,
-      required: [true, "GitHub Username is required for social login"],
+      required: false,
     },
     githubUrl: {
       type: String,
-      required: [true, "GitHub URL is required for social login"],
+      required: false,
     },
     socialLogin: {
       type: Boolean,
-      default: true, // Default to true for social login users
+      required: false,
     },
   },
   { timestamps: true }

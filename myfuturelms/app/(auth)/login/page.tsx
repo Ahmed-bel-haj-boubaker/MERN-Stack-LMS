@@ -33,7 +33,7 @@ const Login = () => {
 
   const handleLogin = async () => {
     const response = await axios.post(Api.login, { email, password });
-    console.log(response);
+    router.push("/home");
   };
 
   return (
