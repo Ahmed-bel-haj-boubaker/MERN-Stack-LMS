@@ -10,7 +10,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import Ticket from "./Ticket";
-
+import CourseItems from "../Data";
 import CourseCard from "./CourseCard";
 
 const LeftArrow = (props: any) => {
@@ -62,44 +62,6 @@ const RightArrow = (props: any) => {
 };
 
 const CoursesList = () => {
-  const coursesItems = [
-    {
-      courseName: "Master the Fundamentals of Math",
-      instructor: "David Millar",
-      category: "Business",
-      rating: 4.8,
-      price: 15.0,
-    },
-    {
-      courseName: "Master the Fundamentals of Math",
-      instructor: "David Millar",
-      category: "Data Science",
-      rating: 4.5,
-      price: 15.0,
-    },
-    {
-      courseName: "Learning JavaScript with Imagination",
-      instructor: "David Millar",
-      category: "Development",
-      rating: 4.8,
-      price: 15.0,
-    },
-    {
-      courseName: "Learning JavaScript with Imagination",
-      instructor: "David Millar",
-      category: "Development",
-      rating: 4.8,
-      price: 15.0,
-    },
-    {
-      courseName: "Learning JavaScript with Imagination",
-      instructor: "David Millar",
-      category: "Development",
-      rating: 4.8,
-      price: 15.0,
-    },
-  ];
-
   const settings = {
     dots: false,
     infinite: true,
@@ -154,7 +116,7 @@ const CoursesList = () => {
       </div>
       <div className="mb-24">
         <Slider {...settings}>
-          {coursesItems.map((courseItem, index) => (
+          {CourseItems.map((courseItem, index) => (
             <div key={index} className="px-2 xl:mt-10 xl:mb-28">
               <div className="mx-2 md:mx-5 lg:mx-11 bg-white">
                 <CourseCard

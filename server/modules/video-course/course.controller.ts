@@ -101,18 +101,39 @@ export const getSingleCourse = CatchAsyncError(
 export const getAllCourses = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const isCacheExist = await redis.get("allCourses");
+      const page = parseInt(req.query.page as string) || 1; // default to page 1 if not provided
+      const limit = parseInt(req.query.limit as string) || 10; // default to 10 items per page if not provided
+      const skip = (page - 1) * limit;
+
+      const cacheKey = `allCourses_page${page}_limit${limit}`;
+      const isCacheExist = await redis.get(cacheKey);
+
       if (isCacheExist) {
         const courses = JSON.parse(isCacheExist);
         res.status(200).json({ success: true, courses });
       } else {
-        const courses = await CourseModel.find().select(
-          "-courseData.videoUrl -courseData.suggestion  -courseData.questions -courseData.links"
-        );
-        await redis.set("allCourses", JSON.stringify(courses));
+        const totalResults = await CourseModel.countDocuments(); // Total count for pagination
+        const courses = await CourseModel.find()
+          .select(
+            "-courseData.videoUrl -courseData.suggestion -courseData.questions -courseData.links"
+          )
+          .skip(skip)
+          .limit(limit);
+
+        // Cache the result for this specific page and limit
+        await redis.set(
+          cacheKey,
+          JSON.stringify({ courses, totalResults }),
+          "EX",
+          60 * 60
+        ); // Cache for 1 hour
+
         res.status(200).json({
           success: true,
           courses,
+          totalResults,
+          currentPage: page,
+          totalPages: Math.ceil(totalResults / limit),
         });
       }
     } catch (error: any) {

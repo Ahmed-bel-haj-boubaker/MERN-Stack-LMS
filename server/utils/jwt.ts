@@ -13,8 +13,6 @@ const refreshTokenExpire = parseInt(
   10
 );
 
-// options for cookies
-
 export const accessTokenOptions: ITokenOptions = {
   expires: new Date(Date.now() + accessTokenExpire * 60 * 60 * 1000),
   maxAge: accessTokenExpire * 60 * 60 * 1000,
@@ -32,11 +30,7 @@ export const sendToken = (user: IUser, statusCode: number, res: Response) => {
   const accessToken = user.SignAccessToken();
   const refreshToken = user.SignRefreshToken();
 
-  //upload session to redis
-
   redis.set(user._id as string, JSON.stringify(user) as any);
-
-  // parse env variable to integrates with fallback values
 
   if (process.env.NODE_ENV === "production") {
     accessTokenOptions.secure = true;
