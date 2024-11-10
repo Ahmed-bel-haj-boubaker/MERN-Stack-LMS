@@ -21,7 +21,6 @@ export const uploadCourse = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const data = req.body;
-
       const thumbnail = data.thumbnail;
       if (!thumbnail) {
         const myCloud = await cloudinary.v2.uploader.upload(thumbnail, {
@@ -32,7 +31,7 @@ export const uploadCourse = CatchAsyncError(
           url: myCloud.secure_url,
         };
       }
-
+      data.instructor = req.user;
       createCourse(data, res, next);
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 500));
@@ -117,6 +116,14 @@ export const getAllCourses = CatchAsyncError(
           .select(
             "-courseData.videoUrl -courseData.suggestion -courseData.questions -courseData.links"
           )
+          .populate({
+            path: "category",
+            select: "name",
+          })
+          .populate({
+            path: "instructor",
+            select: "username",
+          })
           .skip(skip)
           .limit(limit);
 

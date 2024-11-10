@@ -1,6 +1,6 @@
 import mongoose, { Document, Model, Schema } from "mongoose";
 
-interface ICategories extends Document {
+export interface ICategories extends Document {
   name: string;
   slug: string;
 }

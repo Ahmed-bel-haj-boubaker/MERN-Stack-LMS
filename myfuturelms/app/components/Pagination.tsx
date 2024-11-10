@@ -21,7 +21,7 @@ const Pagination: React.FC<IProps> = ({
   };
 
   return (
-    <ul className="flex space-x-5 justify-center font-[sans-serif] mt-8">
+    <ul className="flex space-x-5 justify-center font-[sans-serif] mt-8 mb-8">
       <li
         onClick={() => setCurrentPage(Math.max(currentPage - 1, 1))}
         className="flex items-center justify-center shrink-0 hover:bg-gray-50 cursor-pointer w-9 h-9 rounded-md"

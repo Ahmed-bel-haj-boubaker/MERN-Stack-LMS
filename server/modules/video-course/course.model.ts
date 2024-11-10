@@ -1,5 +1,6 @@
 import mongoose, { Document, Model, Schema } from "mongoose";
 import { IUser } from "../auth/user.model";
+import { ICategories } from "../categories/categories.model";
 
 interface IComment extends Document {
   user: IUser;
@@ -32,7 +33,7 @@ interface ICourseData extends Document {
 
 interface ICourse extends Document {
   _id: string;
-  category: string;
+  category: ICategories;
   description: string;
   name: string;
   price: number;
@@ -47,6 +48,7 @@ interface ICourse extends Document {
   courseData: ICourseData[];
   ratings?: number;
   purchased?: number;
+  instructor: IUser;
 }
 
 const reviewSchema = new Schema<IReview>({
@@ -87,8 +89,8 @@ const courseSchema = new Schema<ICourse>(
     },
     description: { type: String, required: true },
     category: {
-      type: String,
-      required: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Categories",
     },
     price: {
       type: Number,
@@ -108,6 +110,10 @@ const courseSchema = new Schema<ICourse>(
     ratings: { default: 0, type: Number },
     purchased: { default: 0, type: Number },
     reviews: [reviewSchema],
+    instructor: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
   },
   { timestamps: true }
 );
