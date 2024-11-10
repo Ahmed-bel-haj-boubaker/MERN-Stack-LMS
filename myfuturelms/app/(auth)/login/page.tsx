@@ -32,7 +32,11 @@ const Login = () => {
   };
 
   const handleLogin = async () => {
-    const response = await axios.post(Api.login, { email, password });
+    const response = await axios.post(
+      Api.login,
+      { email, password },
+      { withCredentials: true }
+    );
     router.push("/home");
   };
 
