@@ -9,6 +9,7 @@ import Pagination from "../components/Pagination";
 import useCourse from "../hooks/courses/useCourse";
 import useCategory from "../hooks/category/useCategory";
 import { ICategory } from "../types/CategoryTypes";
+import { useAppSelector } from "../redux/hooks";
 
 const languages = ["Arabic", "English", "Spanish"];
 const prices = ["Free", "Paid"];
@@ -51,8 +52,10 @@ const CourseFilter: React.FC = () => {
 };
 
 const AllCourses = () => {
-  const { courses, totalCourses, currentPage, itemsPerPage, setCurrentPage } =
-    useCourse();
+  const { currentPage, setCurrentPage, itemsPerPage } = useCourse();
+  const courses = useAppSelector((state) => state.courses.courses);
+  const totalCourses = useAppSelector((state) => state.courses.totalCourses);
+  console.log(courses);
   return (
     <div className="flex flex-col md:flex-row gap-6 mt-7">
       <div className="w-full md:w-64">
@@ -83,6 +86,7 @@ const AllCourses = () => {
           {courses?.map((courseItem, index) => (
             <div key={index} className="rounded p-4">
               <CourseCard
+                id={courseItem._id}
                 courseName={courseItem.name}
                 instructor={courseItem.instructor.username}
                 category={courseItem.category.name}

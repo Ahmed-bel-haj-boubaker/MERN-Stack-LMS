@@ -1,20 +1,25 @@
 import Api from "@/app/Api's";
+import {
+  setCourses,
+  setTotalCourses,
+} from "../../redux/courseSlices/courseSlice";
+import { useAppDispatch } from "@/app/redux/hooks";
 import { Course, CoursesResponse } from "@/app/types/CourseTypes";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
 const useCourse = () => {
-  const [courses, setCourses] = useState<Course[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalCourses, setTotalCourses] = useState(0);
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const [pageCache, setPageCache] = useState<{ [key: number]: Course[] }>({});
   const itemsPerPage = 9;
+
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (!pageCache[currentPage]) {
       fetchCourses(currentPage);
     } else {
-      setCourses(pageCache[currentPage]);
+      dispatch(setCourses(pageCache[currentPage]));
     }
   }, [currentPage]);
 
@@ -27,14 +32,15 @@ const useCourse = () => {
       const data = response.data.courses.courses;
       const totRes = response.data.courses.totalResults;
 
-      setTotalCourses(totRes);
-      setCourses(data);
+      dispatch(setCourses(data)); // Dispatch courses to Redux
+      dispatch(setTotalCourses(totRes)); // Dispatch total courses count to Redux
       setPageCache((prevCache) => ({ ...prevCache, [page]: data }));
     } catch (error) {
       console.error("Error fetching courses", error);
     }
   };
-  return {courses,totalCourses,currentPage,pageCache,setCurrentPage,itemsPerPage};
+
+  return { currentPage, setCurrentPage, itemsPerPage };
 };
 
 export default useCourse;

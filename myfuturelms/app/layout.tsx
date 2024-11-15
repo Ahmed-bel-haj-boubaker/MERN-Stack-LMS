@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import { Providers } from "./redux/Providers";
 
 export const metadata: Metadata = {
   title: "EduNexus - Learn & Grow",
@@ -17,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className}  `}>
-        <main className="">{children}</main>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

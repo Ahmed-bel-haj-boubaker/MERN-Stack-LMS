@@ -4,6 +4,8 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import courseThumbnails from "../../public/images/thumbnailcourse.png";
+import { useRouter } from "next/navigation";
+import slugify from "slugify";
 
 interface CourseProps {
   courseName: string;
@@ -11,17 +13,26 @@ interface CourseProps {
   category: string;
   rating: number;
   price: number;
+  id: string;
 }
 
 const CourseCard: React.FC<CourseProps> = ({
   courseName,
+  id,
   instructor,
   category,
   rating,
   price,
 }) => {
+  const router = useRouter();
+
+  const handleNavigate = () => {
+    const slug = slugify(courseName, { lower: true });
+    router.push(`/courses/${slug}?id=${id}`);
+  };
   return (
     <div
+      onClick={handleNavigate}
       className="transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg border border-black rounded-lg shadow-md p-3 w-full sm:w-64 flex flex-col justify-between mx-2"
       style={{
         boxShadow: "4px 4px 6px rgba(0, 0, 0, 0.2)",
