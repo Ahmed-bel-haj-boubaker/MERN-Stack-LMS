@@ -126,7 +126,7 @@ const Categories = () => {
       className="p-5 mb-40 max-lg:mb-20 mt-11 bg-white "
     >
       <div className="flex flex-col items-center mb-8">
-        <Ticket text="Trending Categories" />
+        <Ticket text="Trending Categories" className="text-indigo-800 font-bold"/>
         <h2 className="text-4xl font-bold leading-tight max-lg:text-2xl md:text-6xl lg:text-5xl text-center mt-4">
           Top <span className="text-indigo-600">Categories</span>That We Have
         </h2>

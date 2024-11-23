@@ -15,7 +15,10 @@ export const Instructors = () => {
               Our Top Class & Expert Instructors in One Place
             </h2>
           </div>
-          <Ticket text="Our Talented Instructors" />
+          <Ticket
+            text="Our Talented Instructors"
+            className="text-indigo-800 font-bold"
+          />
         </div>
         <p className="text-base text-gray-700 md:text-lg">
           Sed ut perspiciatis unde omnis iste natus error sit voluptatem

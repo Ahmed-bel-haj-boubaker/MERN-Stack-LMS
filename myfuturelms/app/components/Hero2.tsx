@@ -1,8 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import Logo from "../../public/images/logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRight,
@@ -51,15 +49,21 @@ const Hero2 = () => {
               }}
             >
               <div>
-                <Lottie animationData={Pc} loop={true} className="h-full w-[80%]" />
-               
+                <Lottie
+                  animationData={Pc}
+                  loop={true}
+                  className="h-full w-[80%]"
+                />
               </div>
             </motion.div>
           </div>
 
           <motion.div className="w-full xl:w-[50%] text-left">
             <div className="flex flex-col items-start mb-8">
-              <Ticket text="Get More About Us" />
+              <Ticket
+                text="Get More About Us"
+                className="text-indigo-800 font-bold"
+              />
             </div>
             <h2 className="text-gray-800 text-left md:text-3xl xl:text-5xl font-bold mb-4 leading-snug lg:leading-[55px]">
               <div className="flex flex-col lg:flex-row items-start space-y-4 lg:space-y-0 lg:space-x-4 max-w-full">

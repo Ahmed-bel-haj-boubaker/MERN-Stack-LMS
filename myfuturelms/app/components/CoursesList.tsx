@@ -10,9 +10,9 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import Ticket from "./Ticket";
-import CourseItems from "../Data";
-import CourseCard from "./CourseCard";
 
+import CourseCard from "./CourseCard";
+import { useAppSelector } from "../redux/hooks";
 const LeftArrow = (props: any) => {
   const { onClick } = props;
   return (
@@ -84,6 +84,8 @@ const CoursesList = () => {
 
   const ref = useRef(null);
   const [isInView, setIsInView] = useState(false);
+  const courses = useAppSelector((state) => state.courses.courses);
+  console.log(courses);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -105,7 +107,7 @@ const CoursesList = () => {
       className="p-5 mb-20 max-lg:mb-20 mt-16 bg-white"
     >
       <div className="flex flex-col items-center mb-8 mt-16">
-        <Ticket text="Trending Courses" />
+        <Ticket text="Trending Courses" className="text-indigo-800 font-bold" />
         <h2 className="text-4xl font-bold leading-tight max-lg:text-2xl md:text-6xl lg:text-5xl text-center mt-4 mb-3">
           Explore Our <span className="text-indigo-600">World's</span> Best
           Courses
@@ -116,14 +118,15 @@ const CoursesList = () => {
       </div>
       <div className="mb-24">
         <Slider {...settings}>
-          {CourseItems.map((courseItem, index) => (
+          {courses?.map((courseItem, index) => (
             <div key={index} className="px-2 xl:mt-10 xl:mb-28">
               <div className="mx-2 md:mx-5 lg:mx-11 bg-white">
                 <CourseCard
-                  courseName={courseItem.courseName}
-                  instructor={courseItem.instructor}
-                  category={courseItem.category}
-                  rating={courseItem.rating}
+                  id={courseItem._id}
+                  courseName={courseItem.name}
+                  instructor={courseItem.instructor.username}
+                  category={courseItem.category.name}
+                  rating={courseItem.ratings}
                   price={courseItem.price}
                 />
               </div>

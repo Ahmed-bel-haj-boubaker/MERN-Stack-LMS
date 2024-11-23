@@ -2,7 +2,6 @@
 import Lottie from "lottie-react";
 import React from "react";
 import Avatar from "../../public/images/LottieIFiles/Atom.json";
-import Arrow from "../../public/images/LottieIFiles/Arrow.json";
 
 const Banner: React.FC = () => {
   return (

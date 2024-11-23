@@ -11,9 +11,6 @@ import useCategory from "../hooks/category/useCategory";
 import { ICategory } from "../types/CategoryTypes";
 import { useAppSelector } from "../redux/hooks";
 
-const languages = ["Arabic", "English", "Spanish"];
-const prices = ["Free", "Paid"];
-
 const FilterSection = ({
   title,
   items,
@@ -55,7 +52,7 @@ const AllCourses = () => {
   const { currentPage, setCurrentPage, itemsPerPage } = useCourse();
   const courses = useAppSelector((state) => state.courses.courses);
   const totalCourses = useAppSelector((state) => state.courses.totalCourses);
-  console.log(courses);
+
   return (
     <div className="flex flex-col md:flex-row gap-6 mt-7">
       <div className="w-full md:w-64">

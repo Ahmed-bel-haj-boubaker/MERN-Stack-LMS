@@ -32,8 +32,8 @@ const useCourse = () => {
       const data = response.data.courses.courses;
       const totRes = response.data.courses.totalResults;
 
-      dispatch(setCourses(data)); // Dispatch courses to Redux
-      dispatch(setTotalCourses(totRes)); // Dispatch total courses count to Redux
+      dispatch(setCourses(data));
+      dispatch(setTotalCourses(totRes));
       setPageCache((prevCache) => ({ ...prevCache, [page]: data }));
     } catch (error) {
       console.error("Error fetching courses", error);
