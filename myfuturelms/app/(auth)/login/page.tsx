@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import Lottie from "lottie-react";
@@ -37,6 +38,7 @@ const Login = () => {
       { email, password },
       { withCredentials: true }
     );
+    sessionStorage.setItem("user", JSON.stringify(response.data.user));
     router.push("/home");
   };
 

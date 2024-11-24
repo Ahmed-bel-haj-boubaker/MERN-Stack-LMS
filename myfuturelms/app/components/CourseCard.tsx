@@ -33,7 +33,7 @@ const CourseCard: React.FC<CourseProps> = ({
   return (
     <div
       onClick={handleNavigate}
-      className="transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg border border-black rounded-lg shadow-md p-3 w-full sm:w-64 flex flex-col justify-between mx-2"
+      className="transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg border border-black rounded-lg shadow-md p-3 w-full sm:w-64 flex flex-col justify-between  "
       style={{
         boxShadow: "4px 4px 6px rgba(0, 0, 0, 0.2)",
         transition: "box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out",

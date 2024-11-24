@@ -6,19 +6,22 @@ import {
   ShoppingCartIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "./Button";
+import axios from "axios";
+import useUserConnected from "../hooks/user/useUserConnected";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-
+  const { isLogged, userName } = useUserConnected();
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
+
   return (
     <>
       <nav className="  mx-auto py-1 px-4 md:px-8 flex justify-around items-center bg-white ">
@@ -151,7 +154,19 @@ const Navbar = () => {
               </span>
             </div>
 
-            <Button text="Sign Up"  />
+            {isLogged ? (
+              <div className="flex items-center gap-2 cursor-pointer group">
+                <div className="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center text-lg font-bold uppercase">
+                  {userName} {/* Display initial */}
+                </div>
+                <div className="text-gray-700 font-semibold group-hover:text-blue-500 transition duration-300">
+                  {userName}
+                </div>
+                <i className="fas fa-chevron-down text-gray-500 group-hover:text-blue-500 transition duration-300"></i>
+              </div>
+            ) : (
+              <Button text="Sign Up" />
+            )}
           </div>
         </div>
       </nav>

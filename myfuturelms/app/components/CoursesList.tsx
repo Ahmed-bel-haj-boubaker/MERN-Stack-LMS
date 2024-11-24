@@ -66,7 +66,7 @@ const CoursesList = () => {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 4,
+    slidesToShow: 5,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 2000,
@@ -104,7 +104,7 @@ const CoursesList = () => {
       initial={{ opacity: 0, y: 10 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className="p-5 mb-20 max-lg:mb-20 mt-16 bg-white"
+      className="p-5 mb-20 max-lg:mb-20 mt-16 bg-white "
     >
       <div className="flex flex-col items-center mb-8 mt-16">
         <Ticket text="Trending Courses" className="text-indigo-800 font-bold" />
@@ -120,7 +120,7 @@ const CoursesList = () => {
         <Slider {...settings}>
           {courses?.map((courseItem, index) => (
             <div key={index} className="px-2 xl:mt-10 xl:mb-28">
-              <div className="mx-2 md:mx-5 lg:mx-11 bg-white">
+              <div className=" md:mx-5 lg:mx-11 bg-white">
                 <CourseCard
                   id={courseItem._id}
                   courseName={courseItem.name}
