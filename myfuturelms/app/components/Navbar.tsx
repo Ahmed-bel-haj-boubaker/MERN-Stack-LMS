@@ -6,15 +6,14 @@ import {
   ShoppingCartIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Button from "./Button";
-import axios from "axios";
 import useUserConnected from "../hooks/user/useUserConnected";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const { isLogged, userName } = useUserConnected();
+  const { isLogged, userName, handleLogout } = useUserConnected();
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
@@ -155,17 +154,46 @@ const Navbar = () => {
             </div>
 
             {isLogged ? (
-              <div className="flex items-center gap-2 cursor-pointer group">
-                <div className="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center text-lg font-bold uppercase">
-                  {userName} {/* Display initial */}
+              <div className="relative">
+                <div
+                  className="flex items-center gap-2 cursor-pointer"
+                  onClick={toggleDropdown}
+                >
+                  <div className="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center text-lg font-bold uppercase">
+                    {userName.charAt(0).toUpperCase()}
+                  </div>
+                  <span className="text-gray-700 font-semibold">
+                    {userName}
+                  </span>
+                  <i
+                    className={`fas fa-chevron-down transition-transform ${
+                      isOpen ? "rotate-180" : ""
+                    }`}
+                  ></i>
                 </div>
-                <div className="text-gray-700 font-semibold group-hover:text-blue-500 transition duration-300">
-                  {userName}
-                </div>
-                <i className="fas fa-chevron-down text-gray-500 group-hover:text-blue-500 transition duration-300"></i>
+
+                {/* Dropdown Menu */}
+                {isOpen && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg">
+                    <ul className="py-2">
+                      <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                        Profile
+                      </li>
+                      <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                        Settings
+                      </li>
+                      <li
+                        className="px-4 py-2 text-red-500 hover:bg-red-100 cursor-pointer"
+                        onClick={handleLogout}
+                      >
+                        Logout
+                      </li>
+                    </ul>
+                  </div>
+                )}
               </div>
             ) : (
-              <Button text="Sign Up" />
+              <Button text="Sign Up" onClicks={} />
             )}
           </div>
         </div>

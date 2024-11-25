@@ -7,6 +7,7 @@ interface IApi {
   verify_code: string;
   change_password: string;
   getUserInfo: string;
+  logout: string;
 }
 
 const Api: IApi = {
@@ -18,6 +19,7 @@ const Api: IApi = {
   verify_code: "http://localhost:8000/api/v1/verify-code",
   change_password: "http://localhost:8000/api/v1/change-password",
   getUserInfo: "http://localhost:8000/api/v1/me",
+  logout: "http://localhost:8000/api/v1/logout-user",
 };
 
 export default Api;
