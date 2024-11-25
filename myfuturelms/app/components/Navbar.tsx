@@ -13,12 +13,16 @@ import useUserConnected from "../hooks/user/useUserConnected";
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenProfile, setIsOpenProfil] = useState(false);
   const { isLogged, userName, handleLogout } = useUserConnected();
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
+  };
+  const toggleDropdownProfile = () => {
+    setIsOpenProfil(!isOpenProfile);
   };
 
   return (
@@ -157,7 +161,7 @@ const Navbar = () => {
               <div className="relative">
                 <div
                   className="flex items-center gap-2 cursor-pointer"
-                  onClick={toggleDropdown}
+                  onClick={toggleDropdownProfile}
                 >
                   <div className="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center text-lg font-bold uppercase">
                     {userName.charAt(0).toUpperCase()}
@@ -172,8 +176,8 @@ const Navbar = () => {
                   ></i>
                 </div>
 
-                {/* Dropdown Menu */}
-                {isOpen && (
+               
+                {isOpenProfile && (
                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg">
                     <ul className="py-2">
                       <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
@@ -193,7 +197,7 @@ const Navbar = () => {
                 )}
               </div>
             ) : (
-              <Button text="Sign Up" onClicks={} />
+              <Button text="Sign Up" />
             )}
           </div>
         </div>
