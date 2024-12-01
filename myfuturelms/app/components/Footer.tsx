@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className="bg-[#111133] text-white pt-7">
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
         <div className="text-gray-500 font-poppins">
-          <Image src={Logo} alt="SkillGro" className="mb-4 w-10 h-10" />
+          <Image src={Logo} alt="SkillGro" className="mb-4 w-24 h-24" />
           <p className="mb-4 text-lg">
             when an unknown printer took galley of type and scrambled it to make
             specimen book has.

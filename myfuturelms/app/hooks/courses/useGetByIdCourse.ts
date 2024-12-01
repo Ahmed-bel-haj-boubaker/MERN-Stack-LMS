@@ -16,6 +16,7 @@ const useGetByIdCourse = (id: string | null) => {
             `${Api.localhost}/get-course/${id}`
           );
           setCourse(response.data.course);
+          console.log(response.data.course);
         } catch (error) {
           console.error("Error fetching course data:", error);
         }

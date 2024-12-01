@@ -1,6 +1,6 @@
 const TopBar = () => {
   return (
-    <div className="hidden lg:flex bg-indigo-900 text-white py-2 text-sm">
+    <div className="hidden lg:flex bg-[#161439] text-white py-2 text-sm">
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex space-x-6">
           <span>

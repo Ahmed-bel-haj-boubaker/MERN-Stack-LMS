@@ -3,7 +3,6 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage/session";
 import coursesReducer from "./courseSlices/courseSlice";
 
-// Redux Persist Configuration
 const persistConfig = {
   key: "root",
   storage,
@@ -15,6 +14,16 @@ const store = configureStore({
   reducer: {
     courses: persistedReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [
+          "persist/PERSIST",
+          "persist/REHYDRATE",
+          "persist/REGISTER",
+        ],
+      },
+    }),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

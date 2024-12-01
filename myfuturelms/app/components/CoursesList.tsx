@@ -13,6 +13,7 @@ import Ticket from "./Ticket";
 
 import CourseCard from "./CourseCard";
 import { useAppSelector } from "../redux/hooks";
+import useCourse from "../hooks/courses/useCourse";
 const LeftArrow = (props: any) => {
   const { onClick } = props;
   return (
@@ -84,6 +85,7 @@ const CoursesList = () => {
 
   const ref = useRef(null);
   const [isInView, setIsInView] = useState(false);
+  const { currentPage } = useCourse();
   const courses = useAppSelector((state) => state.courses.courses);
   console.log(courses);
 
@@ -106,6 +108,7 @@ const CoursesList = () => {
       transition={{ duration: 0.8, ease: "easeOut" }}
       className="p-5 mb-20 max-lg:mb-20 mt-16 bg-white "
     >
+      <div className="hidden">{currentPage}</div>
       <div className="flex flex-col items-center mb-8 mt-16">
         <Ticket text="Trending Courses" className="text-indigo-800 font-bold" />
         <h2 className="text-4xl font-bold leading-tight max-lg:text-2xl md:text-6xl lg:text-5xl text-center mt-4 mb-3">

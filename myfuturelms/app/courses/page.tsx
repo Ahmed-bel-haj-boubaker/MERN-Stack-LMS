@@ -52,7 +52,7 @@ const AllCourses = () => {
   const { currentPage, setCurrentPage, itemsPerPage } = useCourse();
   const courses = useAppSelector((state) => state.courses.courses);
   const totalCourses = useAppSelector((state) => state.courses.totalCourses);
-
+  console.log(courses);
   return (
     <div className="flex flex-col md:flex-row gap-6 mt-7">
       <div className="w-full md:w-64">

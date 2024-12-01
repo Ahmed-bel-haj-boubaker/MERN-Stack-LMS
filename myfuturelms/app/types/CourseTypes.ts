@@ -9,6 +9,9 @@ export interface Course {
   ratings: number;
   price: number;
   totalResults: number;
+  createdAt: Date;
+  courseData: Array<string>;
+  benefits: Array<string>;
 }
 export interface Instructor {
   username: string;
