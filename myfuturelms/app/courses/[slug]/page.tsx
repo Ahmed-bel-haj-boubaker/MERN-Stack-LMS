@@ -15,6 +15,7 @@ import { useState } from "react";
 import InstructorsDetails from "@/app/components/InstructorsDetails";
 import Reviews from "@/app/components/Reviews";
 import Curriculum from "@/app/components/Curriculum";
+import CoursesItems from "@/app/Data";
 const CourseDetails = () => {
   const [isOverviewVisible, setOverviewVisible] = useState(true);
   const [isCurriculumVisible, setCurriculumVisible] = useState(false);
@@ -109,7 +110,7 @@ const CourseDetails = () => {
                       ></path>
                     </svg>
                   </svg>
-                  2500 students
+                  {course.purchased} students
                 </div>
                 <div className="flex ml-4 gap-2 items-center text-gray-600">
                   <FontAwesomeIcon icon={faCalendar} />
@@ -163,7 +164,10 @@ const CourseDetails = () => {
           )}
           {isCurriculumVisible && (
             <div>
-              <Curriculum />
+              <Curriculum
+                description={course.description}
+                courseData={course.courseData}
+              />
             </div>
           )}
         </div>

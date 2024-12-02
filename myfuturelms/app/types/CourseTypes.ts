@@ -12,6 +12,7 @@ export interface Course {
   createdAt: Date;
   courseData: Array<string>;
   benefits: Array<string>;
+  purchased: number;
 }
 export interface Instructor {
   username: string;

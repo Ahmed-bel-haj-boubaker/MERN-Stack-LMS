@@ -14,35 +14,12 @@ import Ticket from "./Ticket";
 import CourseCard from "./CourseCard";
 import { useAppSelector } from "../redux/hooks";
 import useCourse from "../hooks/courses/useCourse";
-const LeftArrow = (props: any) => {
-  const { onClick } = props;
-  return (
-    <div
-      className="absolute left-1/2 bottom-[-1rem] transform -translate-x-[120%] cursor-pointer xl:block hidden
-      transition-all duration-300 ease-in-out bg-indigo-600 hover:scale-110 hover:bg-indigo-700 hover:shadow-lg"
-      onClick={onClick}
-      style={{
-        boxShadow: "4px 4px 0px rgba(0, 0, 0, 0.2)",
-        transition: "box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out",
-      }}
-      onMouseEnter={(e) => (e.currentTarget.style.boxShadow = "none")}
-      onMouseLeave={(e) =>
-        (e.currentTarget.style.boxShadow = "4px 4px 0px rgba(0, 0, 0, 0.2)")
-      }
-    >
-      <FontAwesomeIcon
-        icon={faArrowLeft}
-        className="text-yellow-400 xl:size-20 bg-indigo-600 md:rounded-full lg:size-14"
-      />
-    </div>
-  );
-};
 
 const RightArrow = (props: any) => {
   const { onClick } = props;
   return (
     <div
-      className="absolute right-1/2 bottom-[-1rem] transform translate-x-[120%] cursor-pointer xl:block hidden
+      className="absolute right-1/2 bottom-[-1rem] transform translate-x-[120%] cursor-pointer xl:block hidden z-50
       transition-all duration-300 ease-in-out bg-indigo-600 hover:scale-110 hover:bg-indigo-700 hover:shadow-lg"
       onClick={onClick}
       style={{
@@ -62,6 +39,30 @@ const RightArrow = (props: any) => {
   );
 };
 
+const LeftArrow = (props: any) => {
+  const { onClick } = props;
+  return (
+    <div
+      className="absolute left-1/2 bottom-[-1rem] transform -translate-x-[120%] cursor-pointer xl:block hidden z-50
+      transition-all duration-300 ease-in-out bg-indigo-600 hover:scale-110 hover:bg-indigo-700 hover:shadow-lg"
+      onClick={onClick}
+      style={{
+        boxShadow: "4px 4px 0px rgba(0, 0, 0, 0.2)",
+        transition: "box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out",
+      }}
+      onMouseEnter={(e) => (e.currentTarget.style.boxShadow = "none")}
+      onMouseLeave={(e) =>
+        (e.currentTarget.style.boxShadow = "4px 4px 0px rgba(0, 0, 0, 0.2)")
+      }
+    >
+      <FontAwesomeIcon
+        icon={faArrowLeft}
+        className="text-yellow-400 xl:size-20 bg-indigo-600 md:rounded-full lg:size-14"
+      />
+    </div>
+  );
+};
+
 const CoursesList = () => {
   const settings = {
     dots: false,
@@ -71,8 +72,9 @@ const CoursesList = () => {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 2000,
-    nextArrow: <RightArrow />,
     prevArrow: <LeftArrow />,
+    nextArrow: <RightArrow />,
+
     centerMode: true,
     centerPadding: "0px",
     responsive: [
