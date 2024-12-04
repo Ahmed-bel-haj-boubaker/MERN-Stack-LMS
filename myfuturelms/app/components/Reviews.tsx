@@ -68,17 +68,19 @@ const Reviews: React.FC<IReviews> = ({ reviews, ratings }) => {
         reviews.map((review, index) => (
           <div
             key={index}
-            className="flex items-start  max-lg:flex-row space-x-4 mb-6 bg-gray-50 p-4 rounded-lg shadow max-lg:space-x-0 max-lg:space-y-4 max-lg:flex-col "
+            className="flex items-start  max-lg:flex-row space-x-4 mb-6 bg-gray-50 p-4 rounded-lg shadow max-lg:space-x-0 max-lg:space-y-4  "
           >
             <Image
               src={Avatar}
               alt={review.user.username}
-              className="w-12 h-12 rounded-full"
+              className="w-12 h-12 rounded-full mr-4"
             />
 
-            <div className="flex-1">
+            <div className="flex-1  ">
               <div className="flex items-center justify-between ">
-                <h3 className="font-bold text-lg">{review.user.username}</h3>
+                <h3 className="font-bold text-lg text-gray-500">
+                  {review.user.username}
+                </h3>
                 <div className="text-yellow-400 flex max-lg:mb-2">
                   {[...Array(5)].map((_, i) => {
                     if (i < Math.floor(review.rating)) {
@@ -93,7 +95,7 @@ const Reviews: React.FC<IReviews> = ({ reviews, ratings }) => {
                   })}
                 </div>
               </div>
-              <p className="text-gray-500 text-sm">{review.user.job}</p>
+
               <p className="text-gray-800 mt-2">{review.comment}</p>
             </div>
           </div>

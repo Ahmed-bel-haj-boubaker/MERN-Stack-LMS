@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   faCirclePlay,
   faLock,
@@ -5,7 +6,7 @@ import {
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import VideoModal from "./VideoModal";
 
 export interface ICourseDetails {
   videoUrl: string;
@@ -28,6 +29,7 @@ interface ICourseData {
 
 const Curriculum: React.FC<ICourseData> = ({ courseData, description }) => {
   const [openSection, setOpenSection] = useState<string | null>(null);
+  const [selectedVideo, setSelectedVideo] = useState<boolean | null>(false);
 
   const toggleSection = (section: string) => {
     setOpenSection(openSection === section ? null : section);
@@ -48,7 +50,6 @@ const Curriculum: React.FC<ICourseData> = ({ courseData, description }) => {
       </h2>
       <p className="text-gray-600 mb-6">{description}</p>
 
-      {/* Displaying each video in courseData */}
       {courseData.map((item, index) => (
         <div key={index} className="mb-4 border-b border-gray-300">
           <div
@@ -84,16 +85,19 @@ const Curriculum: React.FC<ICourseData> = ({ courseData, description }) => {
                 : "max-h-0 opacity-0"
             } overflow-hidden`}
           >
-            <p className="mb-2"> {item.description}</p>
+            <p className="mb-2">{item.description}</p>
             <div className="flex items-center bg-purple-50 p-2 space-y-4">
               <div className="flex items-center justify-between w-full">
                 <div className="flex items-center space-x-3">
-                  <div className="group bg-white flex items-center justify-center rounded-full text-violet-900">
-                    <FontAwesomeIcon
-                      className="  text-xl  group-hover:fill-white"
-                      icon={faCirclePlay}
-                    />
-                  </div>
+                  <button
+                    onClick={() => item.preview && setSelectedVideo(true)}
+                    className={`group bg-white flex items-center justify-center rounded-full text-violet-900 hover:bg-purple-200 p-2 ${
+                      !item.preview ? "cursor-not-allowed opacity-50" : ""
+                    }`}
+                    disabled={!item.preview}
+                  >
+                    <FontAwesomeIcon className="text-xl" icon={faCirclePlay} />
+                  </button>
 
                   <p>{item.videoSection}</p>
                 </div>
@@ -109,6 +113,13 @@ const Curriculum: React.FC<ICourseData> = ({ courseData, description }) => {
           </div>
         </div>
       ))}
+
+      {selectedVideo && (
+        <VideoModal
+          videoUrl="/videos/aa.mp4"
+          onClose={() => setSelectedVideo(null)}
+        />
+      )}
     </div>
   );
 };
