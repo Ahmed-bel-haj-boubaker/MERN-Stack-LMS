@@ -60,7 +60,7 @@ const CourseDetails = () => {
 
   return (
     <div className="flex flex-col ">
-      <div className="flex flex-col  lg:flex-row justify-center items-start p-6 min-h-screen mt-24">
+      <div className="flex flex-col lg:flex-row justify-center items-start  min-h-screen mt-24">
         <div className="flex-1  p-6 mb-6 lg:mb-0 lg:mr-6">
           <div className="flex flex-col-reverse">
             <div>

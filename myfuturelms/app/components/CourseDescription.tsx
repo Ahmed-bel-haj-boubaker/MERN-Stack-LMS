@@ -23,6 +23,12 @@ const CourseDescription: React.FC<ICourseDescriptionPropos> = ({
         <h2 className="mt-4 text-2xl text-[#161439] font-semibold">
           What you'll learn in this course?
         </h2>
+        <p className="text-gray-500">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio
+          ullam nihil et atque enim labore error quo ducimus officiis! Nulla
+          quae modi quis dolore saepe voluptates ipsa quisquam sapiente
+          laudantium!
+        </p>
         <ul className="flex mt-5 flex-col space-y-2">
           {benefits?.map((text, index) => (
             <li key={index} className="text-black font-bold flex items-center">
@@ -49,6 +55,12 @@ const CourseDescription: React.FC<ICourseDescriptionPropos> = ({
         <h2 className="mt-4 text-2xl text-[#161439] font-semibold">
           What you need to know before starting?
         </h2>
+        <p className="text-gray-500">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio
+          ullam nihil et atque enim labore error quo ducimus officiis! Nulla
+          quae modi quis dolore saepe voluptates ipsa quisquam sapiente
+          laudantium!
+        </p>
         <ul className="flex mt-5 flex-col space-y-2">
           {prerequisites?.map((text, index) => (
             <li key={index} className="text-black font-bold flex items-center">
