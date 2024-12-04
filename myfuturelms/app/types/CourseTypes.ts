@@ -1,3 +1,5 @@
+import { ICourseDetails } from "../components/Curriculum";
+
 export interface Course {
   _id: string;
   name: string;
@@ -10,12 +12,18 @@ export interface Course {
   price: number;
   totalResults: number;
   createdAt: Date;
-  courseData: Array<string>;
+  courseData: ICourseDetails[];
   benefits: Array<string>;
   purchased: number;
+  reviews: IReview[];
 }
 export interface Instructor {
   username: string;
+  facebookLink: string;
+  linkedinLink: string;
+  instagramLink: string;
+  reviews: Array<object>;
+  job: string;
 }
 
 export interface Category {
@@ -23,4 +31,17 @@ export interface Category {
 }
 export interface CoursesResponse {
   courses: Course;
+}
+export interface IReview {
+  rating: number;
+  user: {
+    username: string;
+    job: string;
+  };
+  comment: string;
+}
+
+export interface IReviews {
+  reviews: IReview[];
+  ratings: number;
 }

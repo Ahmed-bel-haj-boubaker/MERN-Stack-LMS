@@ -19,7 +19,7 @@ const courseRouter = express.Router();
 
 courseRouter
   .route("/create-course")
-  .post(isAuthenticated, authorizedRoles("admin"), uploadCourse);
+  .post(isAuthenticated, authorizedRoles("admin", "instructor"), uploadCourse);
 courseRouter
   .route("/update-course/:id")
   .patch(isAuthenticated, authorizedRoles("admin"), EditCourse);

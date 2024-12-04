@@ -37,6 +37,10 @@ export interface ISocialAuthBody {
 export interface IUpdateUserInfo {
   username?: string;
   email?: string;
+  facebookLink?: string;
+  instagramLink?: string;
+  linkedinLink?: string;
+  twitterLink?: string;
 }
 
 export interface IUpdatePassword {

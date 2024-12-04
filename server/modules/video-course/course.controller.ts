@@ -92,7 +92,8 @@ export const getSingleCourse = CatchAsyncError(
           })
           .populate({
             path: "instructor",
-            select: "username",
+            select:
+              "username facebookLink twitterLink instagramLink linkedinLink job",
           });
         await redis.set(courseId, JSON.stringify(course), "EX", 604800);
         res.status(200).json({
@@ -300,7 +301,7 @@ export const addReviewInCourse = CatchAsyncError(
     try {
       const { rating, review }: IAddReviewData = req.body;
       const courseList = req.user?.courses;
-
+      console.log(courseList);
       const courseId = req.params.id;
 
       const courseExist = courseList?.some((e: any) => e._id === courseId);
@@ -332,6 +333,7 @@ export const addReviewInCourse = CatchAsyncError(
       //   title: "New Review Received",
       //   message: `New review received for course ${course?.name} by ${req.user?.name} `,
       // };
+      await redis.set(courseId, JSON.stringify(course), "EX", 604800);
 
       res.status(200).json({
         success: true,

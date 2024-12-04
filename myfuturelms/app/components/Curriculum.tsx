@@ -6,22 +6,23 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import { FaLock } from "react-icons/fa"; // Importing the lock icon from react-icons
+
+export interface ICourseDetails {
+  videoUrl: string;
+  videoLength: number;
+  title: string;
+  preview: boolean;
+  videoSection: string;
+  description: string;
+  links: Array<string>;
+  videoPlayer: string;
+  suggestion: string;
+  _id: string;
+  questions: Array<string>;
+}
 
 interface ICourseData {
-  courseData: Array<{
-    videoUrl: string;
-    videoLength: number;
-    title: string;
-    preview: boolean;
-    videoSection: string;
-    description: string;
-    links: Array<string>;
-    videoPlayer: string;
-    suggestion: string;
-    _id: string;
-    questions: Array<any>;
-  }>;
+  courseData: Array<ICourseDetails>;
   description: string;
 }
 

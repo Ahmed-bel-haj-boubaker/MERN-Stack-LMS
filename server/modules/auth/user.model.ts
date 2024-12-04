@@ -29,13 +29,19 @@ export interface IUser extends Document {
   planStartDate?: Date;
   planEndDate?: Date;
   isPlanActive?: boolean;
-  githubId: string; // GitHub ID
-  githubUsername: string; // GitHub username
-  githubUrl: string; // GitHub profile URL
-  socialLogin: boolean; // Flag for social login
-  comparePassword: (password: string) => Promise<boolean>; // Method for password comparison
-  SignAccessToken: () => string; // Method to sign access token
-  SignRefreshToken: () => string; // Method to sign refresh token
+  githubId: string;
+  githubUsername: string;
+  githubUrl: string;
+  socialLogin: boolean;
+  facebookLink?: string;
+  instagramLink?: string;
+  linkedinLink?: string;
+  twitterLink?: string;
+  job?: string;
+  ratings?: number;
+  comparePassword: (password: string) => Promise<boolean>;
+  SignAccessToken: () => string;
+  SignRefreshToken: () => string;
 }
 
 const userSchema: Schema<IUser> = new mongoose.Schema(
@@ -124,7 +130,7 @@ const userSchema: Schema<IUser> = new mongoose.Schema(
       ref: "AdminCourse",
       required: true,
     },
-    // GitHub fields for social login
+
     githubId: {
       type: String,
       required: false,
@@ -141,6 +147,12 @@ const userSchema: Schema<IUser> = new mongoose.Schema(
       type: Boolean,
       required: false,
     },
+    facebookLink: { type: String, required: false },
+    instagramLink: { type: String, required: false },
+    linkedinLink: { type: String, required: false },
+    twitterLink: { type: String, required: false },
+    job: { type: String, required: false },
+    ratings: { type: Number, default: 0, required: false },
   },
   { timestamps: true }
 );

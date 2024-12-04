@@ -348,7 +348,15 @@ export const updatePasswordWithNewCode = CatchAsyncError(
 );
 export const updateUserInfo = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { username, email } = req.body as IUpdateUserInfo;
+    const {
+      username,
+      email,
+      facebookLink,
+      instagramLink,
+      linkedinLink,
+      twitterLink,
+      job,
+    } = req.body as IUpdateUserInfo;
     const userId = req.user?._id as string;
 
     const user = await userModel.findById(userId);
@@ -361,6 +369,21 @@ export const updateUserInfo = CatchAsyncError(
     }
     if (username && user) {
       user.username = username || "";
+    }
+    if (facebookLink && user) {
+      user.facebookLink = facebookLink || "";
+    }
+    if (instagramLink && user) {
+      user.instagramLink = instagramLink || "";
+    }
+    if (linkedinLink && user) {
+      user.linkedinLink = linkedinLink || "";
+    }
+    if (twitterLink && user) {
+      user.twitterLink = twitterLink || "";
+    }
+    if (job && user) {
+      user.job = job || "";
     }
 
     await user?.save();

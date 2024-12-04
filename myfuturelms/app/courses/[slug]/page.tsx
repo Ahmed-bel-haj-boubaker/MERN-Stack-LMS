@@ -15,7 +15,6 @@ import { useState } from "react";
 import InstructorsDetails from "@/app/components/InstructorsDetails";
 import Reviews from "@/app/components/Reviews";
 import Curriculum from "@/app/components/Curriculum";
-import CoursesItems from "@/app/Data";
 const CourseDetails = () => {
   const [isOverviewVisible, setOverviewVisible] = useState(true);
   const [isCurriculumVisible, setCurriculumVisible] = useState(false);
@@ -142,7 +141,7 @@ const CourseDetails = () => {
               text="Instructors"
               onClicks={() => handleInstructorsVisible()}
             />
-            <Button text="reviews" onClicks={() => handleReviewsVisible()} />
+            <Button text="Reviews" onClicks={() => handleReviewsVisible()} />
           </div>
           {isOverviewVisible && (
             <div>
@@ -154,12 +153,18 @@ const CourseDetails = () => {
           )}
           {isReviewsVisible && (
             <div>
-              <Reviews />
+              <Reviews reviews={course.reviews} ratings={course.ratings} />
             </div>
           )}
           {isInstructorsVisible && (
             <div>
-              <InstructorsDetails />
+              <InstructorsDetails
+                instructorName={course.instructor.username}
+                instructorJob={course.instructor.job}
+                facebookUser={course.instructor.facebookLink}
+                instagramUser={course.instructor.instagramLink}
+                linkedinUser={course.instructor.linkedinLink}
+              />
             </div>
           )}
           {isCurriculumVisible && (
