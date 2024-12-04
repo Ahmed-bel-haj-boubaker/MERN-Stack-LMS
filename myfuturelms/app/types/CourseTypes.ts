@@ -13,9 +13,19 @@ export interface Course {
   totalResults: number;
   createdAt: Date;
   courseData: ICourseDetails[];
-  benefits: Array<string>;
+  benefits: Ibenefits[];
   purchased: number;
   reviews: IReview[];
+  level: string;
+  estimatedPrice: number;
+  prerequisites: Iprerequisites[];
+}
+export interface Iprerequisites {
+  title: string;
+}
+
+export interface Ibenefits {
+  title: string;
 }
 export interface Instructor {
   username: string;

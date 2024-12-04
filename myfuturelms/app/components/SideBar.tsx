@@ -5,15 +5,27 @@ import Visa from "../../public/images/visa.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDollarSign } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
-
-const SideBar = () => {
+interface IcourseInfo {
+  lessons: number;
+  price: number;
+  level: string;
+  participation: number;
+  oldPrice: number;
+}
+const SideBar: React.FC<IcourseInfo> = ({
+  lessons,
+  level,
+  participation,
+  price,
+  oldPrice,
+}) => {
   return (
     <div className="w-full lg:w-1/4 bg-white shadow-2xl border border-gray rounded-lg p-6">
       <div className="flex items-center justify-between text-white bg-purple-600 rounded-xl p-4 flex-col ">
         <span className="text-lg font-bold text-start ">This Course Fee:</span>
         <span className="font-bold justify-between text-2xl">
           <FontAwesomeIcon icon={faDollarSign} className="mr-1" />
-          18.00 <span className="line-through text-lg  ">$32.00</span>
+          {price} <span className="line-through text-lg  ">${oldPrice}</span>
         </span>
       </div>
 
@@ -49,7 +61,7 @@ const SideBar = () => {
               </svg>
               <div>Level</div>
             </div>
-            Expert
+            {level}
           </li>
           <li className="flex items-center justify-between border-b border-gray-300 mb-2 pb-2">
             <div className="flex gap-2 items-center">
@@ -86,7 +98,7 @@ const SideBar = () => {
               </svg>
               <div>Lessons</div>
             </div>
-            12
+            {lessons}
           </li>
           <li className="flex items-center justify-between border-b border-gray-300 mb-2 pb-2">
             <div className="flex gap-2 items-center">
@@ -184,7 +196,7 @@ const SideBar = () => {
               </svg>
               <div>Graduation</div>
             </div>
-            25K
+            {participation}
           </li>
         </ul>
       </div>

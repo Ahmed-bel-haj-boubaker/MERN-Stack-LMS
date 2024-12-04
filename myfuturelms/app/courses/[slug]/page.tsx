@@ -24,7 +24,6 @@ const CourseDetails = () => {
   const id = searchParams.get("id");
 
   const { course } = useGetByIdCourse(id);
-  console.log(course);
 
   const handleOverviewVisible = () => {
     setOverviewVisible(true);
@@ -125,8 +124,8 @@ const CourseDetails = () => {
               />
               <div className="flex justify-start items-center text-yellow-500 font-medium mt-6">
                 <Ticket text="development" className="text-black" />
-                <FontAwesomeIcon icon={faStar} className="mr-1" />
-                (4.5 Reviews)
+                <FontAwesomeIcon icon={faStar} className="mr-1" />(
+                {course.ratings} Reviews)
               </div>
             </div>
           </div>
@@ -148,6 +147,7 @@ const CourseDetails = () => {
               <CourseDescription
                 benefits={course.benefits}
                 description={course.description}
+                prerequisites={course.prerequisites}
               />
             </div>
           )}
@@ -177,7 +177,13 @@ const CourseDetails = () => {
           )}
         </div>
 
-        <SideBar />
+        <SideBar
+          lessons={course?.courseData.length}
+          level={course?.level}
+          participation={course.purchased}
+          price={course.price}
+          oldPrice={course.estimatedPrice}
+        />
       </div>
     </div>
   );
