@@ -9,6 +9,17 @@ import {
 import { useState } from "react";
 import Button from "./Button";
 import useUserConnected from "../hooks/user/useUserConnected";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDiscourse } from "@fortawesome/free-brands-svg-icons";
+import {
+  faBlog,
+  faBook,
+  faCirclePlay,
+  faList,
+  faNewspaper,
+  faPersonWalking,
+  faVideo,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -51,38 +62,210 @@ const Navbar = () => {
         <ul className="hidden xl:flex space-x-2 lg:space-x-4 text-sm md:text-base lg:text-lg font-poppins ">
           <li className="group relative flex items-center hover:bg-indigo-600 hover:text-white p-2">
             <a href="#">Home</a>
+          </li>
+          <li className="group relative flex items-center hover:bg-indigo-600 hover:text-white p-2">
+            <a href="#">About Us</a>
+          </li>
+          <li className="group relative flex items-center    p-2">
+            <a href="#">Courses</a>
             <i className="fas fa-chevron-down ml-2 text-sm"></i>
 
-            <ul className="absolute left-0 top-full mt-0 w-48 bg-white shadow-lg rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transform group-hover:translate-y-2 transition-all duration-300 ease-in-out z-10">
+            <ul className="absolute left-0 top-full mt-0 w-[40vh] bg-white shadow-lg rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transform group-hover:translate-y-2 transition-all duration-300 ease-in-out z-10">
               <li>
                 <a
-                  href="#"
-                  className="block px-4 py-2 hover:text-indigo-600 text-black"
+                  href="/courses"
+                  className="block px-6 py-4 rounded-lg   transition-shadow duration-300 group"
                 >
-                  About Us
+                  <div className="flex items-center space-x-4">
+                    <div
+                      className="p-3 bg-yellow-400 text-white rounded-lg flex items-center justify-center"
+                      style={{
+                        boxShadow: "4px 4px 0px black",
+                        transition:
+                          "box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out",
+                      }}
+                      onMouseEnter={(e) =>
+                        (e.currentTarget.style.boxShadow = "4px 4px 0px black")
+                      }
+                      onMouseLeave={(e) =>
+                        (e.currentTarget.style.boxShadow = "none")
+                      }
+                    >
+                      <FontAwesomeIcon
+                        icon={faCirclePlay}
+                        className="w-6 h-6 text-black"
+                      />
+                    </div>
+                    <div>
+                      <p className="text-lg font-semibold text-black transition-colors duration-300">
+                        Watch & Learn
+                      </p>
+                      <p className="text-sm text-gray-500 group-hover:text-gray-700 transition-colors duration-300">
+                        Learn by Watching video courses
+                      </p>
+                    </div>
+                  </div>
                 </a>
               </li>
+
               <li>
                 <a
                   href="#"
-                  className="block px-4 py-2 hover:text-indigo-600 text-black"
+                  className="block px-6 py-4 rounded-lg  duration-300 group"
                 >
-                  Contact
+                  <div className="flex items-center space-x-4">
+                    <div
+                      className="p-3  bg-yellow-400 text-white rounded-lg flex items-center justify-center"
+                      style={{
+                        boxShadow: "4px 4px 0px black",
+                        transition:
+                          "box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out",
+                      }}
+                      onMouseEnter={(e) =>
+                        (e.currentTarget.style.boxShadow = "4px 4px 0px black")
+                      }
+                      onMouseLeave={(e) =>
+                        (e.currentTarget.style.boxShadow = "none")
+                      }
+                    >
+                      <FontAwesomeIcon
+                        icon={faBook}
+                        className="w-6 h-6 text-black"
+                      />
+                    </div>
+                    <div>
+                      <p className="text-lg font-bold text-black  transition-colors duration-300">
+                        Read & Learn
+                      </p>
+                      <p className="text-sm text-gray-500 group-hover:text-gray-700 transition-colors duration-300">
+                        Empower Your Mind, One Click at a Time!
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href="#"
+                  className="block px-6 py-4 rounded-lg  duration-300 group"
+                >
+                  <div className="flex items-center space-x-4">
+                    <div
+                      className="p-3 bg-yellow-400 text-white rounded-lg flex items-center justify-center"
+                      style={{
+                        boxShadow: "4px 4px 0px black",
+                        transition:
+                          "box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out",
+                      }}
+                      onMouseEnter={(e) =>
+                        (e.currentTarget.style.boxShadow = "4px 4px 0px black")
+                      }
+                      onMouseLeave={(e) =>
+                        (e.currentTarget.style.boxShadow = "none")
+                      }
+                    >
+                      <FontAwesomeIcon
+                        icon={faPersonWalking}
+                        className="w-6 h-6 text-black"
+                      />
+                    </div>
+                    <div>
+                      <p className="text-lg font-semibold text-black transition-colors duration-300">
+                        Personalized Learning Paths
+                      </p>
+                      <p className="text-sm text-gray-500 group-hover:text-gray-700 transition-colors duration-300">
+                        Learn at your pace and master new skills, tailored to
+                        your goals.
+                      </p>
+                    </div>
+                  </div>
                 </a>
               </li>
             </ul>
           </li>
-          <li className="group relative flex items-center hover:bg-indigo-600 hover:text-white p-2">
-            <a href="#">Courses</a>
-            <i className="fas fa-chevron-down ml-2 text-sm"></i>
+
+          <li className="group relative flex items-center  p-2">
+            <a href="#">Pricing</a>
           </li>
-          <li className="group relative flex items-center hover:bg-indigo-600 hover:text-white p-2">
-            <a href="#">Pages</a>
+          <li className="group relative flex items-center  p-2">
+            <a href="#">Ressources</a>
             <i className="fas fa-chevron-down ml-2 text-sm"></i>
-          </li>
-          <li className="group relative flex items-center hover:bg-indigo-600 hover:text-white p-2">
-            <a href="#">Dashboard</a>
-            <i className="fas fa-chevron-down ml-2 text-sm"></i>
+            <ul className="absolute left-0 top-full mt-0 w-[40vh] bg-white shadow-lg rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transform group-hover:translate-y-2 transition-all duration-300 ease-in-out z-10">
+              <li>
+                <a
+                  href="#"
+                  className="block px-6 py-4 rounded-lg   transition-shadow duration-300 group"
+                >
+                  <div className="flex items-center space-x-4">
+                    <div
+                      className="p-3 bg-yellow-400 text-white rounded-lg flex items-center justify-center"
+                      style={{
+                        boxShadow: "4px 4px 0px black",
+                        transition:
+                          "box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out",
+                      }}
+                      onMouseEnter={(e) =>
+                        (e.currentTarget.style.boxShadow = "4px 4px 0px black")
+                      }
+                      onMouseLeave={(e) =>
+                        (e.currentTarget.style.boxShadow = "none")
+                      }
+                    >
+                      <FontAwesomeIcon
+                        icon={faNewspaper}
+                        className="w-6 h-6 text-black"
+                      />
+                    </div>
+                    <div>
+                      <p className="text-lg font-semibold text-black duration-300">
+                        Blog
+                      </p>
+                      <p className="text-sm text-gray-500 group-hover:text-gray-700 transition-colors duration-300">
+                        Access a collection of articles and resources to enrich
+                        your knowledge.
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="block px-6 py-4 rounded-lg   transition-shadow duration-300 group"
+                >
+                  <div className="flex items-center space-x-4">
+                    <div
+                      className="p-3  bg-yellow-400 rounded-lg flex items-center justify-center"
+                      style={{
+                        boxShadow: "4px 4px 0px black",
+                        transition:
+                          "box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out",
+                      }}
+                      onMouseEnter={(e) =>
+                        (e.currentTarget.style.boxShadow = "4px 4px 0px black")
+                      }
+                      onMouseLeave={(e) =>
+                        (e.currentTarget.style.boxShadow = "none")
+                      }
+                    >
+                      <FontAwesomeIcon
+                        icon={faList}
+                        className="w-6 h-6 text-black"
+                      />
+                    </div>
+                    <div>
+                      <p className="text-lg font-semibold text-black duration-300">
+                        Cheatsheets
+                      </p>
+                      <p className="text-sm text-gray-500 group-hover:text-gray-700 transition-colors duration-300">
+                        Master Any Path, One Cheatsheet at a Time!
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </li>
+            </ul>
           </li>
         </ul>
 
@@ -176,7 +359,6 @@ const Navbar = () => {
                   ></i>
                 </div>
 
-               
                 {isOpenProfile && (
                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg">
                     <ul className="py-2">

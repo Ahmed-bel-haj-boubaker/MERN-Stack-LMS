@@ -110,8 +110,8 @@ export const getSingleCourse = CatchAsyncError(
 export const getAllCourses = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const page = parseInt(req.query.page as string) || 1; // default to page 1 if not provided
-      const limit = parseInt(req.query.limit as string) || 10; // default to 10 items per page if not provided
+      const page = parseInt(req.query.page as string) || 1;
+      const limit = parseInt(req.query.limit as string) || 10;
       const skip = (page - 1) * limit;
 
       const cacheKey = `allCourses_page${page}_limit${limit}`;
@@ -121,7 +121,7 @@ export const getAllCourses = CatchAsyncError(
         const courses = JSON.parse(isCacheExist);
         res.status(200).json({ success: true, courses });
       } else {
-        const totalResults = await CourseModel.countDocuments(); // Total count for pagination
+        const totalResults = await CourseModel.countDocuments();
         const courses = await CourseModel.find()
           .select(
             "-courseData.videoUrl -courseData.suggestion -courseData.questions -courseData.links"
