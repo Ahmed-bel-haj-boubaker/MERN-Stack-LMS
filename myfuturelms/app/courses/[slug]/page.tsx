@@ -66,7 +66,7 @@ const CourseDetails = () => {
             <div>
               <div className="mt-3 mb-3 flex flex-col">
                 <h1 className="text-3xl font-bold text-gray-800">
-                  Resolving Conflicts Between Designers And Engineers
+                  {course.name}
                 </h1>
               </div>
               <div className="flex items-center ">

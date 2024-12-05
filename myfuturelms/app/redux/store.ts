@@ -5,7 +5,7 @@ import coursesReducer from "./courseSlices/courseSlice";
 
 const persistConfig = {
   key: "root",
-  storage,
+  storage: typeof window !== "undefined" ? storage : storage,
 };
 
 const persistedReducer = persistReducer(persistConfig, coursesReducer);
