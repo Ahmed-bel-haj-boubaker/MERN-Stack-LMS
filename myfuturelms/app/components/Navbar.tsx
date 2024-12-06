@@ -58,7 +58,6 @@ const Navbar = () => {
           </button>
         </div>
 
-        {/* Desktop Menu */}
         <ul className="hidden xl:flex space-x-2 lg:space-x-4 text-sm md:text-base lg:text-lg font-poppins ">
           <li className="group relative flex items-center hover:bg-indigo-600 hover:text-white p-2">
             <a href="#">Home</a>
@@ -78,7 +77,7 @@ const Navbar = () => {
                 >
                   <div className="flex items-center space-x-4">
                     <div
-                      className="p-3 bg-yellow-400 text-white rounded-lg flex items-center justify-center"
+                      className="p-3 bg-blue-700 text-white rounded-lg flex items-center justify-center"
                       style={{
                         boxShadow: "4px 4px 0px black",
                         transition:
@@ -93,7 +92,7 @@ const Navbar = () => {
                     >
                       <FontAwesomeIcon
                         icon={faCirclePlay}
-                        className="w-6 h-6 text-black"
+                        className="w-6 h-6 "
                       />
                     </div>
                     <div>
@@ -115,7 +114,7 @@ const Navbar = () => {
                 >
                   <div className="flex items-center space-x-4">
                     <div
-                      className="p-3  bg-yellow-400 text-white rounded-lg flex items-center justify-center"
+                      className="p-3  bg-blue-700 text-white rounded-lg flex items-center justify-center"
                       style={{
                         boxShadow: "4px 4px 0px black",
                         transition:
@@ -130,7 +129,7 @@ const Navbar = () => {
                     >
                       <FontAwesomeIcon
                         icon={faBook}
-                        className="w-6 h-6 text-black"
+                        className="w-6 h-6 text-white"
                       />
                     </div>
                     <div>
@@ -152,7 +151,7 @@ const Navbar = () => {
                 >
                   <div className="flex items-center space-x-4">
                     <div
-                      className="p-3 bg-yellow-400 text-white rounded-lg flex items-center justify-center"
+                      className="p-3 bg-blue-700 text-white rounded-lg flex items-center justify-center"
                       style={{
                         boxShadow: "4px 4px 0px black",
                         transition:
@@ -167,7 +166,7 @@ const Navbar = () => {
                     >
                       <FontAwesomeIcon
                         icon={faPersonWalking}
-                        className="w-6 h-6 text-black"
+                        className="w-6 h-6 text-white"
                       />
                     </div>
                     <div>
@@ -199,7 +198,7 @@ const Navbar = () => {
                 >
                   <div className="flex items-center space-x-4">
                     <div
-                      className="p-3 bg-yellow-400 text-white rounded-lg flex items-center justify-center"
+                      className="p-3 bg-blue-700 text-white rounded-lg flex items-center justify-center"
                       style={{
                         boxShadow: "4px 4px 0px black",
                         transition:
@@ -214,7 +213,7 @@ const Navbar = () => {
                     >
                       <FontAwesomeIcon
                         icon={faNewspaper}
-                        className="w-6 h-6 text-black"
+                        className="w-6 h-6 text-white"
                       />
                     </div>
                     <div>
@@ -236,7 +235,7 @@ const Navbar = () => {
                 >
                   <div className="flex items-center space-x-4">
                     <div
-                      className="p-3  bg-yellow-400 rounded-lg flex items-center justify-center"
+                      className="p-3  bg-blue-700 rounded-lg flex items-center justify-center"
                       style={{
                         boxShadow: "4px 4px 0px black",
                         transition:
@@ -251,7 +250,7 @@ const Navbar = () => {
                     >
                       <FontAwesomeIcon
                         icon={faList}
-                        className="w-6 h-6 text-black"
+                        className="w-6 h-6 text-white"
                       />
                     </div>
                     <div>

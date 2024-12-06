@@ -86,7 +86,7 @@ const CourseCard: React.FC<CourseProps> = ({
               (e.currentTarget.style.boxShadow = "3px 3px 0px black")
             }
           >
-            Get Started
+            Enroll Now
             <div className="ml-2">
               <FontAwesomeIcon icon={faArrowRight} />
             </div>
