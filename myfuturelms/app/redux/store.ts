@@ -1,19 +1,23 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage/session";
 import coursesReducer from "./courseSlices/courseSlice";
+import cartReducer from "./cartSlices/cartSlice";
+
+const rootReducer = combineReducers({
+  courses: coursesReducer,
+  cart: cartReducer,
+});
 
 const persistConfig = {
   key: "root",
-  storage: typeof window !== "undefined" ? storage : storage,
+  storage,
 };
 
-const persistedReducer = persistReducer(persistConfig, coursesReducer);
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({
-  reducer: {
-    courses: persistedReducer,
-  },
+  reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
@@ -25,7 +29,6 @@ const store = configureStore({
       },
     }),
 });
-
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 

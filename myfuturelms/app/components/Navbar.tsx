@@ -10,22 +10,23 @@ import { useState } from "react";
 import Button from "./Button";
 import useUserConnected from "../hooks/user/useUserConnected";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDiscourse } from "@fortawesome/free-brands-svg-icons";
 import {
-  faBlog,
   faBook,
   faCirclePlay,
   faList,
   faNewspaper,
   faPersonWalking,
-  faVideo,
 } from "@fortawesome/free-solid-svg-icons";
+import { useAppSelector } from "../redux/hooks";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenProfile, setIsOpenProfil] = useState(false);
   const { isLogged, userName, handleLogout } = useUserConnected();
+
+  const cartLength = useAppSelector((state) => state.cart.total);
+
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
@@ -332,10 +333,12 @@ const Navbar = () => {
             </div>
             <div className="relative">
               <div className="w-8 h-8 border-2 border-gray-600 rounded-full flex justify-center items-center transition-transform duration-200 ease-in-out transform hover:scale-110 hover:bg-indigo-600 hover:border-indigo-600">
-                <ShoppingCartIcon className="h-5 w-5 text-gray-600 transition-colors duration-200 ease-in-out hover:text-white" />
+                <a href="/cart">
+                  <ShoppingCartIcon className="h-5 w-5 text-gray-600 transition-colors duration-200 ease-in-out hover:text-white" />
+                </a>
               </div>
               <span className="absolute -top-1 -right-1 bg-yellow-400 text-xs px-1 rounded-full">
-                0
+                {cartLength}
               </span>
             </div>
 
