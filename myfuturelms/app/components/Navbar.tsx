@@ -61,10 +61,10 @@ const Navbar = () => {
 
         <ul className="hidden xl:flex space-x-2 lg:space-x-4 text-sm md:text-base lg:text-lg font-poppins ">
           <li className="group relative flex items-center hover:bg-indigo-600 hover:text-white p-2">
-            <a href="#">Home</a>
+            <a href="/">Home</a>
           </li>
           <li className="group relative flex items-center hover:bg-indigo-600 hover:text-white p-2">
-            <a href="#">About Us</a>
+            <a href="/about-us">About Us</a>
           </li>
           <li className="group relative flex items-center    p-2">
             <a href="#">Courses</a>
