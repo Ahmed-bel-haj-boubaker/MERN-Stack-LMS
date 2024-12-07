@@ -41,7 +41,7 @@ const LeftArrow = (props: any) => {
 
   return (
     <div
-      className="absolute xl:left-[50vh] top-64   transform -translate-y-1/2 cursor-pointer xl:block hidden 
+      className="absolute xl:left-[45vh] top-64   transform -translate-y-1/2 cursor-pointer xl:block hidden 
     transition-all duration-300 ease-in-out bg-indigo-600   hover:bg-indigo-700 hover:scale-110 hover:shadow-lg"
       onClick={onClick}
       style={{
@@ -65,7 +65,7 @@ const RightArrow = (props: any) => {
   const { onClick } = props;
   return (
     <div
-      className="absolute xl:right-[50vh] top-64  transform -translate-y-1/2 cursor-pointer xl:block hidden 
+      className="absolute xl:right-[45vh] top-64  transform -translate-y-1/2 cursor-pointer xl:block hidden 
     transition-all duration-300 ease-in-out bg-indigo-600  hover:scale-110 hover:bg-indigo-700 hover:shadow-lg"
       onClick={onClick}
       style={{
@@ -126,7 +126,10 @@ const Categories = () => {
       className="p-5 mb-40 max-lg:mb-20 mt-11 bg-white "
     >
       <div className="flex flex-col items-center mb-8">
-        <Ticket text="Trending Categories" className="text-indigo-800 font-bold"/>
+        <Ticket
+          text="Trending Categories"
+          className="text-indigo-800 font-bold"
+        />
         <h2 className="text-4xl font-bold leading-tight max-lg:text-2xl md:text-6xl lg:text-5xl text-center mt-4">
           Top <span className="text-indigo-600">Categories</span>That We Have
         </h2>

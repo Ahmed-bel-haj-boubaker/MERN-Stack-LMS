@@ -75,13 +75,12 @@ const CourseCard: React.FC<CourseProps> = ({
             ${price}
           </div>
         </div>
-
         <h3
-          className="relative text-md font-bold text-gray-800 line-clamp-2 leading-tight mb-2 group"
+          className="relative text-md font-bold text-gray-800 line-clamp-2 leading-tight mb-2 group inline-block"
           onClick={handleNavigate}
         >
           {courseName}
-          <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-gray-800 group-hover:w-full transition-all duration-300 ease-in-out"></span>
+          <span className="absolute left-0 bottom-0 h-0.5 bg-gray-800 group-hover:w-full scale-x-0 group-hover:scale-x-100 transition-all duration-300 ease-in-out origin-bottom-left"></span>
         </h3>
 
         <div className="flex items-center mb-2 text-yellow-500 text-xs">
