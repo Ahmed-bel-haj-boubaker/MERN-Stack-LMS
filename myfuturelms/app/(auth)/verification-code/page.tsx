@@ -1,7 +1,11 @@
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import Api from "@/app/Api's";
 import Button from "@/app/components/Button";
-import { redirect, useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { toast, Toaster } from "react-hot-toast";
+
 import { useState } from "react";
 
 const VerificationCode: React.FC = () => {
@@ -36,40 +40,33 @@ const VerificationCode: React.FC = () => {
     setLoading(true);
     setError("");
 
-    try {
-      const response = await fetch(Api.verify_code, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-          verificationCode: code,
-          activationToken: activation_token,
-        }),
-      });
+    const response = await fetch(Api.verify_code, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+        verificationCode: code,
+        activationToken: activation_token,
+      }),
+    });
 
-      const result = await response.json();
+    const result = await response.json();
 
-      if (response.ok) {
-        const url = new URL("/change-password", window.location.origin);
-        url.searchParams.append("email", email);
-        router.push(url.toString());
-      } else {
-        setError(
-          result?.message || "An error occurred while activating the account."
-        );
-      }
-    } catch (err) {
-      setError("An error occurred while connecting to the server.");
-      console.error(err);
-    } finally {
-      setLoading(false);
+    if (response.ok) {
+      toast.success("You Can Now Reset Your Password");
+      const url = new URL("/change-password", window.location.origin);
+      url.searchParams.append("email", email);
+      router.push(url.toString());
+    } else {
+      toast.error(result.message);
     }
   };
 
   return (
     <div className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-gray-50 py-12">
+      <Toaster containerStyle={{ position: "absolute" }} />
       <div className="relative bg-white px-6 pt-10 pb-9 shadow-xl mx-auto w-full max-w-lg rounded-2xl">
         <div className="mx-auto flex w-full max-w-md flex-col space-y-16">
           <div className="flex flex-col items-center justify-center text-center space-y-2">

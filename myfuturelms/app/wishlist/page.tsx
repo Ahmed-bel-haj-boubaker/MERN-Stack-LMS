@@ -4,10 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import Button from "../components/Button";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import {
-  clearFavorite,
-  removeFromFavorite,
-} from "../redux/favoriteSlices/favoriteSlice";
+import { removeFromFavorite } from "../redux/favoriteSlices/favoriteSlice";
 import { addToCart } from "../redux/cartSlices/cartSlice";
 
 const Favorite: React.FC = () => {
@@ -46,7 +43,6 @@ const Favorite: React.FC = () => {
 
   return (
     <div className="flex justify-around">
-      {" "}
       <div className="container mx-auto px-4 py-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="lg:col-span-2 p-4">
