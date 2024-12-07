@@ -2,9 +2,12 @@ import { NextFunction, Response } from "express";
 import { CatchAsyncError } from "../../middleware/catchAsyncError";
 import OrderModel from "./order.model";
 
-
 export const newOrder = CatchAsyncError(
-  async (data: any, res: Response, next: NextFunction) => {
+  async (
+    data: { courseIds: string[]; userId: string; payment_info: any },
+    res: Response,
+    next: NextFunction
+  ) => {
     try {
       const order = await OrderModel.create(data);
       console.log(order);
@@ -17,6 +20,7 @@ export const newOrder = CatchAsyncError(
     }
   }
 );
+
 //Get All orders
 
 export const getAllOrdersService = async (res: Response) => {
