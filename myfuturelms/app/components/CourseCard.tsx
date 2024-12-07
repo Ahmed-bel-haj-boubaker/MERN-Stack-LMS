@@ -10,6 +10,7 @@ import { HeartIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { addToCart } from "../redux/cartSlices/cartSlice";
+import { addToFavorite } from "../redux/favoriteSlices/favoriteSlice";
 
 interface CourseProps {
   courseName: string;
@@ -39,6 +40,14 @@ const CourseCard: React.FC<CourseProps> = ({
   const pushTocart = () => {
     const course = { courseName, id, instructor, category, rating, price };
     dispatch(addToCart(course));
+    if (error) {
+      alert(error);
+    }
+  };
+
+  const addToWishlist = () => {
+    const course = { courseName, id, instructor, category, rating, price };
+    dispatch(addToFavorite(course));
     if (error) {
       alert(error);
     }
@@ -111,7 +120,9 @@ const CourseCard: React.FC<CourseProps> = ({
           </button>
           <div className="flex space-x-2">
             <div className="w-8 h-8 border-2 border-gray-300 rounded-full flex justify-center items-center transition-transform duration-200 ease-in-out transform hover:scale-110 hover:bg-indigo-600 hover:border-indigo-600  ">
-              <HeartIcon className="h-5 w-5 text-gray-400 transition-colors duration-200 ease-in-out hover:text-white" />
+              <button onClick={() => addToWishlist()}>
+                <HeartIcon className="h-5 w-5 text-gray-400 transition-colors duration-200 ease-in-out hover:text-white" />
+              </button>
             </div>
             <div className="w-8 h-8 border-2 border-gray-300 rounded-full flex justify-center items-center transition-transform duration-200 ease-in-out transform hover:scale-110 hover:bg-indigo-600 hover:border-indigo-600  ">
               <button onClick={() => pushTocart()}>

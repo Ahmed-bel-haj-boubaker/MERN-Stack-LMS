@@ -26,6 +26,7 @@ const Navbar = () => {
   const { isLogged, userName, handleLogout } = useUserConnected();
 
   const cartLength = useAppSelector((state) => state.cart.total);
+  const wishlistLength = useAppSelector((state) => state.favorite.total);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -325,10 +326,12 @@ const Navbar = () => {
           <div className="flex items-center space-x-3 lg:space-x-4">
             <div className="relative">
               <div className="w-8 h-8 border-2 border-gray-600 rounded-full flex justify-center items-center transition-transform duration-200 ease-in-out transform hover:scale-110 hover:bg-indigo-600 hover:border-indigo-600  ">
-                <HeartIcon className="h-5 w-5 text-gray-600 transition-colors duration-200 ease-in-out hover:text-white" />
+                <a href="wishlist">
+                  <HeartIcon className="h-5 w-5 text-gray-600 transition-colors duration-200 ease-in-out hover:text-white" />
+                </a>{" "}
               </div>
               <span className="absolute -top-1 -right-1 bg-yellow-400 text-xs px-1 rounded-full">
-                0
+                {wishlistLength}
               </span>
             </div>
             <div className="relative">

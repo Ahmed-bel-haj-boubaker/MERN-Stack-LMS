@@ -3,10 +3,11 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage/session";
 import coursesReducer from "./courseSlices/courseSlice";
 import cartReducer from "./cartSlices/cartSlice";
-
+import favoriteReducer from "./favoriteSlices/favoriteSlice";
 const rootReducer = combineReducers({
   courses: coursesReducer,
   cart: cartReducer,
+  favorite: favoriteReducer,
 });
 
 const persistConfig = {

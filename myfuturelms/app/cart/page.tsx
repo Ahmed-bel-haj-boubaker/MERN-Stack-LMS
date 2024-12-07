@@ -9,15 +9,12 @@ import { clearCart, removeFromCart } from "../redux/cartSlices/cartSlice";
 interface Course {
   courseName: string;
   courseId: string;
-  quantity: number;
   price: number;
 }
 
 const Card: React.FC = () => {
-  const [courseInCard, setCourseInCard] = useState<Course[]>([]);
   const coursesInCart = useAppSelector((state) => state.cart.cartArr);
   const totalprice = useAppSelector((state) => state.cart.totalPrice);
-  console.log(totalprice);
   const dispatch = useAppDispatch();
 
   const handleRemoveCourse = (courseId: string) => {
