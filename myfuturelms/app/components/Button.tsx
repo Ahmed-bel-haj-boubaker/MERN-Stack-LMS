@@ -1,9 +1,10 @@
 interface IButtonProps {
   text: string;
-  onClicks: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onClicks?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  href?: string;
 }
 
-const Button: React.FC<IButtonProps> = ({ text, onClicks }) => {
+const Button: React.FC<IButtonProps> = ({ text, onClicks, href }) => {
   return (
     <button
       className="px-3 py-2 border border-black text-black font-bold rounded-full transition-transform transform hover:scale-105 duration-200 ease-in-out bg-yellow-400 hover:bg-indigo-600 hover:text-white"
@@ -17,7 +18,7 @@ const Button: React.FC<IButtonProps> = ({ text, onClicks }) => {
       }
       onClick={onClicks}
     >
-      {text}
+      {href ? <a href={`/${href}`}>{text}</a> : text}
     </button>
   );
 };

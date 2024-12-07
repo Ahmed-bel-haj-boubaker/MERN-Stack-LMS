@@ -381,7 +381,7 @@ const Navbar = () => {
                 )}
               </div>
             ) : (
-              <Button text="Sign Up" />
+              <Button text="Sign Up" href="sign-up" />
             )}
           </div>
         </div>

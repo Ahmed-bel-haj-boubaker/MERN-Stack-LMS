@@ -36,8 +36,12 @@ const Card: React.FC = () => {
 
   if (coursesInCart.length === 0) {
     return (
-      <div className="text-center text-lg font-semibold text-gray-600">
-        Your cart is empty
+      <div className="text-center text-lg font-semibold text-gray-600 flex flex-col mt-14">
+        Your Cart is Empty
+        <div className="mt-5 mb-24">
+          {" "}
+          <Button text="Navigate to Courses" href="courses" />
+        </div>
       </div>
     );
   }
