@@ -35,9 +35,9 @@ const favoriteSlice = createSlice({
       if (courseInFavorite) {
         state.error = "This Course Already Exists";
       } else {
+        state.error = null;
         state.favoriteArr.push(action.payload);
         state.total += 1;
-        state.error = null;
       }
     },
 
@@ -50,6 +50,7 @@ const favoriteSlice = createSlice({
           (course) => course.id !== action.payload
         );
         state.total -= 1;
+        state.error = null;
       } else {
         console.log("Course not found in cart");
       }
@@ -58,6 +59,7 @@ const favoriteSlice = createSlice({
     clearFavorite: (state) => {
       state.favoriteArr = [];
       state.total = 0;
+      state.error = null;
     },
   },
 });

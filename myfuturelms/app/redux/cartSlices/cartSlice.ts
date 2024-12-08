@@ -37,10 +37,10 @@ const cartSlice = createSlice({
       if (courseInCart) {
         state.error = "This Course Already Exists";
       } else {
+        state.error = null;
         state.cartArr.push(action.payload);
         state.total += 1;
         state.totalPrice += action.payload.price;
-        state.error = null;
       }
     },
 
@@ -49,6 +49,7 @@ const cartSlice = createSlice({
       const id = action.payload;
       const courseInCart = state.cartArr.find((c) => c.id === id);
       if (courseInCart) {
+        state.error = null;
         const price = courseInCart.price;
         state.total -= 1;
         state.totalPrice -= price;
@@ -64,6 +65,7 @@ const cartSlice = createSlice({
       state.cartArr = [];
       state.total = 0;
       state.totalPrice = 0;
+      state.error = null;
     },
   },
 });
