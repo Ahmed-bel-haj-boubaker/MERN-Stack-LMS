@@ -10,7 +10,7 @@ import { HeartIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { addToCart } from "../redux/cartSlices/cartSlice";
 import { addToFavorite } from "../redux/favoriteSlices/favoriteSlice";
-import { toast, Toaster, ToastBar } from "react-hot-toast";
+import { toast, Toaster } from "react-hot-toast";
 
 interface CourseProps {
   courseName: string;
