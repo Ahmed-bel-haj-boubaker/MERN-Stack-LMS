@@ -41,6 +41,12 @@ export interface IUpdateUserInfo {
   instagramLink?: string;
   linkedinLink?: string;
   twitterLink?: string;
+  job?: string;
+  firstName?: string;
+  lastName?: string;
+  skills?: string[];
+  biography?: string;
+  phoneNumber?: string;
 }
 
 export interface IUpdatePassword {

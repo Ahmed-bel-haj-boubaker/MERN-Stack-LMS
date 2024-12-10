@@ -24,7 +24,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenProfile, setIsOpenProfil] = useState(false);
   const { isLogged, userName, handleLogout } = useUserConnected();
-
+  console.log(userName);
   const cartLength = useAppSelector((state) => state.cart.total);
   const wishlistLength = useAppSelector((state) => state.favorite.total);
 

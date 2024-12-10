@@ -8,7 +8,6 @@ const useGetByIdCourse = (id: string | null) => {
   const [course, setCourse] = useState<Course | null>(null);
 
   useEffect(() => {
-    // Only fetch if id is valid
     if (id) {
       const fetchCourse = async () => {
         try {

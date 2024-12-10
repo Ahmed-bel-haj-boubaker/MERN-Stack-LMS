@@ -36,8 +36,7 @@ require("dotenv").config();
 export const registrationUser = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { username, email, password, avatar } =
-        req.body as IRegistrationBody;
+      const { username, email, password } = req.body as IRegistrationBody;
       const isEmailExist = await userModel.find({ email: email });
       if (!isEmailExist) {
         return next(new ErrorHandler("Email already exist", 400));
@@ -356,6 +355,11 @@ export const updateUserInfo = CatchAsyncError(
       linkedinLink,
       twitterLink,
       job,
+      biography,
+      firstName,
+      lastName,
+      phoneNumber,
+      skills,
     } = req.body as IUpdateUserInfo;
     const userId = req.user?._id as string;
 
@@ -384,6 +388,21 @@ export const updateUserInfo = CatchAsyncError(
     }
     if (job && user) {
       user.job = job || "";
+    }
+    if (skills && user) {
+      user.skills = skills || [];
+    }
+    if (firstName && user) {
+      user.firstName = firstName || "";
+    }
+    if (lastName && user) {
+      user.lastName = lastName || "";
+    }
+    if (phoneNumber && user) {
+      user.phoneNumber = phoneNumber || "";
+    }
+    if (biography && user) {
+      user.biography = biography || "";
     }
 
     await user?.save();

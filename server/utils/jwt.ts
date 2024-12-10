@@ -4,24 +4,25 @@ import { IUser } from "../modules/auth/user.model";
 import { redis } from "./redis";
 import { ITokenOptions } from "../interfaces/authInterface";
 
-const accessTokenExpire = parseInt(
-  process.env.ACCESS_TOKEN_EXPIRE || "300",
-  10
-);
+// Set access token to expire in 1 hour (60 minutes)
+const accessTokenExpire = 60; // 60 minutes = 1 hour
+
+// Set refresh token expiration (can keep this longer if needed)
 const refreshTokenExpire = parseInt(
   process.env.REFRESH_TOKEN_EXPIRE || "1200",
   10
 );
 
 export const accessTokenOptions: ITokenOptions = {
-  expires: new Date(Date.now() + accessTokenExpire * 60 * 60 * 1000),
-  maxAge: accessTokenExpire * 60 * 60 * 1000,
+  expires: new Date(Date.now() + accessTokenExpire * 60 * 1000), // 60 minutes * 60,000ms = 1 hour
+  maxAge: accessTokenExpire * 60 * 1000, // 60 minutes * 60,000ms = 1 hour
   httpOnly: true,
   sameSite: "lax",
 };
+
 export const refreshTokenOptions: ITokenOptions = {
-  expires: new Date(Date.now() + refreshTokenExpire * 24 * 60 * 60 * 1000),
-  maxAge: refreshTokenExpire * 24 * 60 * 60 * 1000,
+  expires: new Date(Date.now() + refreshTokenExpire * 24 * 60 * 60 * 1000), // Days calculation
+  maxAge: refreshTokenExpire * 24 * 60 * 60 * 1000, // Days calculation
   httpOnly: true,
   sameSite: "lax",
 };

@@ -38,7 +38,7 @@ const ProfileBanner: React.FC<IUserData> = ({ numCourses, username, role }) => {
         </div>
 
         {role === "instructor" || role === "admin" ? (
-          <Button text="Create New Course" />
+          <Button text="Create A New Course" />
         ) : (
           <Button text="Become an Instructor" />
         )}

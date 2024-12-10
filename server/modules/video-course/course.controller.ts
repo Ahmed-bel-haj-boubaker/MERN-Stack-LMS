@@ -436,3 +436,23 @@ export const getCourseCourseByCategory = CatchAsyncError(
     }
   }
 );
+
+export const getCourseByInstructor = CatchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const userId = req.user?._id;
+      console.log(userId);
+      const courses = await CourseModel.find({ instructor: userId });
+
+      if (!courses) {
+        return next(
+          new ErrorHandler("Instructor doesn't have courses Yet ", 404)
+        );
+      }
+
+      res.status(200).json({ success: true, courses });
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 400));
+    }
+  }
+);

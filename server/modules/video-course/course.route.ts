@@ -8,6 +8,7 @@ import {
   EditCourse,
   getAllCourses,
   getAllCoursesAdmin,
+  getCourseByInstructor,
   getCourseByUser,
   getCourseCourseByCategory,
   getSingleCourse,
@@ -28,6 +29,13 @@ courseRouter.route("/get-all-courses").get(getAllCourses);
 courseRouter
   .route("/get-course-content/:id")
   .get(isAuthenticated, getCourseByUser);
+courseRouter
+  .route("/get-instructor-courses")
+  .get(
+    isAuthenticated,
+    authorizedRoles("admin", "instructor"),
+    getCourseByInstructor
+  );
 courseRouter.route("/add-question").patch(isAuthenticated, addQuestionInCourse);
 courseRouter.route("/add-answer").patch(isAuthenticated, addAnswerInCourse);
 courseRouter.route("/add-review/:id").patch(isAuthenticated, addReviewInCourse);

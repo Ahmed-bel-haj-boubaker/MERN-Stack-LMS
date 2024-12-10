@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation"; // For tracking route changes
+import { usePathname } from "next/navigation";
 import Loading from "./components/Loading";
 import { AuthProvider } from "./(auth)/provider/AuthContext";
 

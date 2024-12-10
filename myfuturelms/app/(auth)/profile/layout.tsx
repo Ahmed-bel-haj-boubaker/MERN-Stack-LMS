@@ -3,7 +3,6 @@ import Footer from "@/app/components/Footer";
 import Navbar from "@/app/components/Navbar";
 import TopBar from "@/app/components/Topbar";
 import { ReactNode } from "react";
- 
 
 const ProfileLayout = async ({ children }: { children: ReactNode }) => {
   return (
@@ -13,8 +12,9 @@ const ProfileLayout = async ({ children }: { children: ReactNode }) => {
         <Navbar />
       </div>
       <Banner />
-      <main className="w-full max-w-7xl mx-auto sm:px-6 lg:px-8">
-        {children}
+
+      <main className="flex flex-col-reverse w-full max-w-7xl mx-auto sm:px-6 lg:px-8 ">
+        <div> {children}</div>
       </main>
       <Footer />
     </div>

@@ -1,5 +1,5 @@
 // app/hooks/user/useAccessToken.tsx
-
+"use client";
 import { cookies } from "next/headers";
 
 export const useAccessToken = async (): Promise<string | undefined> => {
