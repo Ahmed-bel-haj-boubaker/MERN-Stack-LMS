@@ -1,3 +1,5 @@
+import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
+
 interface IProfileInformation {
   username: string;
   registrationDate: string;
@@ -29,11 +31,25 @@ const ProfileInformation: React.FC<IProfileInformation> = ({
         </div>
         <div>
           <p className="font-semibold">First Name</p>
-          <p>{firstName}</p>
+          <p className="flex items-center">
+            {firstName || (
+              <>
+                <ExclamationCircleIcon className="h-5 w-5 text-red-500 mr-2" />
+                <span>not provided yet!</span>
+              </>
+            )}
+          </p>
         </div>
         <div>
           <p className="font-semibold">Last Name</p>
-          <p>{lastName}</p>
+          <p className="flex items-center">
+            {lastName || (
+              <>
+                <ExclamationCircleIcon className="h-5 w-5 text-red-500 mr-2" />
+                <span>not provided yet!</span>
+              </>
+            )}
+          </p>
         </div>
         <div>
           <p className="font-semibold">Username</p>
@@ -45,16 +61,37 @@ const ProfileInformation: React.FC<IProfileInformation> = ({
         </div>
         <div>
           <p className="font-semibold">Phone Number</p>
-          <p>{phoneNumber}</p>
+          <p className="flex items-center">
+            {phoneNumber || (
+              <>
+                <ExclamationCircleIcon className="h-5 w-5 text-red-500 mr-2" />
+                <span>not provided yet!</span>
+              </>
+            )}
+          </p>
         </div>
         <div>
           <p className="font-semibold">Occupation</p>
-          <p>{occupation}</p>
+          <p className="flex items-center">
+            {occupation || (
+              <>
+                <ExclamationCircleIcon className="h-5 w-5 text-red-500 mr-2" />
+                <span>not provided yet!</span>
+              </>
+            )}
+          </p>
         </div>
 
         <div className="md:col-span-2">
           <p className="font-semibold">Biography</p>
-          <p>{biography}</p>
+          <p className="flex items-center">
+            {biography || (
+              <>
+                <ExclamationCircleIcon className="h-5 w-5 text-red-500 mr-2" />
+                <span>not provided yet!</span>
+              </>
+            )}
+          </p>
         </div>
       </div>
     </div>

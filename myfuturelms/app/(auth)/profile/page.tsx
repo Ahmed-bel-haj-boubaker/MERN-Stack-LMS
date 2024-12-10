@@ -60,7 +60,7 @@ const Profile = () => {
               userName={userName}
             />
           </div>
-          <div className="pr-2 mt-3 mb-6 ">
+          <div className="pr-2 mt-3 mb-6 w-full">
             <div>{activeComponent === "dashboard" && <ProfileDashboard />}</div>{" "}
             <div>
               {activeComponent === "profile" && (
