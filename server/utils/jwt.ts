@@ -5,7 +5,7 @@ import { redis } from "./redis";
 import { ITokenOptions } from "../interfaces/authInterface";
 
 // Set access token to expire in 1 hour (60 minutes)
-const accessTokenExpire = 60; // 60 minutes = 1 hour
+const accessTokenExpire = parseInt(process.env.ACCESS_TOKEN_EXPIRE || "60", 10);
 
 // Set refresh token expiration (can keep this longer if needed)
 const refreshTokenExpire = parseInt(

@@ -21,7 +21,7 @@ export interface IUser extends Document {
   };
   role: string;
   isVerfied: boolean;
-  courses: Array<{ courseId: string }>;
+  courses: Array<{ courseId: string; progress: number; status: string }>;
   admincourses: mongoose.Types.ObjectId[];
   xp: number;
   points: number;
@@ -114,7 +114,22 @@ const userSchema: Schema<IUser> = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    courses: [{ courseId: String }],
+    courses: [
+      {
+        courseId: {
+          type: String,
+          required: true,
+        },
+        progress: {
+          type: Number,
+          default: 0,
+        },
+        status: {
+          type: String,
+          enum: ["active", "enrolled", "completed"],
+        },
+      },
+    ],
     xp: {
       type: Number,
       default: 0,
@@ -208,7 +223,7 @@ userSchema.pre<IUser>("save", async function (next) {
 //sign access token
 userSchema.methods.SignAccessToken = function () {
   return jwt.sign({ id: this._id }, process.env.ACCESS_TOKEN || "", {
-    expiresIn: "5m",
+    expiresIn: "1d",
   });
 };
 
