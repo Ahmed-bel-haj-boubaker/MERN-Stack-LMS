@@ -6,17 +6,21 @@ import {
   CheckCircleIcon,
   PlayCircleIcon,
 } from "@heroicons/react/24/solid";
-import CoursesList from "../instructor/CoursesList";
+import CoursesListInstructor from "../instructor/CoursesList";
 import useUserConnected from "@/app/hooks/user/useUserConnected";
 import { useEffect, useState } from "react";
+import useGetEnrolledCourses from "@/app/hooks/courses/useGetEnrolledCourses";
+import CourseCard from "../CourseCard";
+import { Course } from "@/app/types/CourseTypes";
 
-const ProfileDashboard = () => {
-  const { userRole } = useUserConnected();
+const ProfileDashboard: React.FC<Course> = () => {
+  const { user } = useUserConnected();
   const [visible, setVisible] = useState<boolean>(false);
+  const { courses } = useGetEnrolledCourses("enrolled");
 
   useEffect(() => {
-    setVisible(userRole === "admin" || userRole === "instructor");
-  }, [userRole]);
+    setVisible(user?.role === "admin" || user?.role === "instructor");
+  }, [user?.role]);
   return (
     <div className="bg-gray-50 p-6 rounded-lg border w-[100%]">
       <h2 className="text-xl font-bold mb-4">Dashboard</h2>
@@ -51,7 +55,7 @@ const ProfileDashboard = () => {
             <AcademicCapIcon className="h-6 w-6 text-blue-600" />
           </div>
           <div className="flex flex-col">
-            <div className="ml-4 font-bold text-xl">30</div>
+            <div className="ml-4 font-bold text-xl">{courses.length}</div>
             <span className="ml-4 text-sm">Enrolled Courses</span>
           </div>
         </div>
@@ -89,10 +93,31 @@ const ProfileDashboard = () => {
         )}
       </div>
 
+      {!visible && (
+        <div>
+          <h2 className="text-xl font-bold mb-4 mt-9">Enrolled Courses</h2>
+          <div className="flex flex-wrap mt-6">
+            {courses.map((c) => (
+              <div key={c._id} className="w-1/3 p-2">
+                <CourseCard
+                  category={c.courseId.category.name}
+                  courseName={c.courseId.name}
+                  enrolled={true}
+                  instructor={c.courseId.instructor.username}
+                  rating={c.courseId.ratings}
+                  id={c.courseId._id}
+                  progress={c.progress}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       {visible && (
         <div className="mt-6">
           <h2 className="text-xl font-bold mb-4">My Courses</h2>
-          <CoursesList />
+          <CoursesListInstructor />
         </div>
       )}
     </div>

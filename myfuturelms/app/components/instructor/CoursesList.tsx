@@ -4,9 +4,9 @@ import { FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
 import useGetInstructorCourses from "../../hooks/courses/useGetInstructorCourses";
 import { StarIcon } from "@heroicons/react/24/solid";
 
-const CoursesList = () => {
+const CoursesListInstructor = () => {
   const { courses } = useGetInstructorCourses();
-  console.log(courses);
+
   return (
     <div className="bg-white p-6 rounded-lg border">
       <table className="min-w-full table-auto">
@@ -46,4 +46,4 @@ const CoursesList = () => {
   );
 };
 
-export default CoursesList;
+export default CoursesListInstructor;

@@ -11,14 +11,17 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { addToCart } from "../redux/cartSlices/cartSlice";
 import { addToFavorite } from "../redux/favoriteSlices/favoriteSlice";
 import { toast, Toaster } from "react-hot-toast";
+import { progress } from "framer-motion";
 
 interface CourseProps {
-  courseName: string;
-  instructor: string;
-  category: string;
-  rating: number;
-  price: number;
-  id: string;
+  courseName?: string;
+  instructor?: string;
+  category?: string;
+  rating?: number;
+  price?: number;
+  id?: string;
+  progress?: number;
+  enrolled?: boolean;
 }
 
 const CourseCard: React.FC<CourseProps> = ({
@@ -28,18 +31,33 @@ const CourseCard: React.FC<CourseProps> = ({
   category,
   rating,
   price,
+  enrolled,
+  progress,
 }) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const error = useAppSelector((state) => state.cart.error);
-  console.log("error", error);
   const handleNavigate = () => {
-    const slug = slugify(courseName, { lower: true });
-    router.push(`/courses/${slug}?id=${id}`);
+    if (courseName) {
+      const slug = slugify(courseName, { lower: true });
+      router.push(
+        `/courses/${slug}?id=${id}${enrolled ? `&enrolled=${true}` : ""}`
+      );
+    }
   };
+
   const pushTocart = () => {
-    const course = { courseName, id, instructor, category, rating, price };
-    dispatch(addToCart(course));
+    const course = {
+      courseName,
+      id,
+      instructor,
+      category,
+      rating,
+      price,
+    } as CourseProps;
+    if (course) {
+      dispatch(addToCart(course));
+    }
 
     if (error === null) {
       toast.success("Course Added Successfully To Cart");
@@ -89,7 +107,7 @@ const CourseCard: React.FC<CourseProps> = ({
               {category}
             </span>
             <div className=" ml-20 flex justify-end text-md font-bold text-indigo-600">
-              ${price}
+              {enrolled ? "" : <div>${price}</div>}
             </div>
           </div>
           <h3
@@ -118,25 +136,42 @@ const CourseCard: React.FC<CourseProps> = ({
                 (e.currentTarget.style.boxShadow = "3px 3px 0px black")
               }
             >
-              Enroll Now
+              {enrolled ? "Resume Your Course" : "Enroll Now"}
               <div className="ml-2">
                 <FontAwesomeIcon icon={faArrowRight} />
               </div>
             </button>
-            <div className="flex space-x-2">
-              <div className="w-8 h-8 border-2 border-gray-300 rounded-full flex justify-center items-center transition-transform duration-200 ease-in-out transform hover:scale-110 hover:bg-indigo-600 hover:border-indigo-600  ">
-                <button onClick={() => addToWishlist()}>
-                  <HeartIcon className="h-5 w-5 text-gray-400 transition-colors duration-200 ease-in-out hover:text-white" />
-                </button>
+            {enrolled ? (
+              <div></div>
+            ) : (
+              <div className="flex space-x-2">
+                <div className="w-8 h-8 border-2 border-gray-300 rounded-full flex justify-center items-center transition-transform duration-200 ease-in-out transform hover:scale-110 hover:bg-indigo-600 hover:border-indigo-600  ">
+                  <button onClick={() => addToWishlist()}>
+                    <HeartIcon className="h-5 w-5 text-gray-400 transition-colors duration-200 ease-in-out hover:text-white" />
+                  </button>
+                </div>
+                <div className="w-8 h-8 border-2 border-gray-300 rounded-full flex justify-center items-center transition-transform duration-200 ease-in-out transform hover:scale-110 hover:bg-indigo-600 hover:border-indigo-600  ">
+                  <button onClick={() => pushTocart()}>
+                    <ShoppingCartIcon className="h-5 w-5 text-gray-400 transition-colors duration-200 ease-in-out hover:text-white" />
+                  </button>
+                </div>
               </div>
-              <div className="w-8 h-8 border-2 border-gray-300 rounded-full flex justify-center items-center transition-transform duration-200 ease-in-out transform hover:scale-110 hover:bg-indigo-600 hover:border-indigo-600  ">
-                <button onClick={() => pushTocart()}>
-                  <ShoppingCartIcon className="h-5 w-5 text-gray-400 transition-colors duration-200 ease-in-out hover:text-white" />
-                </button>
-              </div>
-            </div>
+            )}
           </div>
         </div>
+        {enrolled && (
+          <div className="mb-3">
+            <div className="w-full h-2 bg-gray-200 rounded-full">
+              <div
+                className="h-2 bg-green-500 rounded-full transition-all duration-500"
+                style={{ width: `${progress}%` }}
+              ></div>
+            </div>
+            <p className="text-right text-xs text-gray-600 mt-1">
+              {progress}% completed
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

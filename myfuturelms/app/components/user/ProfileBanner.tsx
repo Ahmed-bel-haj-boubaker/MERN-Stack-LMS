@@ -6,12 +6,11 @@ import Avatar from "../../../public/images/avatar.png";
 import Button from "../Button";
 
 interface IUserData {
-  username: string;
-  numCourses: number;
-  role: string;
+  username?: string;
+  numCourses?: number;
+  role?: string;
 }
 const ProfileBanner: React.FC<IUserData> = ({ numCourses, username, role }) => {
-  console.log(role);
   return (
     <div className="relative bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-lg p-6 md:p-10 shadow-lg mt-4 mb-10">
       <div className="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
@@ -19,7 +18,7 @@ const ProfileBanner: React.FC<IUserData> = ({ numCourses, username, role }) => {
           <div className="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden">
             <Image
               src={Avatar}
-              alt={username}
+              alt={username || "user name"}
               width={80}
               height={80}
               className="object-cover"

@@ -12,6 +12,7 @@ import {
   getCourseByUser,
   getCourseCourseByCategory,
   getSingleCourse,
+  getUserEnrolledCourse,
   uploadCourse,
 } from "./course.controller";
 import { authorizedRoles, isAuthenticated } from "../../middleware/auth";
@@ -35,6 +36,13 @@ courseRouter
     isAuthenticated,
     authorizedRoles("admin", "instructor"),
     getCourseByInstructor
+  );
+courseRouter
+  .route("/get-student-courses/:status")
+  .get(
+    isAuthenticated,
+    authorizedRoles("admin", "user"),
+    getUserEnrolledCourse
   );
 courseRouter.route("/add-question").patch(isAuthenticated, addQuestionInCourse);
 courseRouter.route("/add-answer").patch(isAuthenticated, addAnswerInCourse);

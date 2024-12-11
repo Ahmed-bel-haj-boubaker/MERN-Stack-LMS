@@ -48,11 +48,9 @@ const ActivationCode: React.FC<IData> = () => {
         activation_token,
       }),
     });
-    console.log(code, activation_token);
     const result = await response.json();
 
     if (result.success) {
-      console.log("Account activated successfully!", result);
       window.location.href = "/login";
     }
   };

@@ -117,7 +117,8 @@ const userSchema: Schema<IUser> = new mongoose.Schema(
     courses: [
       {
         courseId: {
-          type: String,
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Course",
           required: true,
         },
         progress: {

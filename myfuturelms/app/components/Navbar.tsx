@@ -23,8 +23,7 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenProfile, setIsOpenProfil] = useState(false);
-  const { isLogged, userName, handleLogout } = useUserConnected();
-  console.log(userName);
+  const { isLogged, handleLogout, user } = useUserConnected();
   const cartLength = useAppSelector((state) => state.cart.total);
   const wishlistLength = useAppSelector((state) => state.favorite.total);
 
@@ -352,10 +351,10 @@ const Navbar = () => {
                   onClick={toggleDropdownProfile}
                 >
                   <div className="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center text-lg font-bold uppercase">
-                    {userName.charAt(0).toUpperCase()}
+                    {user?.username.charAt(0).toUpperCase()}
                   </div>
                   <span className="text-gray-700 font-semibold">
-                    {userName}
+                    {user?.username}
                   </span>
                   <i
                     className={`fas fa-chevron-down transition-transform ${

@@ -22,7 +22,7 @@ const CourseDetails = () => {
   const [isReviewsVisible, setReviewsVisible] = useState(false);
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
-
+  const enrolled = searchParams.get("enrolled");
   const { course } = useGetByIdCourse(id);
 
   const handleOverviewVisible = () => {
@@ -172,6 +172,7 @@ const CourseDetails = () => {
               <Curriculum
                 description={course.description}
                 courseData={course.courseData}
+                enrolled={enrolled}
               />
             </div>
           )}

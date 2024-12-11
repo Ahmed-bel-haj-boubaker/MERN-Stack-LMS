@@ -12,7 +12,6 @@ const Favorite: React.FC = () => {
     (state) => state.favorite.favoriteArr
   );
 
-  console.log(coursesInFavorite);
   const dispatch = useAppDispatch();
   const error = useAppSelector((state) => state.cart.error);
   const handleRemoveCourse = (courseId: string) => {

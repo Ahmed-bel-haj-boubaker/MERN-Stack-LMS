@@ -20,7 +20,7 @@ const SideBar: React.FC<IcourseInfo> = ({
   oldPrice,
 }) => {
   return (
-    <div className="w-full lg:w-1/4 bg-white shadow-2xl border border-gray rounded-lg p-6">
+    <div className="w-full lg:w-1/4 bg-white shadow-2xl border border-gray rounded-lg p-6  mt-10">
       <div className="flex items-center justify-between text-white bg-purple-600 rounded-xl p-4 flex-col ">
         <span className="text-lg font-bold text-start ">This Course Fee:</span>
         <span className="font-bold justify-between text-2xl">

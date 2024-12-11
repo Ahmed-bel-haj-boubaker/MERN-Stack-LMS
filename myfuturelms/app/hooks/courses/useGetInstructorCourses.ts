@@ -1,25 +1,22 @@
 "use client";
-import Api from "@/app/Api's";
+
+import apiClient from "@/app/Api/ApiClient";
 import { Course } from "@/app/types/CourseTypes";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import useUserConnected from "../user/useUserConnected";
-import { useAccessToken } from "../user/useAccessToken";
-import { useAuth } from "@/app/(auth)/provider/AuthContext";
 
+interface IResponseCourses {
+  courses: Course[];
+}
 const useGetInstructorCourses = () => {
   const [courses, setCourses] = useState<Course[]>([]);
 
   const fetchCourses = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:8000/api/v1/get-instructor-courses`,
-        {
-          withCredentials: true,
-        }
+      const response = await apiClient.get<IResponseCourses>(
+        "/get-instructor-courses"
       );
       setCourses(response.data.courses);
-      console.log("Response:", response);
     } catch (error) {
       console.error("Error fetching courses:", error);
     }
@@ -28,7 +25,6 @@ const useGetInstructorCourses = () => {
   useEffect(() => {
     fetchCourses();
   }, []);
-  console.log(courses);
   return { courses };
 };
 

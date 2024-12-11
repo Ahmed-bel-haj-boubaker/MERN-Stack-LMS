@@ -45,7 +45,6 @@ const cartSlice = createSlice({
     },
 
     removeFromCart: (state, action) => {
-      console.log(action.payload);
       const id = action.payload;
       const courseInCart = state.cartArr.find((c) => c.id === id);
       if (courseInCart) {

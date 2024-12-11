@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Api from "@/app/Api's";
+import apiClient from "@/app/Api/ApiClient";
 import { Course } from "@/app/types/CourseTypes";
-import axios from "axios";
 import { useState, useEffect } from "react";
 
 const useGetByIdCourse = (id: string | null) => {
@@ -11,11 +11,10 @@ const useGetByIdCourse = (id: string | null) => {
     if (id) {
       const fetchCourse = async () => {
         try {
-          const response = await axios.get<{ course: Course }>(
-            `${Api.localhost}/get-course/${id}`
+          const response = await apiClient.get<{ course: Course }>(
+            `/get-course/${id}`
           );
           setCourse(response.data.course);
-          console.log(response.data.course);
         } catch (error) {
           console.error("Error fetching course data:", error);
         }

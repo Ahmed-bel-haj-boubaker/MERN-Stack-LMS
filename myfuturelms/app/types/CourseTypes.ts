@@ -19,6 +19,8 @@ export interface Course {
   level: string;
   estimatedPrice: number;
   prerequisites: Iprerequisites[];
+  courseId: Course;
+  progress: number;
 }
 export interface Iprerequisites {
   title: string;

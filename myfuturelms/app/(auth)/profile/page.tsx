@@ -8,27 +8,16 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import ProfileDashboard from "@/app/components/user/ProfileDashboard";
 import ProfileInformation from "@/app/components/user/ProfileInformation";
+import EnrolledCourses from "@/app/components/user/EnrolledCourses";
 
 const Profile = () => {
-  const {
-    userName,
-    coursesNumber,
-    userRole,
-    isLogged,
-    lastName,
-    firstName,
-    userEmail,
-    phoneNumber,
-    registerDate,
-    biography,
-    job,
-  } = useUserConnected();
+  const { user, isLogged } = useUserConnected();
+  console.log(user);
   const router = useRouter();
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
 
-  // State to control which component is displayed
   const [activeComponent, setActiveComponent] = useState<
-    "dashboard" | "profile"
+    "dashboard" | "profile" | "courses"
   >("profile");
 
   useEffect(() => {
@@ -48,16 +37,16 @@ const Profile = () => {
       <div className="flex flex-col">
         <div>
           <ProfileBanner
-            numCourses={coursesNumber}
-            username={userName}
-            role={userRole}
+            numCourses={user?.courses.length}
+            username={user?.username}
+            role={user?.role}
           />
         </div>
-        <div className="flex xl:flex-row sm:flex-col rounded-xl  border shadow-lg  mb-6">
+        <div className="flex xl:flex-row sm:flex-col rounded-xl  border shadow-lg  mb-6 ">
           <div className=" mt-3 ">
             <ProfileSideBar
               setActiveComponent={setActiveComponent}
-              userName={userName}
+              userName={user?.username}
             />
           </div>
           <div className="pr-2 mt-3 mb-6 w-full">
@@ -65,17 +54,18 @@ const Profile = () => {
             <div>
               {activeComponent === "profile" && (
                 <ProfileInformation
-                  biography={biography}
-                  email={userEmail}
-                  firstName={firstName}
-                  lastName={lastName}
-                  occupation={job}
-                  phoneNumber={phoneNumber}
-                  registrationDate={registerDate}
-                  username={userName}
+                  biography={user?.biography}
+                  email={user?.email}
+                  firstName={user?.firstName}
+                  lastName={user?.lastName}
+                  occupation={user?.job}
+                  phoneNumber={user?.phoneNumber}
+                  registrationDate={user?.createdAt}
+                  username={user?.username}
                 />
               )}
             </div>
+            <div>{activeComponent === "courses" && <EnrolledCourses />}</div>
           </div>
         </div>
       </div>

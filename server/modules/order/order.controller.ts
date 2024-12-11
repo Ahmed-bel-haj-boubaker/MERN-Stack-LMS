@@ -9,6 +9,7 @@ import path from "path";
 import ejs from "ejs";
 import sendEmail from "../../utils/sendEmail";
 import { getAllOrdersService, newOrder } from "./order.service";
+import { redis } from "../../utils/redis";
 
 export const createOrder = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -21,8 +22,8 @@ export const createOrder = CatchAsyncError(
       if (!courseIds || courseIds.length === 0) {
         return next(new ErrorHandler("No courses selected for purchase.", 400));
       }
-
-      const user = await userModel.findById(req.user?._id);
+      const userId = req.user?._id;
+      const user = await userModel.findById(userId);
       if (!user) {
         return next(new ErrorHandler("User not found.", 404));
       }
@@ -77,6 +78,7 @@ export const createOrder = CatchAsyncError(
         }))
       );
       await user.save();
+      await redis.set(userId, JSON.stringify(user));
 
       await NotificationModel.insertMany(notifications);
 

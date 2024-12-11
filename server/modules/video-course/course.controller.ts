@@ -16,6 +16,7 @@ import path from "path";
 import ejs from "ejs";
 import sendEmail from "../../utils/sendEmail";
 import NotificationModel from "../notification/notification.model";
+import userModel from "../auth/user.model";
 
 export const uploadCourse = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -451,6 +452,39 @@ export const getCourseByInstructor = CatchAsyncError(
       }
 
       res.status(200).json({ success: true, courses });
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 400));
+    }
+  }
+);
+
+export const getUserEnrolledCourse = CatchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const status = req.params.status;
+      const user = await userModel.findById(req.user?._id).populate({
+        path: "courses.courseId",
+        populate: [
+          {
+            path: "category",
+            select: "name",
+          },
+          {
+            path: "instructor",
+            select: "username",
+          },
+        ],
+      });
+
+      const enrolledCourses = user?.courses.filter((c) => c.status === status);
+
+      if (!user || !user.courses) {
+        return next(
+          new ErrorHandler("Instructor doesn't have courses Yet", 404)
+        );
+      }
+
+      res.status(200).json({ success: true, courses: enrolledCourses });
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 400));
     }

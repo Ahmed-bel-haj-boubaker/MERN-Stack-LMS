@@ -21,13 +21,6 @@ const InstructorsDetails: React.FC<IinstuctorDetails> = ({
   instructorName,
   linkedinUser,
 }) => {
-  console.log(
-    instagramUser,
-    facebookUser,
-    instructorJob,
-    instructorName,
-    linkedinUser
-  );
   return (
     <div className="flex justify-center items-center space-x-7 mt-6 max-w-4xl mx-auto bg-white border border-gray-300 shadow-2xl p-6 rounded-xl max-lg:flex-col ">
       <div>

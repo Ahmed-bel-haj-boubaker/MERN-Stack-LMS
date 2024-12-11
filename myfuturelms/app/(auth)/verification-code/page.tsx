@@ -12,7 +12,6 @@ const VerificationCode: React.FC = () => {
   const searchParams = useSearchParams();
   const email = searchParams.get("email") as string;
   const activation_token = sessionStorage.getItem("activation_token");
-  console.log(activation_token);
 
   const [activationCode, setActivationCode] = useState<string[]>([
     "",

@@ -42,7 +42,6 @@ const favoriteSlice = createSlice({
     },
 
     removeFromFavorite: (state, action) => {
-      console.log(action.payload);
       const id = action.payload;
       const courseInFavorite = state.favoriteArr.find((c) => c.id === id);
       if (courseInFavorite) {

@@ -89,7 +89,6 @@ const CoursesList = () => {
   const [isInView, setIsInView] = useState(false);
   const { currentPage } = useCourse();
   const courses = useAppSelector((state) => state.courses.courses);
-  console.log(courses);
 
   useEffect(() => {
     const observer = new IntersectionObserver(

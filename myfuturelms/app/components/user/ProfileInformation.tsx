@@ -1,14 +1,14 @@
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 
 interface IProfileInformation {
-  username: string;
-  registrationDate: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phoneNumber: string;
-  occupation: string;
-  biography: string;
+  username?: string;
+  registrationDate?: string;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  phoneNumber?: string;
+  occupation?: string;
+  biography?: string;
 }
 
 const ProfileInformation: React.FC<IProfileInformation> = ({
@@ -21,13 +21,46 @@ const ProfileInformation: React.FC<IProfileInformation> = ({
   phoneNumber,
   registrationDate,
 }) => {
+  const formatDate = (isoString: any) => {
+    const date = new Date(isoString);
+    const days = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+
+    const dayName = days[date.getDay()];
+    const day = date.getDate();
+    const monthName = months[date.getMonth()];
+
+    return `${dayName}, ${day} of ${monthName}`;
+  };
+
   return (
     <div className="bg-gray-50 p-6 rounded-lg border">
       <h2 className="text-xl font-bold mb-4">My Profile</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
         <div>
           <p className="font-semibold">Registration Date</p>
-          <p>{registrationDate}</p>
+          <p>{formatDate(registrationDate)}</p>
         </div>
         <div>
           <p className="font-semibold">First Name</p>

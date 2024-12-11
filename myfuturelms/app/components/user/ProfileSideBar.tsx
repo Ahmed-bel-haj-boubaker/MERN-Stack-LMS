@@ -9,8 +9,8 @@ import {
 } from "@heroicons/react/24/outline";
 
 interface IUserInfo {
-  userName: string;
-  setActiveComponent: (component: "dashboard" | "profile") => void;
+  userName?: string;
+  setActiveComponent?: (component: "dashboard" | "profile") => void;
 }
 
 const ProfileSideBar: React.FC<IUserInfo> = ({

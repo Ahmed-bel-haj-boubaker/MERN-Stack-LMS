@@ -23,11 +23,16 @@ export interface ICourseDetails {
 }
 
 interface ICourseData {
-  courseData: Array<ICourseDetails>;
-  description: string;
+  courseData?: Array<ICourseDetails>;
+  description?: string;
+  enrolled?: boolean;
 }
 
-const Curriculum: React.FC<ICourseData> = ({ courseData, description }) => {
+const Curriculum: React.FC<ICourseData> = ({
+  courseData,
+  description,
+  enrolled,
+}) => {
   const [openSection, setOpenSection] = useState<string | null>(null);
   const [selectedVideo, setSelectedVideo] = useState<boolean | null>(false);
 
@@ -90,11 +95,15 @@ const Curriculum: React.FC<ICourseData> = ({ courseData, description }) => {
               <div className="flex items-center justify-between w-full">
                 <div className="flex items-center space-x-3">
                   <button
-                    onClick={() => item.preview && setSelectedVideo(true)}
-                    className={`group bg-white flex items-center justify-center rounded-full text-violet-900 hover:bg-purple-200 p-2 ${
-                      !item.preview ? "cursor-not-allowed opacity-50" : ""
-                    }`}
-                    disabled={!item.preview}
+                    onClick={() =>
+                      enrolled
+                        ? setSelectedVideo(true)
+                        : item.preview && setSelectedVideo(true)
+                    }
+                    className={`group bg-white flex items-center justify-center rounded-full text-violet-900 hover:bg-purple-200 p-2 
+    ${!(enrolled || item.preview) ? "cursor-not-allowed opacity-50" : ""}
+  `}
+                    disabled={!(enrolled || item.preview)}
                   >
                     <FontAwesomeIcon className="text-xl" icon={faCirclePlay} />
                   </button>
