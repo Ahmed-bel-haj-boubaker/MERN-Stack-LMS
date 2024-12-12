@@ -39,7 +39,7 @@ const ChangePassword = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <Toaster containerStyle={{ position: "absolute" }} />
+      <Toaster containerStyle={{ position: "fixed" }} />
       <div className="relative flex flex-col m-8 space-y-8 bg-white shadow-2xl rounded-3xl md:flex-row md:space-y-0 w-full max-w-6xl">
         <div className="flex flex-col justify-center p-12 md:p-16 w-full md:w-1/2">
           <h1 className="mb-5 text-5xl font-bold">Update your password</h1>

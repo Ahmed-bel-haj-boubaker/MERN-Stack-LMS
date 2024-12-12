@@ -14,7 +14,7 @@ import Api from "@/app/Api's";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { toast, Toaster, ToastBar } from "react-hot-toast";
+import { toast, Toaster } from "react-hot-toast";
 
 /* eslint-disable react/no-unescaped-entities */
 
@@ -43,7 +43,7 @@ const Login = () => {
       );
       toast.success("Successfully Logged in");
 
-      sessionStorage.setItem("user", JSON.stringify(response.data.user));
+      sessionStorage.setItem("user", JSON.stringify(response.data?.user));
       router.push("/home");
     } catch (err: any) {
       toast.error(err.response.data.message);
@@ -52,7 +52,7 @@ const Login = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <Toaster containerStyle={{ position: "absolute" }} />
+      <Toaster containerStyle={{ position: "fixed" }} />
       <div className="relative flex flex-col m-8 space-y-8 bg-white shadow-2xl rounded-3xl md:flex-row md:space-y-0 w-full max-w-6xl">
         <div className="flex flex-col justify-center p-12 md:p-16 w-full md:w-1/2">
           <span className="mb-5 text-5xl font-bold">Welcome back</span>

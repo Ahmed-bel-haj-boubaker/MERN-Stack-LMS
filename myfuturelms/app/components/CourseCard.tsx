@@ -11,7 +11,6 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { addToCart } from "../redux/cartSlices/cartSlice";
 import { addToFavorite } from "../redux/favoriteSlices/favoriteSlice";
 import { toast, Toaster } from "react-hot-toast";
-import { progress } from "framer-motion";
 
 interface CourseProps {
   courseName?: string;
@@ -77,7 +76,7 @@ const CourseCard: React.FC<CourseProps> = ({
   };
   return (
     <div>
-      <Toaster containerStyle={{ position: "absolute" }} />
+      <Toaster containerStyle={{ position: "fixed" }} />
       <div
         className="transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg border border-black rounded-lg shadow-md p-3 w-full sm:w-64 flex flex-col justify-between  "
         style={{

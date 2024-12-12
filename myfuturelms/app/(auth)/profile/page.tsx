@@ -3,12 +3,12 @@
 import ProfileBanner from "@/app/components/user/ProfileBanner";
 import ProfileSideBar from "@/app/components/user/ProfileSideBar";
 import useUserConnected from "../../hooks/user/useUserConnected";
-
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import ProfileDashboard from "@/app/components/user/ProfileDashboard";
 import ProfileInformation from "@/app/components/user/ProfileInformation";
 import EnrolledCourses from "@/app/components/user/EnrolledCourses";
+import UpdateUserInfo from "@/app/components/user/UpdateUserInfo";
 
 const Profile = () => {
   const { user, isLogged } = useUserConnected();
@@ -16,8 +16,8 @@ const Profile = () => {
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
 
   const [activeComponent, setActiveComponent] = useState<
-    "dashboard" | "profile" | "courses"
-  >("profile");
+    "dashboard" | "profile" | "courses" | "settings"
+  >("dashboard");
 
   useEffect(() => {
     if (isLogged === false) {
@@ -42,7 +42,7 @@ const Profile = () => {
           />
         </div>
         <div className="flex xl:flex-row sm:flex-col rounded-xl  border shadow-lg  mb-6 ">
-          <div className=" mt-3 ">
+          <div className=" mt-3  w-[25%]">
             <ProfileSideBar
               setActiveComponent={setActiveComponent}
               userName={user?.username}
@@ -64,6 +64,7 @@ const Profile = () => {
                 />
               )}
             </div>
+            <div>{activeComponent === "settings" && <UpdateUserInfo />}</div>
             <div>{activeComponent === "courses" && <EnrolledCourses />}</div>
           </div>
         </div>

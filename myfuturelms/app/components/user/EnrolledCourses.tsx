@@ -5,7 +5,7 @@ const EnrolledCourses = () => {
   const { courses } = useGetEnrolledCourses("enrolled");
 
   return (
-    <div>
+    <div className="bg-gray-50 p-6 rounded-lg border">
       <h2 className="text-xl font-bold mb-4 mt-9">Enrolled Courses</h2>
       <div className="flex flex-wrap mt-6">
         {courses.map((c) => (

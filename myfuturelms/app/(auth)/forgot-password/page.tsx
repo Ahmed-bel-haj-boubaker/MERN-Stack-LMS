@@ -38,7 +38,7 @@ const ForgotPassword: React.FC = () => {
 
   return (
     <div className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-gray-50 py-12">
-      <Toaster containerStyle={{ position: "absolute" }} />
+      <Toaster containerStyle={{ position: "fixed" }} />
       <div className="relative bg-white px-6 pt-10 pb-9 shadow-xl mx-auto w-full max-w-lg rounded-2xl">
         <div className="mx-auto flex w-full max-w-md flex-col space-y-16">
           <div className="flex flex-col items-center justify-center text-center space-y-2">

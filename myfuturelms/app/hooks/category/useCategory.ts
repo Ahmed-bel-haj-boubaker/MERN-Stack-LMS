@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+
 import { CategoriesResponse, ICategory } from "@/app/types/CategoryTypes";
 import apiClient from "@/app/Api/ApiClient";
 

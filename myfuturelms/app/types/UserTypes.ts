@@ -18,4 +18,5 @@ export interface IUser {
   job: string;
   createdAt: string;
   accessToken: string;
+  success?: boolean;
 }
