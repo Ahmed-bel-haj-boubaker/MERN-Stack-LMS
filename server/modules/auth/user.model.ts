@@ -121,6 +121,7 @@ const userSchema: Schema<IUser> = new mongoose.Schema(
           ref: "Course",
           required: true,
         },
+
         progress: {
           type: Number,
           default: 0,

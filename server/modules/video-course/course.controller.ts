@@ -464,6 +464,7 @@ export const getUserEnrolledCourse = CatchAsyncError(
       const status = req.params.status;
       const user = await userModel.findById(req.user?._id).populate({
         path: "courses.courseId",
+
         populate: [
           {
             path: "category",
@@ -475,7 +476,7 @@ export const getUserEnrolledCourse = CatchAsyncError(
           },
         ],
       });
-
+      console.log(user?.courses.map((course) => course.courseId.courseData.map((e)=>e.preview)));
       const enrolledCourses = user?.courses.filter((c) => c.status === status);
 
       if (!user || !user.courses) {

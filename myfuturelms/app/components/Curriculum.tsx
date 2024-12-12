@@ -25,14 +25,9 @@ export interface ICourseDetails {
 interface ICourseData {
   courseData?: Array<ICourseDetails>;
   description?: string;
-  enrolled?: boolean;
 }
 
-const Curriculum: React.FC<ICourseData> = ({
-  courseData,
-  description,
-  enrolled,
-}) => {
+const Curriculum: React.FC<ICourseData> = ({ courseData, description }) => {
   const [openSection, setOpenSection] = useState<string | null>(null);
   const [selectedVideo, setSelectedVideo] = useState<boolean | null>(false);
 
@@ -55,7 +50,7 @@ const Curriculum: React.FC<ICourseData> = ({
       </h2>
       <p className="text-gray-600 mb-6">{description}</p>
 
-      {courseData.map((item, index) => (
+      {courseData?.map((item, index) => (
         <div key={index} className="mb-4 border-b border-gray-300">
           <div
             className="flex justify-between items-center py-4 cursor-pointer"
@@ -95,15 +90,11 @@ const Curriculum: React.FC<ICourseData> = ({
               <div className="flex items-center justify-between w-full">
                 <div className="flex items-center space-x-3">
                   <button
-                    onClick={() =>
-                      enrolled
-                        ? setSelectedVideo(true)
-                        : item.preview && setSelectedVideo(true)
-                    }
-                    className={`group bg-white flex items-center justify-center rounded-full text-violet-900 hover:bg-purple-200 p-2 
-    ${!(enrolled || item.preview) ? "cursor-not-allowed opacity-50" : ""}
-  `}
-                    disabled={!(enrolled || item.preview)}
+                    onClick={() => item.preview && setSelectedVideo(true)}
+                    className={`group bg-white flex items-center justify-center rounded-full text-violet-900 hover:bg-purple-200 p-2 ${
+                      !item.preview ? "cursor-not-allowed opacity-50" : ""
+                    }`}
+                    disabled={!item.preview}
                   >
                     <FontAwesomeIcon className="text-xl" icon={faCirclePlay} />
                   </button>

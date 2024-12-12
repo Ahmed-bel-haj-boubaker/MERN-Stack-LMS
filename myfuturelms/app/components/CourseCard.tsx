@@ -40,9 +40,7 @@ const CourseCard: React.FC<CourseProps> = ({
   const handleNavigate = () => {
     if (courseName) {
       const slug = slugify(courseName, { lower: true });
-      router.push(
-        `/courses/${slug}?id=${id}${enrolled ? `&enrolled=${true}` : ""}`
-      );
+      router.push(`/courses/${slug}?id=${id}`);
     }
   };
 

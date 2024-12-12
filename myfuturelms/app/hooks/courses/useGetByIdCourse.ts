@@ -1,11 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Api from "@/app/Api's";
+
 import apiClient from "@/app/Api/ApiClient";
+import { useAppSelector } from "@/app/redux/hooks";
 import { Course } from "@/app/types/CourseTypes";
 import { useState, useEffect } from "react";
 
 const useGetByIdCourse = (id: string | null) => {
   const [course, setCourse] = useState<Course | null>(null);
+  const purchasedCourse = useAppSelector(
+    (state) => state.purchasedCourse.purchasedArr
+  );
 
   useEffect(() => {
     if (id) {
@@ -14,7 +18,15 @@ const useGetByIdCourse = (id: string | null) => {
           const response = await apiClient.get<{ course: Course }>(
             `/get-course/${id}`
           );
-          setCourse(response.data.course);
+          const courseISPurchased = purchasedCourse.find(
+            (course) => course.courseId._id === id
+          );
+
+          if (courseISPurchased) {
+            setCourse(courseISPurchased.courseId);
+          } else {
+            setCourse(response.data.course);
+          }
         } catch (error) {
           console.error("Error fetching course data:", error);
         }

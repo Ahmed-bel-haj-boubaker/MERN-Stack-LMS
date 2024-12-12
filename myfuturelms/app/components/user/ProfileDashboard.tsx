@@ -17,7 +17,7 @@ const ProfileDashboard: React.FC<Course> = () => {
   const { user } = useUserConnected();
   const [visible, setVisible] = useState<boolean>(false);
   const { courses } = useGetEnrolledCourses("enrolled");
-
+ 
   useEffect(() => {
     setVisible(user?.role === "admin" || user?.role === "instructor");
   }, [user?.role]);

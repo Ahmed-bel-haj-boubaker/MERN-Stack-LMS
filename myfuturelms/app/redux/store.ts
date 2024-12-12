@@ -4,10 +4,12 @@ import storage from "redux-persist/lib/storage/session";
 import coursesReducer from "./courseSlices/courseSlice";
 import cartReducer from "./cartSlices/cartSlice";
 import favoriteReducer from "./favoriteSlices/favoriteSlice";
+import purchasedCourseReducer from "./purchasedCoursesSlice/purchasedSlice";
 const rootReducer = combineReducers({
   courses: coursesReducer,
   cart: cartReducer,
   favorite: favoriteReducer,
+  purchasedCourse: purchasedCourseReducer,
 });
 
 const persistConfig = {

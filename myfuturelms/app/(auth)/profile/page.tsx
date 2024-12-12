@@ -12,7 +12,6 @@ import EnrolledCourses from "@/app/components/user/EnrolledCourses";
 
 const Profile = () => {
   const { user, isLogged } = useUserConnected();
-  console.log(user);
   const router = useRouter();
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
 

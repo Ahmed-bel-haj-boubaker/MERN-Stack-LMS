@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 
 interface IProfileInformation {

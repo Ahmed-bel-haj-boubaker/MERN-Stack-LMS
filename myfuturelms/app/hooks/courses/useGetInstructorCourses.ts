@@ -2,7 +2,6 @@
 
 import apiClient from "@/app/Api/ApiClient";
 import { Course } from "@/app/types/CourseTypes";
-import axios from "axios";
 import { useEffect, useState } from "react";
 
 interface IResponseCourses {

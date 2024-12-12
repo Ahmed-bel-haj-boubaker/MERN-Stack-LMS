@@ -49,6 +49,16 @@ export const createOrder = CatchAsyncError(
         }
 
         newCourses.push(course);
+
+        for (const course of newCourses) {
+          course.courseData = course.courseData.map((courseItem) => {
+            console.log(courseItem.preview);
+            courseItem.preview = true;
+            return courseItem;
+          });
+
+          course.markModified("courseData");
+        }
         totalPrice += course.price;
 
         course.purchased = (course.purchased || 0) + 1;
@@ -72,7 +82,7 @@ export const createOrder = CatchAsyncError(
 
       user.courses.push(
         ...newCourses.map((course) => ({
-          courseId: course._id,
+          courseId: course, // Push the entire course object
           progress: 0,
           status: "enrolled",
         }))
