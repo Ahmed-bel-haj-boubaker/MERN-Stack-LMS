@@ -1,7 +1,7 @@
 "use client";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import React from "react";
 import Button from "../components/Button";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { clearCart, removeFromCart } from "../redux/cartSlices/cartSlice";
@@ -102,7 +102,7 @@ const Card: React.FC = () => {
             <div className="flex flex-col  mb-4 text-gray-600  w-full">
               <div className="font-semibold">Total:</div>
               <div className="text-3xl text-black font-bold">
-                ${subtotal.toFixed(2)}
+                ${totalprice.toFixed(2)}
               </div>
             </div>
             <Button text="Proceed To Checkout" />

@@ -10,7 +10,7 @@ export const newOrder = CatchAsyncError(
   ) => {
     try {
       const order = await OrderModel.create(data);
-      console.log(order);
+
       res.status(201).json({
         success: true,
         order,

@@ -22,55 +22,58 @@ export const createOrder = CatchAsyncError(
       if (!courseIds || courseIds.length === 0) {
         return next(new ErrorHandler("No courses selected for purchase.", 400));
       }
+
       const userId = req.user?._id;
       const user = await userModel.findById(userId);
       if (!user) {
         return next(new ErrorHandler("User not found.", 404));
       }
 
-      const purchasedCourses: string[] = [];
       const newCourses: any[] = [];
       const notifications: any[] = [];
       let totalPrice = 0;
 
       for (const courseId of courseIds) {
-        const courseExistInUser = user.courses.some(
-          (course: any) => course._id.toString() === courseId
-        );
-
-        if (courseExistInUser) {
-          purchasedCourses.push(courseId);
-          continue;
-        }
-
         const course = await CourseModel.findById(courseId);
         if (!course) {
           return next(new ErrorHandler(`Course not found: ${courseId}`, 404));
         }
 
-        newCourses.push(course);
+        // Check if the user is already enrolled in the course
+        const userExistInCourse = course.students.includes(userId);
+        if (!userExistInCourse) {
+          newCourses.push(course);
 
-        for (const course of newCourses) {
-          course.courseData = course.courseData.map((courseItem) => {
-            console.log(courseItem.preview);
-            courseItem.preview = true;
-            return courseItem;
+          for (const course of newCourses) {
+            course.courseData = course.courseData.map((courseItem: any) => {
+              courseItem.preview = true;
+              return courseItem;
+            });
+
+            course.markModified("courseData");
+          }
+
+          totalPrice += course.price;
+          course.purchased = (course.purchased || 0) + 1;
+
+          course.students.push(userId);
+          await course.save();
+          notifications.push({
+            user: user._id,
+            title: "New Order",
+            message: `You have a new order for ${course.name}.`,
           });
-
-          course.markModified("courseData");
+          user.courses.push({
+            courseId: course._id, // Add course ID, not entire course object
+            progress: 0,
+            status: "enrolled",
+          });
+          await user.save();
+          await redis.set(userId, JSON.stringify(user)); // Update Redis cache
         }
-        totalPrice += course.price;
-
-        course.purchased = (course.purchased || 0) + 1;
-        await course.save();
-
-        notifications.push({
-          user: user._id,
-          title: "New Order",
-          message: `You have a new order for ${course.name}.`,
-        });
       }
 
+      // If no new courses were added, return an error
       if (newCourses.length === 0) {
         return next(
           new ErrorHandler(
@@ -79,16 +82,6 @@ export const createOrder = CatchAsyncError(
           )
         );
       }
-
-      user.courses.push(
-        ...newCourses.map((course) => ({
-          courseId: course, // Push the entire course object
-          progress: 0,
-          status: "enrolled",
-        }))
-      );
-      await user.save();
-      await redis.set(userId, JSON.stringify(user));
 
       await NotificationModel.insertMany(notifications);
 
@@ -114,15 +107,12 @@ export const createOrder = CatchAsyncError(
         template: "order-confirmation.ejs",
         data: { orders: emailData, totalPrice },
       });
-      console.log("newCourses", newCourses);
 
       const orderData = {
         courseIds: newCourses.map((course) => course._id.toString()),
-
         userId: user._id.toString(),
         payment_info,
       };
-      console.log(orderData);
 
       await newOrder(orderData, res, next);
     } catch (error: any) {

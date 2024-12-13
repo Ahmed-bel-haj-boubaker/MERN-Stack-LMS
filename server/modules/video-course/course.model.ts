@@ -50,6 +50,7 @@ interface ICourse extends Document {
   ratings?: number;
   purchased?: number;
   instructor: IUser;
+  students: IUser[];
 }
 
 const reviewSchema = new Schema<IReview>({
@@ -115,6 +116,9 @@ const courseSchema = new Schema<ICourse>(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
+    students: [
+      { type: mongoose.Schema.ObjectId, ref: "User", required: false },
+    ],
   },
   { timestamps: true }
 );
