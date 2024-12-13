@@ -11,7 +11,7 @@ const useUserConnected = () => {
   const fetchUser = async () => {
     try {
       const response = await apiClient.get<{ user: IUser }>("/me");
-      console.log(response);
+
       if (response.data && response.data.user) {
         setUser(response.data.user);
       }

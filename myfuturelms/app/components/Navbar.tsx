@@ -37,6 +37,9 @@ const Navbar = () => {
     setIsOpenProfil(!isOpenProfile);
   };
 
+  const toggleSearch = () => {
+    setIsOpen(!isOpen);
+  };
   return (
     <>
       <nav className="  mx-auto py-1 px-4 md:px-8 flex justify-around items-center bg-white ">
@@ -271,57 +274,28 @@ const Navbar = () => {
 
         {/* Search and Icons */}
         <div className="hidden md:flex items-center space-x-3 lg:space-x-6">
-          <div className="relative">
-            <button
-              onClick={toggleDropdown}
-              className="flex items-center border border-gray-300 rounded-full px-3 py-2 lg:px-4 lg:py-2"
+          <div
+            className={`flex items-center border border-gray-300 rounded-full px-3 py-2`}
+          >
+            <div
+              className={`${isOpen ? "" : "flex justify-center items-center"}`}
             >
-              <i className="fas fa-th-large mr-2"></i> Categories
-              <i className="fas fa-chevron-down ml-2"></i>
-            </button>
-
-            {/* Dropdown Menu */}
-            {isOpen && (
-              <ul className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md z-10">
-                <li>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 hover:bg-indigo-600 hover:text-white"
-                  >
-                    Category 1
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 hover:bg-indigo-600 hover:text-white"
-                  >
-                    Category 2
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 hover:bg-indigo-600 hover:text-white"
-                  >
-                    Category 3
-                  </a>
-                </li>
-              </ul>
-            )}
+              <input
+                type="text"
+                placeholder="Search For Course..."
+                className={`focus:outline-none transition-all duration-300 ease-in-out ${
+                  isOpen ? "w-56" : "w-0 opacity-0  "
+                } `}
+                style={{ visibility: isOpen ? "visible" : "hidden" }}
+              />
+              <button
+                onClick={toggleSearch}
+                className="bg-indigo-600 ml-2 rounded-full p-2 hover:bg-yellow-400 duration-200 ease-in-out"
+              >
+                <MagnifyingGlassIcon className="w-5 h-5 text-white hover:text-black" />
+              </button>
+            </div>
           </div>
-
-          <div className="flex items-center border border-gray-300 rounded-full px-3 py-2">
-            <input
-              type="text"
-              placeholder="Search For Course..."
-              className="focus:outline-none w-24 md:w-36 lg:w-56"
-            />
-            <button className="bg-indigo-600 ml-2 rounded-full p-2 hover:bg-yellow-400 duration-200 ease-in-out">
-              <MagnifyingGlassIcon className="w-5 h-5 text-white hover:text-black" />
-            </button>
-          </div>
-
           <div className="flex items-center space-x-3 lg:space-x-4">
             <div className="relative">
               <div className="w-8 h-8 border-2 border-gray-600 rounded-full flex justify-center items-center transition-transform duration-200 ease-in-out transform hover:scale-110 hover:bg-indigo-600 hover:border-indigo-600  ">

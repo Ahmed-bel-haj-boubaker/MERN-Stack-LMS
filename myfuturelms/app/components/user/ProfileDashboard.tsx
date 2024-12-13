@@ -9,18 +9,20 @@ import {
 import CoursesListInstructor from "../instructor/CoursesList";
 import useUserConnected from "@/app/hooks/user/useUserConnected";
 import { useEffect, useState } from "react";
-import useGetEnrolledCourses from "@/app/hooks/courses/useGetEnrolledCourses";
 import CourseCard from "../CourseCard";
 import { Course } from "@/app/types/CourseTypes";
+import useGetEnrolledCourses from "@/app/hooks/courses/useGetEnrolledCourses";
 
 const ProfileDashboard: React.FC<Course> = () => {
   const { user } = useUserConnected();
   const [visible, setVisible] = useState<boolean>(false);
-  const { courses } = useGetEnrolledCourses("enrolled");
- 
+
   useEffect(() => {
     setVisible(user?.role === "admin" || user?.role === "instructor");
   }, [user?.role]);
+
+  const { courses } = useGetEnrolledCourses("enrolled");
+
   return (
     <div className="bg-gray-50 p-6 rounded-lg border w-[100%]">
       <h2 className="text-xl font-bold mb-4">Dashboard</h2>

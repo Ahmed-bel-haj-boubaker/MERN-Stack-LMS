@@ -29,8 +29,6 @@ const Card: React.FC = () => {
     alert("Coupon applied!");
   };
 
-  const subtotal = coursesInCart.reduce((acc, course) => acc + course.price, 0);
-
   if (coursesInCart.length === 0) {
     return (
       <div className="text-center text-lg font-semibold text-gray-600 flex flex-col mt-14">
