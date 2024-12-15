@@ -277,24 +277,20 @@ const Navbar = () => {
           <div
             className={`flex items-center border border-gray-300 rounded-full px-3 py-2`}
           >
-            <div
-              className={`${isOpen ? "" : "flex justify-center items-center"}`}
+            <input
+              type="text"
+              placeholder="Search For Course..."
+              className={`focus:outline-none transition-all duration-300 ease-in-out ${
+                isOpen ? "w-56" : "w-0 opacity-0  "
+              } `}
+              style={{ visibility: isOpen ? "visible" : "hidden" }}
+            />
+            <button
+              onClick={toggleSearch}
+              className="bg-indigo-600 ml-2 rounded-full p-2 hover:bg-yellow-400 duration-200 ease-in-out"
             >
-              <input
-                type="text"
-                placeholder="Search For Course..."
-                className={`focus:outline-none transition-all duration-300 ease-in-out ${
-                  isOpen ? "w-56" : "w-0 opacity-0  "
-                } `}
-                style={{ visibility: isOpen ? "visible" : "hidden" }}
-              />
-              <button
-                onClick={toggleSearch}
-                className="bg-indigo-600 ml-2 rounded-full p-2 hover:bg-yellow-400 duration-200 ease-in-out"
-              >
-                <MagnifyingGlassIcon className="w-5 h-5 text-white hover:text-black" />
-              </button>
-            </div>
+              <MagnifyingGlassIcon className="w-5 h-5 text-white hover:text-black" />
+            </button>
           </div>
           <div className="flex items-center space-x-3 lg:space-x-4">
             <div className="relative">

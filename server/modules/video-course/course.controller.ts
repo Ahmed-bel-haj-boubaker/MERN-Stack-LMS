@@ -23,6 +23,8 @@ export const uploadCourse = CatchAsyncError(
     try {
       const data = req.body;
       const thumbnail = data.thumbnail;
+
+      // Upload the thumbnail to Cloudinary if not provided
       if (!thumbnail) {
         const myCloud = await cloudinary.v2.uploader.upload(thumbnail, {
           folder: "courses",
@@ -32,7 +34,10 @@ export const uploadCourse = CatchAsyncError(
           url: myCloud.secure_url,
         };
       }
+
+      // Assign the instructor to the course
       data.instructor = req.user;
+
       createCourse(data, res, next);
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 500));
@@ -476,7 +481,11 @@ export const getUserEnrolledCourse = CatchAsyncError(
           },
         ],
       });
-      console.log(user?.courses.map((course) => course.courseId.courseData.map((e)=>e.preview)));
+      console.log(
+        user?.courses.map((course) =>
+          course.courseId.courseData.map((e) => e.preview)
+        )
+      );
       const enrolledCourses = user?.courses.filter((c) => c.status === status);
 
       if (!user || !user.courses) {

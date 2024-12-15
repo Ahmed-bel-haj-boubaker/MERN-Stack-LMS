@@ -22,7 +22,7 @@ const ProfileDashboard: React.FC<Course> = () => {
   }, [user?.role]);
 
   const { courses } = useGetEnrolledCourses("enrolled");
-
+  console.log(courses);
   return (
     <div className="bg-gray-50 p-6 rounded-lg border w-[100%]">
       <h2 className="text-xl font-bold mb-4">Dashboard</h2>
@@ -34,7 +34,7 @@ const ProfileDashboard: React.FC<Course> = () => {
               <BanknotesIcon className="h-6 w-6 text-blue-600" />
             </div>
             <div className="flex flex-col">
-              <div className="ml-4 font-bold text-xl">30</div>
+              <div className="ml-4 font-bold text-xl">{user?.totalEarning}</div>
               <span className="ml-4 text-sm">Total Earning</span>
             </div>
           </div>
@@ -46,42 +46,49 @@ const ProfileDashboard: React.FC<Course> = () => {
               <BookOpenIcon className="h-6 w-6 text-blue-600" />
             </div>
             <div className="flex flex-col">
-              <div className="ml-4 font-bold text-xl">30</div>
+              <div className="ml-4 font-bold text-xl">
+                {user?.instructorCourses.length}
+              </div>
               <div className="ml-4 text-sm">Courses</div>
             </div>
           </div>
         )}
 
-        <div className="bg-gradient-to-r from-blue-600 to-blue-800 p-8 text-white rounded-lg flex items-center">
-          <div className="bg-white rounded-full p-3 flex items-center justify-center">
-            <AcademicCapIcon className="h-6 w-6 text-blue-600" />
+        {!visible && (
+          <div className="bg-gradient-to-r from-blue-600 to-blue-800 p-8 text-white rounded-lg flex items-center">
+            <div className="bg-white rounded-full p-3 flex items-center justify-center">
+              <AcademicCapIcon className="h-6 w-6 text-blue-600" />
+            </div>
+            <div className="flex flex-col">
+              <div className="ml-4 font-bold text-xl">{courses.length}</div>
+              <span className="ml-4 text-sm">Enrolled Courses</span>
+            </div>
           </div>
-          <div className="flex flex-col">
-            <div className="ml-4 font-bold text-xl">{courses.length}</div>
-            <span className="ml-4 text-sm">Enrolled Courses</span>
-          </div>
-        </div>
+        )}
 
-        <div className="bg-gradient-to-r from-blue-600 to-blue-800 p-8 text-white rounded-lg flex items-center">
-          <div className="bg-white rounded-full p-3 flex items-center justify-center">
-            <PlayCircleIcon className="h-6 w-6 text-blue-600" />
+        {!visible && (
+          <div className="bg-gradient-to-r from-blue-600 to-blue-800 p-8 text-white rounded-lg flex items-center">
+            <div className="bg-white rounded-full p-3 flex items-center justify-center">
+              <PlayCircleIcon className="h-6 w-6 text-blue-600" />
+            </div>
+            <div className="flex flex-col">
+              <div className="ml-4 font-bold text-xl">30</div>
+              <div className="ml-4 text-sm">Active Courses</div>
+            </div>
           </div>
-          <div className="flex flex-col">
-            <div className="ml-4 font-bold text-xl">30</div>
-            <div className="ml-4 text-sm">Active Courses</div>
-          </div>
-        </div>
+        )}
 
-        <div className="bg-gradient-to-r from-blue-600 to-blue-800 p-8 text-white rounded-lg flex items-center">
-          <div className="bg-white rounded-full p-3 flex items-center justify-center">
-            <CheckCircleIcon className="h-6 w-6 text-blue-600" />
+        {!visible && (
+          <div className="bg-gradient-to-r from-blue-600 to-blue-800 p-8 text-white rounded-lg flex items-center">
+            <div className="bg-white rounded-full p-3 flex items-center justify-center">
+              <CheckCircleIcon className="h-6 w-6 text-blue-600" />
+            </div>
+            <div className="flex flex-col">
+              <div className="ml-4 font-bold text-xl">30</div>
+              <div className="ml-4 text-sm">Completed Courses</div>
+            </div>
           </div>
-          <div className="flex flex-col">
-            <div className="ml-4 font-bold text-xl">30</div>
-            <div className="ml-4 text-sm">Completed Courses</div>
-          </div>
-        </div>
-
+        )}
         {visible && (
           <div className="bg-gradient-to-r from-blue-600 to-blue-800 p-8 text-white rounded-lg flex items-center">
             <div className="bg-white rounded-full p-3 flex items-center justify-center">

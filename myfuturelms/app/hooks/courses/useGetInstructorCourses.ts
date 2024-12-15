@@ -13,7 +13,7 @@ const useGetInstructorCourses = () => {
   const fetchCourses = async () => {
     try {
       const response = await apiClient.get<IResponseCourses>(
-        "/get-instructor-courses"
+        "get-instructor-courses"
       );
       setCourses(response.data.courses);
     } catch (error) {

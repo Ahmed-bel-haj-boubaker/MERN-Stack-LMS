@@ -21,8 +21,13 @@ export interface IUser extends Document {
   };
   role: string;
   isVerfied: boolean;
-  courses: Array<{ courseId: string; progress: number; status: string }>;
+  courses: Array<{ courseId: object; progress: number; status: string }>;
   admincourses: mongoose.Types.ObjectId[];
+  instructorCourses: Array<{
+    course: string;
+    purchasedBy: string[];
+  }>;
+  totalEarning: number;
   xp: number;
   points: number;
   badges: Array<string>;
@@ -117,8 +122,7 @@ const userSchema: Schema<IUser> = new mongoose.Schema(
     courses: [
       {
         courseId: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Course",
+          type: Object,
           required: true,
         },
 
@@ -132,6 +136,22 @@ const userSchema: Schema<IUser> = new mongoose.Schema(
         },
       },
     ],
+    instructorCourses: [
+      {
+        course: {
+          type: mongoose.Schema.ObjectId,
+          ref: "Course",
+          required: true,
+        },
+        purchasedBy: [
+          {
+            type: mongoose.Schema.ObjectId,
+            ref: "User",
+          },
+        ],
+      },
+    ],
+    totalEarning: { type: Number, default: 0, required: true },
     xp: {
       type: Number,
       default: 0,

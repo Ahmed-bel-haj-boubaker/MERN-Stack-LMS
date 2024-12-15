@@ -39,41 +39,56 @@ export const createOrder = CatchAsyncError(
           return next(new ErrorHandler(`Course not found: ${courseId}`, 404));
         }
 
-        // Check if the user is already enrolled in the course
         const userExistInCourse = course.students.includes(userId);
         if (!userExistInCourse) {
-          newCourses.push(course);
-
-          for (const course of newCourses) {
-            course.courseData = course.courseData.map((courseItem: any) => {
+          const clonedCourse = JSON.parse(JSON.stringify(course));
+          clonedCourse.courseData = clonedCourse.courseData.map(
+            (courseItem: any) => {
               courseItem.preview = true;
               return courseItem;
-            });
+            }
+          );
 
-            course.markModified("courseData");
-          }
+          newCourses.push(clonedCourse);
 
           totalPrice += course.price;
-          course.purchased = (course.purchased || 0) + 1;
-
           course.students.push(userId);
-          await course.save();
+
           notifications.push({
             user: user._id,
             title: "New Order",
             message: `You have a new order for ${course.name}.`,
           });
+          console.log(clonedCourse);
           user.courses.push({
-            courseId: course._id, // Add course ID, not entire course object
+            courseId: clonedCourse,
             progress: 0,
             status: "enrolled",
           });
+
+          // Update instructor's earnings and purchasedBy array
+          const instructor = await userModel.findById(course.instructor);
+          if (instructor) {
+            instructor.totalEarning += totalPrice;
+
+            const courseInInstructor = instructor.instructorCourses.find(
+              (e) => e.course.toString() === courseId
+            );
+            if (courseInInstructor) {
+              if (!courseInInstructor.purchasedBy.includes(userId.toString())) {
+                courseInInstructor.purchasedBy.push(userId);
+              }
+            }
+
+            await instructor.save();
+            await redis.set(instructor._id, JSON.stringify(user));
+          }
+
           await user.save();
-          await redis.set(userId, JSON.stringify(user)); // Update Redis cache
+          await course.save(); // Save the original course after updating its students
         }
       }
 
-      // If no new courses were added, return an error
       if (newCourses.length === 0) {
         return next(
           new ErrorHandler(

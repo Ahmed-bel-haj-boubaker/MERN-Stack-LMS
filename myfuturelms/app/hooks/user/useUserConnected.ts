@@ -10,7 +10,7 @@ const useUserConnected = () => {
   const router = useRouter();
   const fetchUser = async () => {
     try {
-      const response = await apiClient.get<{ user: IUser }>("/me");
+      const response = await apiClient.get<{ user: IUser }>("me");
 
       if (response.data && response.data.user) {
         setUser(response.data.user);
@@ -26,7 +26,7 @@ const useUserConnected = () => {
   }, []);
   const handleLogout = async () => {
     try {
-      await apiClient.get("/logout-user");
+      await apiClient.get("logout-user");
       setIsLogged(false);
       sessionStorage.removeItem("user");
       router.push("/login");

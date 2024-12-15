@@ -15,9 +15,9 @@ const useGetEnrolledCourses = (status: string) => {
   const [courses, setCourses] = useState<Course[]>([]);
   const fetchEnrolledCourse = async () => {
     const response = await apiClient.get<CourseEnrolledResponse>(
-      `/get-student-courses/${status}`
+      `get-student-courses/${status}`
     );
-
+    console.log(")àzdzdqdqàzdq", response);
     setCourses(response.data.courses);
     response.data.courses.forEach((course) => {
       dispatch(addToPurchasedCourses(course));
@@ -25,7 +25,7 @@ const useGetEnrolledCourses = (status: string) => {
   };
 
   useEffect(() => {
-    if (user?.role === "instructor" || user?.role === "admin") {
+    if (user?.role !== "instructor" && user?.role !== "admin") {
       fetchEnrolledCourse();
     }
   }, [status]);

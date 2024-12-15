@@ -19,4 +19,6 @@ export interface IUser {
   createdAt: string;
   accessToken: string;
   success?: boolean;
+  totalEarning?: number;
+  instructorCourses: Course[];
 }
