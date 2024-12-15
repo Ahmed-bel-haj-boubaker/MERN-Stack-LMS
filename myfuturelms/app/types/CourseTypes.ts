@@ -21,6 +21,7 @@ export interface Course {
   prerequisites: Iprerequisites[];
   courseId: Course;
   progress: number;
+  purchasedBy: string[];
 }
 export interface Iprerequisites {
   title: string;

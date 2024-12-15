@@ -2,19 +2,15 @@
 
 import apiClient from "@/app/Api/ApiClient";
 import { Course } from "@/app/types/CourseTypes";
+import { IUser } from "@/app/types/UserTypes";
 import { useEffect, useState } from "react";
 
-interface IResponseCourses {
-  courses: Course[];
-}
 const useGetInstructorCourses = () => {
-  const [courses, setCourses] = useState<Course[]>([]);
+  const [courses, setCourses] = useState<IUser[]>([]);
 
   const fetchCourses = async () => {
     try {
-      const response = await apiClient.get<IResponseCourses>(
-        "get-instructor-courses"
-      );
+      const response = await apiClient.get<IUser[]>("get-instructor-courses");
       setCourses(response.data.courses);
     } catch (error) {
       console.error("Error fetching courses:", error);

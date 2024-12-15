@@ -56,7 +56,7 @@ const ProfileInformation: React.FC<IProfileInformation> = ({
   };
 
   return (
-    <div className="bg-gray-50 p-6 rounded-lg border">
+    <div className="bg-gray-50 p-6 rounded-lg  ">
       <h2 className="text-xl font-bold mb-4">My Profile</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
         <div>

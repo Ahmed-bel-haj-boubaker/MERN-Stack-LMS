@@ -53,6 +53,7 @@ export const createOrder = CatchAsyncError(
 
           totalPrice += course.price;
           course.students.push(userId);
+          course.purchased = (course.purchased ?? 0) + 1;
 
           notifications.push({
             user: user._id,
@@ -66,7 +67,6 @@ export const createOrder = CatchAsyncError(
             status: "enrolled",
           });
 
-          // Update instructor's earnings and purchasedBy array
           const instructor = await userModel.findById(course.instructor);
           if (instructor) {
             instructor.totalEarning += totalPrice;
@@ -81,11 +81,11 @@ export const createOrder = CatchAsyncError(
             }
 
             await instructor.save();
-            await redis.set(instructor._id, JSON.stringify(user));
+            await redis.set(userId, JSON.stringify(user));
           }
 
           await user.save();
-          await course.save(); // Save the original course after updating its students
+          await course.save();
         }
       }
 

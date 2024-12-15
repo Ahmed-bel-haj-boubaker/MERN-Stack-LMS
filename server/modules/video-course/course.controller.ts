@@ -447,14 +447,29 @@ export const getCourseByInstructor = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userId = req.user?._id;
-      console.log(userId);
-      const courses = await CourseModel.find({ instructor: userId });
+      const user = await userModel.findById(userId);
 
-      if (!courses) {
+      if (!user) {
+        return next(new ErrorHandler("User not found", 404));
+      }
+
+      const courseIds = user.instructorCourses.map((course) => course.course);
+
+      if (!courseIds.length) {
         return next(
-          new ErrorHandler("Instructor doesn't have courses Yet ", 404)
+          new ErrorHandler("Instructor doesn't have courses yet", 404)
         );
       }
+
+      const courses = await CourseModel.find({ _id: { $in: courseIds } })
+        .populate({
+          path: "category",
+          select: "name",
+        })
+        .populate({
+          path: "instructor",
+          select: "username",
+        });
 
       res.status(200).json({ success: true, courses });
     } catch (error: any) {

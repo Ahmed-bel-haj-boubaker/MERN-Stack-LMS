@@ -16,6 +16,11 @@ import useGetEnrolledCourses from "@/app/hooks/courses/useGetEnrolledCourses";
 const ProfileDashboard: React.FC<Course> = () => {
   const { user } = useUserConnected();
   const [visible, setVisible] = useState<boolean>(false);
+  const totalStudents = new Set(
+    user?.instructorCourses.flatMap((e) =>
+      e.purchasedBy.map((id) => id.toString().trim())
+    )
+  ).size;
 
   useEffect(() => {
     setVisible(user?.role === "admin" || user?.role === "instructor");
@@ -24,7 +29,7 @@ const ProfileDashboard: React.FC<Course> = () => {
   const { courses } = useGetEnrolledCourses("enrolled");
   console.log(courses);
   return (
-    <div className="bg-gray-50 p-6 rounded-lg border w-[100%]">
+    <div className="bg-gray-50 p-6 rounded-lg   w-[100%]">
       <h2 className="text-xl font-bold mb-4">Dashboard</h2>
 
       <div className="grid xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1  gap-x-7 gap-y-7">
@@ -95,7 +100,7 @@ const ProfileDashboard: React.FC<Course> = () => {
               <UserGroupIcon className="h-6 w-6 text-blue-600" />
             </div>
             <div className="flex flex-col">
-              <div className="ml-4 font-bold text-xl">30</div>
+              <div className="ml-4 font-bold text-xl">{totalStudents}</div>
               <span className="ml-4 text-sm">Total Students</span>
             </div>
           </div>
@@ -105,9 +110,9 @@ const ProfileDashboard: React.FC<Course> = () => {
       {!visible && (
         <div>
           <h2 className="text-xl font-bold mb-4 mt-9">Enrolled Courses</h2>
-          <div className="flex flex-wrap mt-6">
+          <div className="grid xl:grid-cols-3  max-lg:grid-cols-1  md:grid-cols-2  mt-6">
             {courses.map((c) => (
-              <div key={c._id} className="w-1/3 p-2">
+              <div key={c._id} className="w-1/3 max-lg:w-full p-2">
                 <CourseCard
                   category={c.courseId.category.name}
                   courseName={c.courseId.name}

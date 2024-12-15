@@ -12,10 +12,10 @@ const config: Config = {
       //   background: "var(--background)",
       //   foreground: "var(--foreground)",
       // },
-      // fontFamily: {
-      //   poppins: ["Poppins", "sans-serif"],
-      //   kaushan: ["Kaushan Script", "cursive"],
-      // },
+      fontFamily: {
+        poppins: ["Poppins", "sans-serif"],
+        kaushan: ["Kaushan Script", "cursive"],
+      },
       // keyframes: {
       //   bounce: {
       //     "0%, 100%": { transform: "translateY(0)" },

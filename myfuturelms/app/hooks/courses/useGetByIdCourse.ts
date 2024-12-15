@@ -10,7 +10,7 @@ const useGetByIdCourse = (id: string | null) => {
   const purchasedCourse = useAppSelector(
     (state) => state.purchasedCourse.purchasedArr
   );
-
+  console.log(course);
   useEffect(() => {
     if (id) {
       const fetchCourse = async () => {

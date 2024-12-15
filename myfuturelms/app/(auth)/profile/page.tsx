@@ -9,6 +9,7 @@ import ProfileDashboard from "@/app/components/user/ProfileDashboard";
 import ProfileInformation from "@/app/components/user/ProfileInformation";
 import EnrolledCourses from "@/app/components/user/EnrolledCourses";
 import UpdateUserInfo from "@/app/components/user/UpdateUserInfo";
+import InstructorCourses from "@/app/components/instructor/InstructorCourses";
 
 const Profile = () => {
   const { user, isLogged } = useUserConnected();
@@ -16,7 +17,7 @@ const Profile = () => {
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
 
   const [activeComponent, setActiveComponent] = useState<
-    "dashboard" | "profile" | "courses" | "settings"
+    "dashboard" | "profile" | "courses" | "settings" | "Instructor"
   >("dashboard");
 
   useEffect(() => {
@@ -41,8 +42,8 @@ const Profile = () => {
             role={user?.role}
           />
         </div>
-        <div className="flex xl:flex-row sm:flex-col rounded-xl  border shadow-lg  mb-6 ">
-          <div className=" mt-3  w-[25%]">
+        <div className="flex xl:flex-row md:flex-col  max-lg:m-2 max-lg:flex-col rounded-xl  border shadow-lg  mb-6 bg-gray-50 ">
+          <div className=" mt-3  max-lg:w-[100%] w-[25%] ">
             <ProfileSideBar
               setActiveComponent={setActiveComponent}
               userName={user?.username}
@@ -65,7 +66,10 @@ const Profile = () => {
               )}
             </div>
             <div>{activeComponent === "settings" && <UpdateUserInfo />}</div>
-            <div>{activeComponent === "courses" && <EnrolledCourses />}</div>
+            {<div>{activeComponent === "courses" && <EnrolledCourses />}</div>}
+            <div>
+              {activeComponent === "Instructor" && <InstructorCourses />}
+            </div>
           </div>
         </div>
       </div>

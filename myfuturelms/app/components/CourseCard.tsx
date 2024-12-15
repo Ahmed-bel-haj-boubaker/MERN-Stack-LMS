@@ -2,7 +2,11 @@
 
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import {
+  faStar,
+  faArrowRight,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 import courseThumbnails from "../../public/images/thumbnailcourse.png";
 import { useRouter } from "next/navigation";
 import slugify from "slugify";
@@ -11,7 +15,7 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { addToCart } from "../redux/cartSlices/cartSlice";
 import { addToFavorite } from "../redux/favoriteSlices/favoriteSlice";
 import { toast, Toaster } from "react-hot-toast";
-
+import { UserIcon, BookOpenIcon, ClockIcon } from "@heroicons/react/24/outline";
 interface CourseProps {
   courseName?: string;
   instructor?: string;
@@ -21,6 +25,10 @@ interface CourseProps {
   id?: string;
   progress?: number;
   enrolled?: boolean;
+  createdByinstructor?: boolean;
+  students?: string[];
+  lessons?: string[];
+  time?: number;
 }
 
 const CourseCard: React.FC<CourseProps> = ({
@@ -32,6 +40,9 @@ const CourseCard: React.FC<CourseProps> = ({
   price,
   enrolled,
   progress,
+  createdByinstructor,
+  students,
+  time,
 }) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -119,42 +130,44 @@ const CourseCard: React.FC<CourseProps> = ({
             <span className="text-gray-600">{rating} Reviews</span>
           </div>
           <p className="text-xs   mb-3">By {instructor}</p>
-          <div className="flex items-center justify-between">
-            <button
-              onClick={handleNavigate}
-              type="button"
-              className="flex items-center text-white font-bold text-xs px-3 py-2 rounded-full transition-transform transform hover:scale-105 duration-200 ease-in-out bg-indigo-600 hover:bg-yellow-400 hover:border hover:border-black hover:text-black"
-              style={{
-                transition:
-                  "box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out",
-              }}
-              onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "none")}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.boxShadow = "3px 3px 0px black")
-              }
-            >
-              {enrolled ? "Resume Your Course" : "Enroll Now"}
-              <div className="ml-2">
-                <FontAwesomeIcon icon={faArrowRight} />
-              </div>
-            </button>
-            {enrolled ? (
-              <div></div>
-            ) : (
-              <div className="flex space-x-2">
-                <div className="w-8 h-8 border-2 border-gray-300 rounded-full flex justify-center items-center transition-transform duration-200 ease-in-out transform hover:scale-110 hover:bg-indigo-600 hover:border-indigo-600  ">
-                  <button onClick={() => addToWishlist()}>
-                    <HeartIcon className="h-5 w-5 text-gray-400 transition-colors duration-200 ease-in-out hover:text-white" />
-                  </button>
+          {!createdByinstructor && (
+            <div className="flex items-center justify-between">
+              <button
+                onClick={handleNavigate}
+                type="button"
+                className="flex items-center text-white font-bold text-xs px-3 py-2 rounded-full transition-transform transform hover:scale-105 duration-200 ease-in-out bg-indigo-600 hover:bg-yellow-400 hover:border hover:border-black hover:text-black"
+                style={{
+                  transition:
+                    "box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out",
+                }}
+                onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "none")}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.boxShadow = "3px 3px 0px black")
+                }
+              >
+                {enrolled ? "Resume Your Course" : "Enroll Now"}
+                <div className="ml-2">
+                  <FontAwesomeIcon icon={faArrowRight} />
                 </div>
-                <div className="w-8 h-8 border-2 border-gray-300 rounded-full flex justify-center items-center transition-transform duration-200 ease-in-out transform hover:scale-110 hover:bg-indigo-600 hover:border-indigo-600  ">
-                  <button onClick={() => pushTocart()}>
-                    <ShoppingCartIcon className="h-5 w-5 text-gray-400 transition-colors duration-200 ease-in-out hover:text-white" />
-                  </button>
+              </button>
+              {enrolled ? (
+                <div></div>
+              ) : (
+                <div className="flex space-x-2">
+                  <div className="w-8 h-8 border-2 border-gray-300 rounded-full flex justify-center items-center transition-transform duration-200 ease-in-out transform hover:scale-110 hover:bg-indigo-600 hover:border-indigo-600  ">
+                    <button onClick={() => addToWishlist()}>
+                      <HeartIcon className="h-5 w-5 text-gray-400 transition-colors duration-200 ease-in-out hover:text-white" />
+                    </button>
+                  </div>
+                  <div className="w-8 h-8 border-2 border-gray-300 rounded-full flex justify-center items-center transition-transform duration-200 ease-in-out transform hover:scale-110 hover:bg-indigo-600 hover:border-indigo-600  ">
+                    <button onClick={() => pushTocart()}>
+                      <ShoppingCartIcon className="h-5 w-5 text-gray-400 transition-colors duration-200 ease-in-out hover:text-white" />
+                    </button>
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
+          )}
         </div>
         {enrolled && (
           <div className="mb-3">
@@ -167,6 +180,25 @@ const CourseCard: React.FC<CourseProps> = ({
             <p className="text-right text-xs text-gray-600 mt-1">
               {progress}% completed
             </p>
+          </div>
+        )}{" "}
+        {createdByinstructor && (
+          <div className="mb-3">
+            <div className="w-full border-t border-black mb-3"></div>
+            <div className="flex flex-row justify-around text-gray-600 font-semibold">
+              <div className="flex flex-row items-center gap-1">
+                <UserIcon className="h-5 w-5" />
+                <div>{students?.length}</div>
+              </div>
+              <div className="flex flex-row items-center gap-2">
+                <BookOpenIcon className="h-5 w-5" />
+                <div>{students?.length}</div>
+              </div>
+              <div className="flex flex-row items-center gap-2">
+                <ClockIcon className="h-5 w-5" />
+                <div>{time}</div> {/* Display the time here */}
+              </div>
+            </div>
           </div>
         )}
       </div>

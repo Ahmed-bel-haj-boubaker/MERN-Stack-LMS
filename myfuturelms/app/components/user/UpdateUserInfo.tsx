@@ -55,7 +55,7 @@ const UpdateUserInfo: React.FC<IUpdateUser> = () => {
   };
 
   return (
-    <div className="  shadow-md  mx-auto mt-10 bg-gray-50 p-6 rounded-lg border">
+    <div className="   mx-auto mt-10 bg-gray-50 p-6 rounded-lg  ">
       <Toaster containerStyle={{ position: "fixed" }} />
 
       <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
