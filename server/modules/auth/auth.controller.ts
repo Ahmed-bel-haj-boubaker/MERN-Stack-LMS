@@ -106,18 +106,19 @@ export const activatedUser = CatchAsyncError(
       if (newUser.activationCode !== activation_code) {
         return next(new ErrorHandler("Invalid activation code", 400));
       }
-
+      console.log(activation_code, activation_token);
       const { email, password, username } = newUser.user;
       const existUser = await userModel.findOne({ email });
       if (existUser) {
         return next(new ErrorHandler("user already exist", 400));
       }
-
+      console.log(existUser);
       const user = await userModel.create({
         username,
         email,
         password,
       });
+      console.log(user);
       res.status(201).json({ success: true });
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 400));

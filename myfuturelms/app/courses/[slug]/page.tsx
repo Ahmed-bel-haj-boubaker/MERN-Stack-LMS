@@ -24,7 +24,7 @@ const CourseDetails = () => {
   const id = searchParams.get("id");
 
   const { course } = useGetByIdCourse(id);
-
+  console.log(course);
   const handleOverviewVisible = () => {
     setOverviewVisible(true);
     setCurriculumVisible(false);
